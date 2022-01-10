@@ -12,7 +12,7 @@
         </externalSystemTestTasks>
         <testOutputPath>$MODULE_DIR$/../../build/classes/kotlin/test</testOutputPath>
         <compilerSettings>
-          <option name="additionalArguments" value="-Xir-module-name=fr.insa:SemanticWeb_test -Xir-only -Xir-per-module-output-name=SemanticWeb-test -Xir-produce-klib-dir" />
+          <option name="additionalArguments" value="-Xir-module-name=fr.insa:SemanticWeb_test -Xir-only -Xir-produce-klib-dir" />
         </compilerSettings>
         <compilerArguments>
           <flagArguments>

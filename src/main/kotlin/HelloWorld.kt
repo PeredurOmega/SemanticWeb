@@ -3,8 +3,10 @@ import mui.material.AppBar
 import react.*
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.form
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.h2
+import mui.icons.material.Search
 
 external interface HelloWorldProps : Props {
     var name: String
@@ -69,3 +71,76 @@ abstract class Query<V, R> {
 
 class SchoolQuery: Query<SchoolQueryVariables, SchoolQueryResponse>
 */
+
+val navbar = FC <Props> {
+    AppBar {
+        position = AppBarPosition.static
+        Toolbar {
+            IconButton {
+                size = Size.large
+                edge = IconButtonEdge.start
+                color = IconButtonColor.inherit
+                ariaLabel = "Menu"
+                Menu { }
+            }
+            Typography {
+                variant = "h6"
+                noWrap
+                component = div
+                + "Title search bar"
+            }
+            Search {
+
+            }
+        }
+    }
+}
+
+val schoolCard = FC<Props> {
+    CardActionArea {
+        CardMedia {
+//            image =
+        }
+        CardContent {
+            Typography {
+                variant = "h5"
+                component
+            }
+            +"Ceci est une école"
+            Typography {
+                variant = "body2"
+//                color = TextFieldColor.secondary
+            }
+            +"Ceci est la description d'une école"
+        }
+    }
+    CardActions {
+        Button {
+            size = Size.small
+            color = ButtonColor.primary
+        }
+        +"Consulter les informations"
+    }
+}
+
+val searchBar = FC<Props> {
+    form {
+
+    }
+    Paper{
+        className = "searchPaperStyle"
+        component = form
+        InputBase{
+            className = "searchInputStyle"
+            placeholder = "Votre recherche..."
+            ariaLabel = "Recherche université"
+        }
+        IconButton{
+            className = "searchIconStyle"
+            type = ButtonType.submit
+            ariaLabel = "Bouton de recherche"
+            Search{}
+        }
+    }
+}
+

@@ -6,7 +6,7 @@
         <newMppModelJpsModuleKind>COMPILATION_AND_SOURCE_SET_HOLDER</newMppModelJpsModuleKind>
         <productionOutputPath>$MODULE_DIR$/../../build/classes/kotlin/main</productionOutputPath>
         <compilerSettings>
-          <option name="additionalArguments" value="-Xir-module-name=fr.insa:SemanticWeb -Xir-only -Xir-per-module-output-name=SemanticWeb -Xir-produce-klib-dir" />
+          <option name="additionalArguments" value="-Xir-module-name=fr.insa:SemanticWeb -Xir-only -Xir-produce-klib-dir" />
         </compilerSettings>
         <compilerArguments>
           <flagArguments>
