@@ -1,6 +1,8 @@
-
-import mui.material.AppBar
+import csstype.Color
+import mui.material.*
 import react.*
+import react.dom.aria.ariaLabel
+import react.dom.html.ButtonType
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.form
