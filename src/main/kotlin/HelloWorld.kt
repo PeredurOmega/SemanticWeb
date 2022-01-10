@@ -1,3 +1,5 @@
+
+import mui.material.AppBar
 import react.*
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
@@ -31,6 +33,9 @@ val helloWorld = FC<HelloWorldProps> { props ->
             setCount(count + 1)
         }
         +"Increment $count"
+    }
+    AppBar {
+
     }
     /*useEffect {
         if (count == "Test" && count2 == 3) {
