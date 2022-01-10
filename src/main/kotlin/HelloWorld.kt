@@ -1,6 +1,7 @@
-import csstype.Color
+import mui.icons.material.Search
 import mui.material.*
-import react.*
+import react.FC
+import react.Props
 import react.dom.aria.ariaLabel
 import react.dom.html.ButtonType
 import react.dom.html.ReactHTML.button
@@ -8,13 +9,15 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.form
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.h2
-import mui.icons.material.Search
+import react.useState
+import tools.requireSCSS
 
 external interface HelloWorldProps : Props {
     var name: String
 }
 
 val helloWorld = FC<HelloWorldProps> { props ->
+    requireSCSS("app")
     val (count, setCount) = useState("Test")
     val (count2, setCount2) = useState<Int?>(0)
     /*val (result, loaded, loadQuery) = useQuery(SchoolSearchQuery())
@@ -74,7 +77,7 @@ abstract class Query<V, R> {
 class SchoolQuery: Query<SchoolQueryVariables, SchoolQueryResponse>
 */
 
-val navbar = FC <Props> {
+val navbar = FC<Props> {
     AppBar {
         position = AppBarPosition.static
         Toolbar {
@@ -89,7 +92,7 @@ val navbar = FC <Props> {
                 variant = "h6"
                 noWrap
                 component = div
-                + "Title search bar"
+                +"Title search bar"
             }
             Search {
 
@@ -129,19 +132,19 @@ val searchBar = FC<Props> {
     form {
 
     }
-    Paper{
+    Paper {
         className = "searchPaperStyle"
         component = form
-        InputBase{
+        InputBase {
             className = "searchInputStyle"
             placeholder = "Votre recherche..."
             ariaLabel = "Recherche université"
         }
-        IconButton{
+        IconButton {
             className = "searchIconStyle"
             type = ButtonType.submit
             ariaLabel = "Bouton de recherche"
-            Search{}
+            Search {}
         }
     }
 }
