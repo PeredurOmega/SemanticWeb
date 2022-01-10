@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>JavaScript - read JSON from URL</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
+
 <body>
-$END$
+<input id='search'/>
+<button onclick="executeQuery()">Search</button>
+
+<div class="results"></div>
+
+<script>
+    function executeQuery() {
+        const maxResultsCount = 10;
+        const search = document.getElementById('search').value;
+        const url = `https://lookup.dbpedia.org/api/search?query=${search}&maxResults=${maxResultsCount}&format=json`;
+        console.log(url);
+        let result;
+        $.getJSON(url, function(data) {
+            console.log(data.docs);
+            $(".results").html(JSON.stringify(data), null, '\t');
+
+        });
+    }
+
+</script>
+
 </body>
 </html>
