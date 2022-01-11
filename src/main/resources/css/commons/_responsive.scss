@@ -1,0 +1,17 @@
+@mixin mediaUntil($max-width) {
+  @media (max-width: #{$max-width - 0.1px}) {
+    @content;
+  }
+}
+
+@mixin mediaBetween($min-width, $max-width) {
+  @media (max-width: #{$max-width - 0.1px}) and (min-width: #{$min-width}) {
+    @content;
+  }
+}
+
+@mixin mediaFrom($min-width) {
+  @media (min-width: #{$min-width}) {
+    @content;
+  }
+}

@@ -8,7 +8,7 @@ import tools.basicSVG
 import tools.requireSCSS
 
 val mainPage = FC<Props> {
-    requireSCSS("main_page")
+    requireSCSS("main-page")
     div {
         className = "main-background"
         div {
