@@ -8,14 +8,18 @@ import react.create
 import tools.requireSCSS
 
 fun main() {
+    println("main")
     window.onload = {
         render(Fragment.create { mainApp {} }, document.getElementById("root")!!)
     }
 }
 
 val mainApp = FC<Props> {
+//    helloWorld {
+//        name = "Everyone"
+//    }
     requireSCSS("app")
-    searchPage {
+    mainPage {
 
     }
 }
