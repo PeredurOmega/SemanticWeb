@@ -1,15 +1,8 @@
-import mui.icons.material.Search
-import mui.material.*
 import react.FC
 import react.Props
-import react.dom.aria.ariaLabel
-import react.dom.html.ButtonType
-import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
-import react.dom.html.ReactHTML.form
 import react.dom.html.ReactHTML.h1
 import react.dom.html.ReactHTML.h2
-import react.useState
 import tools.requireSCSS
 
 external interface HelloWorldProps : Props {
@@ -18,133 +11,12 @@ external interface HelloWorldProps : Props {
 
 val helloWorld = FC<HelloWorldProps> { props ->
     requireSCSS("app")
-    val (count, setCount) = useState("Test")
-    val (count2, setCount2) = useState<Int?>(0)
-    /*val (result, loaded, loadQuery) = useQuery(SchoolSearchQuery())
-    if (!loaded) {
-        loadQuery()
-    } else {
-        result.schoolName
-    }*/
     h1 {
         +"Hello world !"
     }
     div {
-        className = "main-view"
         h2 {
             +"And welcome ${props.name}"
-        }
-    }
-    button {
-        onClick = {
-            setCount(count + 1)
-        }
-        +"Increment $count"
-    }
-    AppBar {
-
-    }
-    /*useEffect {
-        if (count == "Test" && count2 == 3) {
-
-        }
-    }
-    count2?.let {
-        h2 {
-            it
-        }
-    }
-    val result = count2?.times(2)
-    count2?.let {
-        val result = it * 2
-    }
-    if (count2 == 0) {
-        list {
-
-        }
-    }*/
-}
-
-val list = FC<Props> {
-    val (elements, setElements) = useState(listOf("", "", ""))
-}
-
-/*
-abstract class Query<V, R> {
-    val query =
-}
-
-class SchoolQuery: Query<SchoolQueryVariables, SchoolQueryResponse>
-*/
-
-val navbar = FC<Props> {
-    AppBar {
-        position = AppBarPosition.static
-        Toolbar {
-            IconButton {
-                size = Size.large
-                edge = IconButtonEdge.start
-                color = IconButtonColor.inherit
-                ariaLabel = "Menu"
-                Menu { }
-            }
-            Typography {
-                variant = "h6"
-                noWrap
-                component = div
-                +"Title search bar"
-            }
-            Search {
-
-            }
-        }
-    }
-}
-
-val schoolCard = FC<Props> {
-    CardActionArea {
-        CardMedia {
-//            image =
-        }
-        CardContent {
-            Typography {
-                variant = "h5"
-                component
-            }
-            +"Ceci est une école"
-            Typography {
-                variant = "body2"
-//                color = TextFieldColor.secondary
-            }
-            +"Ceci est la description d'une école"
-        }
-    }
-    CardActions {
-        Button {
-            size = Size.small
-            color = ButtonColor.primary
-        }
-        +"Consulter les informations"
-    }
-}
-
-val searchBar = FC<Props> {
-    form {
-
-    }
-    Paper {
-        className = "searchPaperStyle"
-        component = form
-        InputBase {
-            className = "searchInputStyle"
-            placeholder = "Votre recherche..."
-            ariaLabel = "Recherche université"
-        }
-        IconButton {
-            className = "searchIconStyle"
-            type = ButtonType.submit
-            ariaLabel = "Bouton de recherche"
-            Search {}
         }
     }
 }
