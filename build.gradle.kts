@@ -17,15 +17,13 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation(enforcedPlatform(kotlinw("wrappers-bom:0.0.1-pre.290-kotlin-1.6.10")))
 
+    //React
     implementation(kotlinw("react"))
     implementation(kotlinw("react-dom"))
     implementation(kotlinw("react-router-dom"))
 
-    implementation(npm("@emotion/react", "11.7.1"))
-    implementation(npm("@emotion/styled", "11.6.0"))
-
-    implementation(kotlinw("mui"))
-    implementation(kotlinw("mui-icons"))
+    //Inline svg
+    implementation(npm("react-inlinesvg", "2.3.0"))
 
     //Utility dev npm dependencies
     implementation(devNpm("zlib", "1.0.5"))
@@ -53,7 +51,7 @@ kotlin {
                 val devServerPort: String? by project
                 devServer = org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig.DevServer(
                     port = devServerPort?.toIntOrNull() ?: 3000,
-                    static = mutableListOf("$buildDir/processedResources/Js/main")
+                    static = mutableListOf("$buildDir/processedResources/js/main")
                 )
             }
             //Dev task
