@@ -1,0 +1,9 @@
+%shadow {
+  box-shadow: 0 0 10px -7px black;
+}
+
+%shadow-excluding-top {
+  box-shadow: 0 7px 10px -7px rgba(0, 0, 0, 0.13),
+              7px 0 10px -7px rgba(0, 0, 0, 0.13),
+              -7px 0 10px -7px rgba(0, 0, 0, 0.13);
+}
