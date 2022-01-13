@@ -25,6 +25,10 @@ dependencies {
     //Inline svg
     implementation(npm("react-inlinesvg", "2.3.0"))
 
+    //Map
+    implementation(npm("react-leaflet", "3.2.2"))
+    implementation(npm("leaflet", "1.7.1"))
+
     //Utility dev npm dependencies
     implementation(devNpm("zlib", "1.0.5"))
     implementation(devNpm("path", "0.12.7"))
