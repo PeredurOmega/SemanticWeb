@@ -1,4 +1,5 @@
 @use "commons/shadow";
+@use "commons/texts";
 
 nav {
   display: flex;
@@ -10,4 +11,56 @@ nav {
 
 nav > svg {
   width: 200px;
+}
+
+.search-page {
+  background-color: #f9f9f9;
+}
+
+.card-results {
+  width: 54%;
+  padding: 30px 2%;
+
+  .card-result {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+    padding: 25px 40px;
+    border-radius: 20px;
+    @extend %shadow;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    & > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+
+        & > span:first-child {
+          font-size: 2em;
+          font-weight: 700;
+        }
+
+        & > span:last-child {
+          font-size: 1.4em;
+        }
+      }
+
+      & > img {
+        width: 300px;
+      }
+    }
+
+    & > p {
+      margin: 20px 0 0 0;
+      @extend %big-text-size;
+    }
+  }
 }
