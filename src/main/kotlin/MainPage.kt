@@ -1,7 +1,11 @@
+import kotlinx.browser.document
+import kotlinx.dom.addClass
+import kotlinx.dom.removeClass
 import org.w3c.dom.events.Event
 import org.w3c.xhr.XMLHttpRequest
 import react.*
 import react.dom.html.InputType
+import react.dom.html.ReactHTML.b
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
 import tools.basicSVG
@@ -25,34 +29,63 @@ fun search(event: Event) {
 
 val mainSearchBar = FC<Props> {
     val (searchText, setSearchText) = useState("")
+    val (selectedSuggestion, setSelectedSuggestion) = useState<Int?>(null)
+    val suggestions = useLookup(searchText)
     div {
         className = "main-search-bar"
         basicSVG("MainSearchIcon", "Rechercher", "search-icon", ::search)
         input {
             value = searchText
+            id = "search"
             onChange = {
                 setSearchText(it.currentTarget.value)
             }
             type = InputType.search
             placeholder = "Recherchez votre future université ..."
+            onKeyDown = {
+                if (it.key == "Enter" || it.key == "Return") {
+                    //TODO Search
+                } else if (it.key == "ArrowDown") {
+                    setSelectedSuggestion(((selectedSuggestion ?: -1) + 1).coerceIn(0, suggestions.size - 1))
+                    it.preventDefault()
+                } else if (it.key == "ArrowUp") {
+                    if (selectedSuggestion == 0) setSelectedSuggestion(null)
+                    else if (selectedSuggestion != null) setSelectedSuggestion((selectedSuggestion - 1).coerceIn(0, suggestions.size - 1))
+                    it.preventDefault()
+                }
+            }
         }
     }
     autocompletionPanel {
         this.searchText = searchText
+        this.selectedSuggestion = selectedSuggestion
+        this.suggestions = suggestions
     }
 }
 
 external interface AutocompletionPanelProps : Props {
     var searchText : String
+    var selectedSuggestion : Int?
+    var suggestions : List<Suggestion>
 }
 
 val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
-    val suggestions = useLookup(props.searchText)
+
     div {
         className = "autocompletion"
-        suggestions.forEach {
+        props.suggestions.forEachIndexed { i, suggestion ->
             div {
-                +it.label
+                if (props.selectedSuggestion == i) className = "selected"
+                val labelSplit = Regex("(.*)(${props.searchText})(.*)").find(suggestion.label)
+                if (labelSplit != null) {
+                    b {
+                        +labelSplit.groupValues[1]
+                    }
+                    +labelSplit.groupValues[2]
+                    b {
+                        +labelSplit.groupValues[3]
+                    }
+                } else +suggestion.label
             }
         }
     }
@@ -60,18 +93,26 @@ val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
 
 fun useLookup(searchText: String) : List<Suggestion> {
     val (suggestions, setSuggestions) = useState<List<Suggestion>>(listOf())
+    val queryRef = useRef(0)
     useEffect(searchText) {
         if (searchText.isNotBlank()) {
-            dbpediaLookup(searchText, setSuggestions)
+            dbpediaLookup(searchText, setSuggestions, queryRef)
         }
+    }
+    useEffect(suggestions.isEmpty()) {
+        val input = document.getElementById("search") !!
+        if (suggestions.isEmpty()) input.removeClass("with-suggestions")
+        else input.addClass("with-suggestions")
     }
     return suggestions
 }
 
-fun dbpediaLookup(searchText: String, setSuggestions: StateSetter<List<Suggestion>>) {
+fun dbpediaLookup(searchText: String, setSuggestions: StateSetter<List<Suggestion>>, queryRef: MutableRefObject<Int>) {
+    queryRef.current = queryRef.current?.plus(1)
+    val currentQueryRef = queryRef.current
     val xhr = XMLHttpRequest()
     xhr.onreadystatechange = {
-        if (xhr.readyState == 4.toShort()) {
+        if (xhr.readyState == 4.toShort() && currentQueryRef == queryRef.current) {
             if (xhr.status == 200.toShort()) {
                 val result : LookupResult = JSON.parse(xhr.responseText)
                 val filteredResult = result.docs.filter {
@@ -98,6 +139,7 @@ fun dbpediaLookup(searchText: String, setSuggestions: StateSetter<List<Suggestio
 }
 
 data class Suggestion (val label : String, val uri : String)
+
 
 external fun encodeURIComponent(str : String) : String
 
