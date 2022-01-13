@@ -81,6 +81,6 @@ config.resolve.modules.push("processedResources/js/main");
 // resources
 ;(function (config) {
 config.resolve.modules.unshift(
-    'C:\\Users\\pauls\\IdeaProjects\\SemanticWeb\\src\\main\\resources'
+    '/home/tverstraet/IdeaProjects/SemanticWeb/src/main/resources'
 )
 })(config)
