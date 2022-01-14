@@ -6,34 +6,39 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.img
 import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.span
+import tools.sparql.GetSearchResultResponse
 
 external interface CardResultProps : Props {
-    var logoURL: String
-    var title: String
-    var description: String
-    var city: String
-    var country: String
+    var schoolInfos : GetSearchResultResponse
 }
 
 val cardResult = FC<CardResultProps> { props ->
+    val searchResult = props.schoolInfos
     div {
         className = "card-result"
         div {
             div {
                 span {
-                    +props.title
+                    +searchResult.name.value
                 }
                 span {
-                    +"${props.city}, ${props.country}"
+                    +"${searchResult.cityName.value}, ${searchResult.countryName.value}"
                 }
             }
+            // TODO
+//            img {
+//                src = props.logoURL
+//                alt = "Image de ${props.title}"
+//            }
             img {
-                src = props.logoURL
-                alt = "Image de ${props.title}"
+                src = "https://www.insa-lyon.fr/sites/www.insa-lyon.fr/files/logo-coul.jpg"
+                alt = "INSA"
             }
         }
         p {
-            +props.description
+            if (!searchResult.abstract.value.isNullOrBlank())  +searchResult.abstract.value!!
+            else if (!searchResult.comment.value.isNullOrBlank()) +searchResult.comment.value!!
+            // TODO wrap text
         }
     }
 }
