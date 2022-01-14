@@ -8,8 +8,13 @@ import react.dom.html.InputType
 import react.dom.html.ReactHTML.b
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
+import react.router.Route
+import react.router.Routes
+import react.router.dom.BrowserRouter
 import tools.basicSVG
 import tools.requireSCSS
+
+
 
 val mainPage = FC<Props> {
     requireSCSS("main-page")
