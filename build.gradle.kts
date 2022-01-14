@@ -138,7 +138,7 @@ tasks {
                 process: 'process/browser',
             }));
             
-            //TODO ADD FOR BROWSER ROUTER USAGE config.output.publicPath = '/';
+            config.output.publicPath = '/';
             
             config.resolve.modules.push("processedResources/js/main");
         """.trimIndent()

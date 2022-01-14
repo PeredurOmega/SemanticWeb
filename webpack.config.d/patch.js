@@ -73,7 +73,7 @@ config.plugins.push(new webpack.ProvidePlugin({
     process: 'process/browser',
 }));
 
-//TODO ADD FOR BROWSER ROUTER USAGE config.output.publicPath = '/';
+config.output.publicPath = '/';
 
 config.resolve.modules.push("processedResources/js/main");
 })(config)
@@ -81,6 +81,6 @@ config.resolve.modules.push("processedResources/js/main");
 // resources
 ;(function (config) {
 config.resolve.modules.unshift(
-    '/home/tverstraet/IdeaProjects/SemanticWeb/src/main/resources'
+    'D:\\Cours INSA\\WebSemantic\\src\\main\\resources'
 )
 })(config)
