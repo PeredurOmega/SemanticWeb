@@ -21,12 +21,12 @@ val mainRouter = FC<Props> {
     BrowserRouter {
         Routes {
             Route {
+                path = "/person"
+                element = personPage.create()
+            }
+            Route {
                 path = "/"
                 element = mainPage.create()
-                Route {
-                    path = "person"
-                    element = personPage.create()
-                }
             }
         }
     }

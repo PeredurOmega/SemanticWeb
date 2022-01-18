@@ -1,0 +1,59 @@
+.main-person-div{
+  margin: 5%;
+  font-family: "Nirmala UI", serif;
+}
+
+.attribute-person-div{
+  display: inline-block;
+  & > p:first-child {
+    font-size: 40px;
+    font-weight: bold;
+  }
+
+  & > p:nth-child(2) {
+    font-family: "Century Gothic", serif;
+    font-size: 30px;
+    font-style: italic;
+  }
+
+  & > p:nth-child(3) {
+    font-weight: normal;
+    font-size: 30px;
+    text-align: left;
+  }
+}
+
+.icon-text-person{
+  margin-bottom: 1%;
+
+  & > span:nth-child(2){
+    font-weight: bold;
+    font-size: 30px;
+    text-align: left;
+    margin-left: 1%;
+  }
+
+  & > :nth-child(3){
+    font-size: 30px;
+    text-align: left;
+  }
+}
+
+.img-person{
+  display: inline-block;
+  width: 40%;
+  float: right;
+
+  & > img {
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px grey;
+    max-height: 500px;
+    max-width: 800px;
+  }
+}
+
+.person-icon {
+  width: 40px;
+  position: relative;
+  right: auto;
+}
