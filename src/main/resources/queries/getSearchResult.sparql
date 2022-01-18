@@ -7,13 +7,13 @@ SELECT *
 WHERE {
     <$uri$>
         rdfs:label ?label ;
-        dbp:name ?name ;
         dbo:city ?cityUrl .
 
     OPTIONAL {
         <$uri$>
             georss:point ?coordinates ;
             rdfs:comment ?comment ;
+            dbp:name ?name ;
             dbo:abstract ?abstract .
     }
 

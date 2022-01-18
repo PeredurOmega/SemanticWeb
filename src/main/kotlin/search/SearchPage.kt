@@ -10,6 +10,7 @@ import tools.map.marker
 import tools.map.popup
 import tools.requireSCSS
 import tools.sparql.getSearchResult
+import tools.sparql.sparqlQueryLoader
 import tools.sparql.useSparqlQuery
 import kotlin.js.json
 
@@ -22,34 +23,35 @@ val searchPage = FC<Props> {
 
     navBar { }
 
-    if (searchResult != null) {
+
+    div {
+        className = "search-page"
         div {
-            className = "search-page"
-            div {
-                className = "card-results"
-                repeat(5) {
+            className = "card-results"
+            repeat(5) {
+                sparqlQueryLoader(getSearchResult, jso{uri = "http://dbpedia.org/resource/École_Polytechnique"}) {
                     cardResult {
-                        schoolInfos = searchResult
+
                     }
                 }
             }
-            div {
-                className = "map-results"
-                mapResult {
-                    id = "map"
-                    center = json("lat" to "46.71", "lng" to "1.72")
-                    zoom = 6
-                    tileSize = 1
-                    attribution = "Grandes Ecoles"
-                    url = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        }
+        div {
+            className = "map-results"
+            mapResult {
+                id = "map"
+                center = json("lat" to "46.71", "lng" to "1.72")
+                zoom = 6
+                tileSize = 1
+                attribution = "Grandes Ecoles"
+                url = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 
-                    repeat(5) {
-                        marker {
-                            position = json("lat" to "${kotlin.random.Random.Default.nextDouble(43.0, 50.0)}", "lng" to "${kotlin.random.Random.Default.nextDouble(-2.4,7.6)}")
-                            popup {
-                                p {
-                                    +"popup text"
-                                }
+                repeat(5) {
+                    marker {
+                        position = json("lat" to "${kotlin.random.Random.Default.nextDouble(43.0, 50.0)}", "lng" to "${kotlin.random.Random.Default.nextDouble(-2.4,7.6)}")
+                        popup {
+                            p {
+                                +"popup text"
                             }
                         }
                     }
