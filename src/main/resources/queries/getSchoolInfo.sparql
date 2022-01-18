@@ -3,29 +3,32 @@ PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 
-SELECT ?label (GROUP_CONCAT(DISTINCT ?almaMaterdbo,",") AS ?almaMaterdbolist)
+SELECT *
 WHERE {
-    <http://dbpedia.org/resource/Institut_national_des_sciences_appliquées_de_Lyon> rdfs:label ?label ;
-    foaf:name ?name ;
-    dbo:city ?city ;
-    dbo:endowment ?endowment ;
-    dbp:motto ?motto ;
-    dbp:academicStaff ?academicStaff ;
-    dbp:administrativeStaff ?administrativeStaff ;
-    dbp:doctoral ?doctoral ;
-    dbo:numberOfDoctoralStudents ?numberOfDoctoralStudents ;
-    dbp:established ?established ;
-    dbp:president ?president ;
-    dbp:students ?students ;
-    dbo:numberOfStudents ?numberOfStudents ;
-    dbp:website ?website ;
-    foaf:homepage ?homepage ;
-    georss:point ?point ;
-    rdfs:comment ?comment ;
-    dbo:abstract ?abstract .
-    ?almaMaterdbp dbp:almaMater <http://dbpedia.org/resource/Institut_national_des_sciences_appliquées_de_Lyon> .
-    ?almaMaterdbo dbo:almaMater <http://dbpedia.org/resource/Institut_national_des_sciences_appliquées_de_Lyon> .
-
+    <$uri$> rdfs:label ?label ;
+    OPTIONAL {
+        <$uri$> foaf:name ?nameFoaf ;
+        dbp:name ?nameDbp ;
+        dbo:city ?city ;
+        dbo:country ?country ;
+        dbp:state ?state ;
+        dbo:endowment ?endowment ;
+        dbp:motto ?motto ;
+        dbp:academicStaff ?academicStaff ;
+        dbp:administrativeStaff ?administrativeStaff ;
+        dbp:doctoral ?doctoral ;
+        dbo:numberOfDoctoralStudents ?numberOfDoctoralStudents ;
+        dbp:established ?established ;
+        dbp:president ?president ;
+        dbp:students ?students ;
+        dbo:numberOfStudents ?numberOfStudents ;
+        dbp:undergrad ?undergrad ;
+        dbp:website ?website ;
+        foaf:homepage ?homepage ;
+        georss:point ?point ;
+        rdfs:comment ?comment ;
+        dbo:abstract ?abstract .
+    }
     FILTER (lang(?label) = "fr")
     FILTER (lang(?comment) = "fr")
     FILTER (lang(?abstract) = "fr")
