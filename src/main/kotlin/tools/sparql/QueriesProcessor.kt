@@ -13,8 +13,8 @@ fun <V : SparqlVariables, R : SparqlResponse> useSparqlQuery(sparqlQuery: Sparql
     return response
 }
 
-external interface SparqlQueryConsumerProps : Props {
-    var queryResult: SparqlResponse
+external interface SparqlQueryConsumerProps<R : SparqlResponse> : Props {
+    var queryResult: R
 }
 
 fun <V : SparqlVariables, R : SparqlResponse> ChildrenBuilder.sparqlQueryLoader(
@@ -39,7 +39,7 @@ private val sparqlQueryLoader = FC<SparqlQueryLoaderProps<SparqlVariables, Sparq
     if (queryResult != null) {
         val element = cloneElement(
             Children.only(props.children),
-            jso<SparqlQueryConsumerProps> { this.queryResult = queryResult })
+            jso<SparqlQueryConsumerProps<SparqlResponse>> { this.queryResult = queryResult })
         child(element)
     }
 }

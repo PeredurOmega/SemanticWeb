@@ -7,13 +7,12 @@ import react.dom.html.ReactHTML.img
 import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.span
 import tools.sparql.GetSearchResultResponse
+import tools.sparql.SparqlQueryConsumerProps
 
-external interface CardResultProps : Props {
-    var schoolInfos : GetSearchResultResponse
-}
+external interface CardResultProps : SparqlQueryConsumerProps<GetSearchResultResponse>
 
 val cardResult = FC<CardResultProps> { props ->
-    val searchResult = props.schoolInfos
+    val searchResult = props.queryResult
     div {
         className = "card-result"
         div {
