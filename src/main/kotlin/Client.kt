@@ -1,10 +1,10 @@
-import react.dom.render
 import kotlinx.browser.document
 import kotlinx.browser.window
 import react.FC
 import react.Fragment
 import react.Props
 import react.create
+import react.dom.render
 import react.router.Route
 import react.router.Routes
 import react.router.dom.BrowserRouter
@@ -18,12 +18,12 @@ fun main() {
 }
 
 val mainRouter = FC<Props> {
-    BrowserRouter{
-        Routes{
-            Route{
+    BrowserRouter {
+        Routes {
+            Route {
                 path = "/"
                 element = mainPage.create()
-                Route{
+                Route {
                     path = "person"
                     element = personPage.create()
                 }

@@ -75,12 +75,16 @@ config.plugins.push(new webpack.ProvidePlugin({
 
 config.output.publicPath = '/';
 
+if (config.devServer) {
+    config.devServer.historyApiFallback = true;
+}
+
 config.resolve.modules.push("processedResources/js/main");
 })(config)
 
 // resources
 ;(function (config) {
 config.resolve.modules.unshift(
-    'D:\\Cours INSA\\WebSemantic\\src\\main\\resources'
+    'C:\\Users\\pauls\\IdeaProjects\\SemanticWeb\\src\\main\\resources'
 )
 })(config)
