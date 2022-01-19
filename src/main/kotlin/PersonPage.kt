@@ -13,8 +13,7 @@ import tools.basicSVG
 import tools.requireSCSS
 
 external interface PersonResult {
-    var firstName : String
-    var lastName : String
+    var label : String
     var domain : String
     var imageURL : String
     var description : String
@@ -27,8 +26,7 @@ val personPage = FC<Props> {
     requireSCSS("person-page")
     //val location = useLocation()
     val person = jso<PersonResult>{
-        firstName = "Lucas"
-        lastName = "Emile"
+        label = "Lucas Emile"
         domain = "Informatique"
         imageURL = "https://media.istockphoto.com/photos/testing-software-picture-id1017296544?k=20&m=1017296544&s=612x612&w=0&h=I34gSez0j2HGciCztsZH09XiO142NLRmNIyFoJ-0U4M="
         description = "C'est un homme est un informaticien du 21e siècle"
@@ -42,7 +40,7 @@ val personPage = FC<Props> {
         div{
             className = "attribute-person-div"
             p{
-                +"${person.firstName} ${person.lastName}"
+                +"${person.label}"
             }
             p{
                 +person.domain
