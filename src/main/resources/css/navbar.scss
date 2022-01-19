@@ -1,0 +1,13 @@
+@use "commons/shadow";
+
+nav {
+  display: flex;
+  align-items: center;
+  height: 72px;
+  background: linear-gradient(#4d47ff 0%, #43b4ff 120%);
+  @extend %shadow-excluding-top;
+}
+
+nav > svg {
+  width: 200px;
+}
