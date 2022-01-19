@@ -1,19 +1,23 @@
 package schoolPage
 
+import kotlinext.js.jso
 import react.FC
 import react.Props
-import tools.sparql.GetPersonGeneralInfoResponse
-import tools.sparql.GetPersonInfoResponse
+import tools.sparql.*
 
+external interface RelatedPersonPanelProps : Props {
+    var schoolUri : String
+}
 
-
-val relatedPersonPanel = FC<Props> {
-//    personPanel {
-//        this.personGeneralInfo =
-//        this.title =
-//    }
-//    personPanel {
-//        this.personGeneralInfo = props.personGeneralInfo
-//        this.title =
-//    }
+val relatedPersonPanel = FC<RelatedPersonPanelProps> { props ->
+    sparqlQueryLoaderMultiple(getPersonAlmaMaterInfo, jso { uri = props.schoolUri }) {
+        personPanel {
+            this.title = "Ils en sont diplômés :"
+        }
+    }
+    sparqlQueryLoaderMultiple(getPersonEducationalInfo, jso { uri = props.schoolUri }) {
+        personPanel {
+                this.title = "Ils enseignent dans cette école :"
+            }
+    }
 }

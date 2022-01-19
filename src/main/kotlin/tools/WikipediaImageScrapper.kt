@@ -20,7 +20,7 @@ fun formatUri(uri : String) : String {
     return "https:${uri}"
 }
 
-fun getImagesFromWikipediaPage(pageName: String, nbImages: Int, setSchoolImagesUri: StateSetter<List<String>>) {
+fun getImagesFromWikipediaPage(pageName: String, nbImages: Int, setSchoolImagesUri: StateSetter<List<String>>, domain : String = "fr") {
     val xhr = XMLHttpRequest()
     xhr.onreadystatechange = {
         if (xhr.readyState == 4.toShort()) {
@@ -31,19 +31,22 @@ fun getImagesFromWikipediaPage(pageName: String, nbImages: Int, setSchoolImagesU
                 }
                 setSchoolImagesUri(schoolImagesUri)
             }
+            else if (xhr.status == 404.toShort() && domain != "en") {
+                getImagesFromWikipediaPage(pageName, nbImages, setSchoolImagesUri,"en")
+            }
             else {
                 //TODO Gérer les cas d'erreurs
             }
         }
     }
-    xhr.open("GET", "https://fr.wikipedia.org/api/rest_v1/page/media-list/${pageName}")
+    xhr.open("GET", "https://${domain}.wikipedia.org/api/rest_v1/page/media-list/${pageName}")
     xhr.send()
 }
 
 fun useWikipediaScrapper(pageName: String, nbImages : Int = 2) : List<String> {
     val (schoolImagesUri, setSchoolImagesUri) = useState(listOf<String>())
     useEffectOnce {
-        getImagesFromWikipediaPage(pageName, nbImages, setSchoolImagesUri)
+        getImagesFromWikipediaPage(pageName.removePrefix("http://dbpedia.org/resource/"), nbImages, setSchoolImagesUri)
     }
     return schoolImagesUri
 }

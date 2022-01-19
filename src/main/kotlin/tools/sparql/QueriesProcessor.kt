@@ -25,29 +25,60 @@ external interface SparqlQueryConsumerProps<R : SparqlResponse> : Props {
     var queryResult: R
 }
 
-fun <V : SparqlVariables, R : SparqlResponse> ChildrenBuilder.sparqlQueryLoader(
+fun <V : SparqlVariables, R : SparqlResponse> ChildrenBuilder.sparqlQueryLoaderSingle(
     sparqlQuery: SparqlSingleResult<V, R>,
     variables: V,
     block: ChildrenBuilder.() -> Unit
 ) {
-    sparqlQueryLoader {
+    sparqlQueryLoaderSingle {
         this.sparqlQuery = sparqlQuery.unsafeCast<SparqlSingleResult<SparqlVariables, SparqlResponse>>()
         this.variables = variables
         block()
     }
 }
 
-private external interface SparqlQueryLoaderProps<V : SparqlVariables, R : SparqlResponse> : PropsWithChildren {
+private external interface SparqlQueryLoaderSingleProps<V : SparqlVariables, R : SparqlResponse> : PropsWithChildren {
     var sparqlQuery: SparqlSingleResult<V, R>
     var variables: V
 }
 
-private val sparqlQueryLoader = FC<SparqlQueryLoaderProps<SparqlVariables, SparqlResponse>> { props ->
+private val sparqlQueryLoaderSingle = FC<SparqlQueryLoaderSingleProps<SparqlVariables, SparqlResponse>> { props ->
     val queryResult = useSparqlSingleResult(props.sparqlQuery, props.variables)
     if (queryResult != null) {
         val element = cloneElement(
             Children.only(props.children),
             jso<SparqlQueryConsumerProps<SparqlResponse>> { this.queryResult = queryResult })
+        child(element)
+    }
+}
+
+external interface SparqlQueryArrayConsumerProps<R : SparqlResponse> : Props {
+    var queryResult: Array<R>
+}
+
+fun <V : SparqlVariables, R : SparqlResponse> ChildrenBuilder.sparqlQueryLoaderMultiple(
+    sparqlQuery: SparqlMultipleResults<V, R>,
+    variables: V,
+    block: ChildrenBuilder.() -> Unit
+) {
+    sparqlQueryLoaderMultiple {
+        this.sparqlQuery = sparqlQuery.unsafeCast<SparqlMultipleResults<SparqlVariables, SparqlResponse>>()
+        this.variables = variables
+        block()
+    }
+}
+
+private external interface SparqlQueryLoaderMultipleProps<V : SparqlVariables, R : SparqlResponse> : PropsWithChildren {
+    var sparqlQuery: SparqlMultipleResults<V, R>
+    var variables: V
+}
+
+private val sparqlQueryLoaderMultiple = FC<SparqlQueryLoaderMultipleProps<SparqlVariables, SparqlResponse>> { props ->
+    val queryResult = useSparqlMultipleResults(props.sparqlQuery, props.variables)
+    if (queryResult != null) {
+        val element = cloneElement(
+            Children.only(props.children),
+            jso<SparqlQueryArrayConsumerProps<SparqlResponse>> { this.queryResult = queryResult })
         child(element)
     }
 }

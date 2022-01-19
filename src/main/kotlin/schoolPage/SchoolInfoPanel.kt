@@ -1,21 +1,36 @@
 package schoolPage
 
+import kotlinext.js.jso
+import react.ConsumerProps
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
 import tools.sparql.GetSchoolInfoResponse
+import tools.sparql.SparqlQueryConsumerProps
+import tools.sparql.getSchoolInfo
+import tools.sparql.sparqlQueryLoaderSingle
 
 external interface SchoolInfoPanelProps : Props {
-    var schoolInfo : GetSchoolInfoResponse
+    var schoolUri : String
 }
 
 val schoolInfoPanel = FC<SchoolInfoPanelProps> { props ->
     div {
-        generalInfoPanel {
-            this.schoolInfo = props.schoolInfo
+        sparqlQueryLoaderSingle(getSchoolInfo, jso { uri = props.schoolUri }) {
+            infoPanelWrapper {
+
+            }
         }
-        detailedInfoPanel {
-            this.schoolInfo = props.schoolInfo
-        }
+    }
+}
+
+external interface InfoPanelWrapperProps : SparqlQueryConsumerProps<GetSchoolInfoResponse>
+
+private val infoPanelWrapper = FC<InfoPanelWrapperProps> { props ->
+    generalInfoPanel {
+        this.schoolInfo = props.queryResult
+    }
+    detailedInfoPanel {
+        this.schoolInfo = props.queryResult
     }
 }

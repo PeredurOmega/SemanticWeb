@@ -12,8 +12,8 @@ val imagesPanel = FC<Props> {
     if (schoolImagesUri.isNotEmpty()) {
         val schoolLogoUri = schoolImagesUri[0]
         val schoolImageUri = schoolImagesUri[1]
-        logoDisplay {
-            this.schoolLogoUri = schoolLogoUri
+        imageDisplay {
+            this.schoolImageUri = schoolLogoUri
         }
         imageDisplay {
             this.schoolImageUri = schoolImageUri

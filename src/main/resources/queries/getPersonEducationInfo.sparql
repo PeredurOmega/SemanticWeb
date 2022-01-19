@@ -1,0 +1,16 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+
+SELECT *
+WHERE {
+    { ?person dbo:education <$uri$> . }
+    UNION
+    { ?person dbo:education <$uri$> . }
+    ?person rdfs:label ?label .
+    OPTIONAL { ?person dbp:name ?nameDbp . }
+    OPTIONAL { ?person foaf:name ?nameFoaf . }
+    OPTIONAL { ?person dbo:thumbnail ?thumbnail . }
+    FILTER (lang(?label) = "fr" || lang(?label) = "en")
+}

@@ -6,9 +6,10 @@ import react.dom.html.ReactHTML
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
 import tools.sparql.GetPersonGeneralInfoResponse
+import tools.sparql.GetPersonInfoResponse
+import tools.sparql.SparqlQueryArrayConsumerProps
 
-external interface PersonPanelProps : Props {
-    var personGeneralInfo : Array<GetPersonGeneralInfoResponse>
+external interface PersonPanelProps : SparqlQueryArrayConsumerProps<GetPersonGeneralInfoResponse> {
     var title : String
 }
 
@@ -17,9 +18,10 @@ val personPanel = FC<PersonPanelProps> { props ->
         span {
             +props.title
         }
-        repeat(5) {
-            SmallPersonCard {
 
+        props.queryResult.distinctBy{it.person.value}.take(5).forEach {
+            SmallPersonCard {
+               this.personInfo = it
             }
         }
     }
