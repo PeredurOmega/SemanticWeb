@@ -70,6 +70,14 @@
     display: flex;
     top: 60px;
     @extend %shadow;
+
+    & .marker-popup {
+      & > span:first-child {
+        @extend %big-title;
+      }
+      & > span:last-child {
+        @extend %big-text;
+      }
+    }
   }
 }
-

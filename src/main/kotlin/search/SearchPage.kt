@@ -17,46 +17,22 @@ import kotlin.js.json
 val searchPage = FC<Props> {
     requireSCSS("search-page")
 
-    val searchResult = useSparqlQuery(getSearchResult, jso{
-        uri = "http://dbpedia.org/resource/École_Polytechnique"
-    })
-
     navBar { }
-
 
     div {
         className = "search-page"
-        div {
-            className = "card-results"
-            repeat(5) {
-                sparqlQueryLoader(getSearchResult, jso{uri = "http://dbpedia.org/resource/École_Polytechnique"}) {
-                    cardResult {
-
-                    }
-                }
-            }
-        }
-        div {
-            className = "map-results"
-            mapResult {
-                id = "map"
-                center = json("lat" to "46.71", "lng" to "1.72")
-                zoom = 6
-                tileSize = 1
-                attribution = "Grandes Ecoles"
-                url = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
-
+        mapCoordinatesContextProvider {
+            div {
+                className = "card-results"
                 repeat(5) {
-                    marker {
-                        position = json("lat" to "${kotlin.random.Random.Default.nextDouble(43.0, 50.0)}", "lng" to "${kotlin.random.Random.Default.nextDouble(-2.4,7.6)}")
-                        popup {
-                            p {
-                                +"popup text"
-                            }
+                    sparqlQueryLoader(getSearchResult, jso{uri = "http://dbpedia.org/resource/École_nationale_supérieure_d'informatique_et_de_mathématiques_appliquées_de_Grenoble"}) {
+                        cardResult {
+
                         }
                     }
                 }
             }
+            mapResult { }
         }
     }
 }
