@@ -1,6 +1,6 @@
 package tools.sparql
 
-val getPersonInfo = SparqlQuery<GetSearchResultVariables, GetSearchResultResponse>("getSearchResult")
+val getPersonInfo = SparqlSingleResult<GetSearchResultVariables, GetSearchResultResponse>("getSearchResult")
 
 external interface GetPersonInfoResponse : SparqlResponse, GetSearchResultResponseCard, GetSearchResultResponseMaps
 

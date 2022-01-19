@@ -13,10 +13,8 @@ WHERE {
     UNION
     { ?person dbo:almaMater <$uri$> . }
     ?person rdfs:label ?label .
-    OPTIONAL {
-        ?person dbp:name ?nameDbp ;
-        foaf:name ?nameFoaf ;
-        dbo:thumbnail ?thumbnail .
-    }
+    OPTIONAL { ?person dbp:name ?nameDbp . }
+    OPTIONAL { ?person foaf:name ?nameFoaf . }
+    OPTIONAL { ?person dbo:thumbnail ?thumbnail . }
     FILTER (lang(?label) = "fr" || lang(?label) = "en")
 }

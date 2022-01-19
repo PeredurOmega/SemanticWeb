@@ -1,6 +1,6 @@
 package tools.sparql
 
-val getSearchResult = SparqlQuery<GetSearchResultVariables, GetSearchResultResponse>("getSearchResult")
+val getSearchResult = SparqlSingleResult<GetSearchResultVariables, GetSearchResultResponse>("getSearchResult")
 
 external interface GetSearchResultResponse : SparqlResponse, GetSearchResultResponseCard, GetSearchResultResponseMaps
 

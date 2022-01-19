@@ -1,3 +1,4 @@
+import kotlinext.js.Object.Companion.create
 import kotlinx.browser.document
 import kotlinx.browser.window
 import react.*
@@ -5,6 +6,8 @@ import react.dom.render
 import react.router.Route
 import react.router.Routes
 import react.router.dom.BrowserRouter
+import schoolPage.schoolPage
+import search.searchPage
 import tools.requireSCSS
 
 fun main() {
@@ -36,6 +39,14 @@ val app = FC<Props> {
         Route{
             path = "person"
             element = personPage.create()
+        }
+        Route{
+            path = "school"
+            element = schoolPage.create()
+        }
+        Route{
+            path = "search"
+            element = searchPage.create()
         }
     }
 }

@@ -5,9 +5,14 @@ import kotlinext.js.getOwnPropertyNames
 import org.w3c.xhr.XMLHttpRequest
 import react.StateSetter
 
-class SparqlQuery<V: SparqlVariables, R: SparqlResponse> (private val queryName: String) {
 
-    fun execute(variables: V, saveState: StateSetter<R?>) {
+class SparqlSingleResult <V: SparqlVariables, R: SparqlResponse> (queryName: String) : SparqlQuery<V, R>(queryName)
+
+class SparqlMultipleResults <V: SparqlVariables, R: SparqlResponse> (queryName: String) : SparqlQuery<V, R>(queryName)
+
+abstract class SparqlQuery<V: SparqlVariables, R: SparqlResponse> (private val queryName: String) {
+
+    fun execute(variables: V, saveState: StateSetter<Array<R>?>) {
         retrieveSparqlQuery {
             var query = it
 
@@ -19,7 +24,7 @@ class SparqlQuery<V: SparqlVariables, R: SparqlResponse> (private val queryName:
             xhr.onreadystatechange = {
                 if (xhr.readyState == 4.toShort()) {
                     if (xhr.status == 200.toShort()) {
-                        saveState(JSON.parse<RawSparqlResponse<R>>(xhr.responseText).results.bindings[0])
+                        saveState(JSON.parse<RawSparqlResponse<R>>(xhr.responseText).results.bindings)
                     }
                     else {
                         //TODO Gérer les cas d'erreurs
