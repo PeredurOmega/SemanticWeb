@@ -3,16 +3,20 @@ PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX dbr: <http://dbpedia.org/resource/>
 
-SELECT ?education
+SELECT *
 WHERE {
-    { ?education dbp:education <$uri$> . }
+    { ?person dbo:education <$uri$> . }
     UNION
-    { ?education dbo:education <$uri$> . }
+    { ?person dbo:education <$uri$> . }
+    UNION
+    { ?person dbp:almaMater <$uri$> . }
+    UNION
+    { ?person dbo:almaMater <$uri$> . }
     ?person rdfs:label ?label .
     OPTIONAL {
         ?person dbp:name ?nameDbp ;
-                foaf:name ?nameFoaf ;
-                dbo:thumbnail ?thumbnail .
+        foaf:name ?nameFoaf ;
+        dbo:thumbnail ?thumbnail .
     }
-    FILTER (lang(?label) = "fr")
+    FILTER (lang(?label) = "fr" || lang(?label) = "en")
 }
