@@ -27,15 +27,15 @@ val mapResult = FC<Props> {
             mapCoordinates.forEach {
                 val (lat, lng) = it.coordinates.split(" ")
                 marker {
-//                    icon = icon(
-//                        json(
-//                            "iconUrl" to "images/Marker.svg",
-//                            "iconRetinaUrl" to "images/Marker.svg",
-//                            "iconAnchor" to arrayOf(25, 50),
-//                            "popupAnchor" to arrayOf(0, -35),
-//                            "iconSize" to arrayOf(50, 50)
-//                        )
-//                    )
+                    icon = icon(
+                        json(
+                            "iconUrl" to "images/Marker.svg",
+                            "iconRetinaUrl" to "images/Marker.svg",
+                            "iconAnchor" to arrayOf(35, 70),
+                            "popupAnchor" to arrayOf(0, -55),
+                            "iconSize" to arrayOf(70, 70)
+                        )
+                    )
                     position = json(
                         "lat" to lat,
                         "lng" to lng
