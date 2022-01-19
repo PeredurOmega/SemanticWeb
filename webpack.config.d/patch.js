@@ -75,6 +75,10 @@ config.plugins.push(new webpack.ProvidePlugin({
 
 config.output.publicPath = '/';
 
+if (config.devServer) {
+    config.devServer.historyApiFallback = true;
+}
+
 config.resolve.modules.push("processedResources/js/main");
 })(config)
 

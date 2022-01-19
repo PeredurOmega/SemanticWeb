@@ -3,7 +3,11 @@ import react.FC
 import react.Props
 import react.dom.html.ReactHTML.b
 import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.img
+import react.dom.html.ReactHTML.li
+import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.span
+import react.dom.html.ReactHTML.ul
 import react.router.useLocation
 import tools.basicSVG
 import tools.requireSCSS
@@ -26,7 +30,7 @@ val personPage = FC<Props> {
         firstName = "Lucas"
         lastName = "Emile"
         domain = "Informatique"
-        imageURL = "https://www.google.fr/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Ffr%2Fphotos%2Finformaticien&psig=AOvVaw0ETgoIJllac16sc0-BghDF&ust=1642264312086000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCKDprbnVsfUCFQAAAAAdAAAAABAD"
+        imageURL = "https://media.istockphoto.com/photos/testing-software-picture-id1017296544?k=20&m=1017296544&s=612x612&w=0&h=I34gSez0j2HGciCztsZH09XiO142NLRmNIyFoJ-0U4M="
         description = "C'est un homme est un informaticien du 21e siècle"
         title = "Informaticien le plus stylé"
         birthCountry = "Lyon, France"
@@ -34,28 +38,58 @@ val personPage = FC<Props> {
     }
 
     div{
+        className = "main-person-div"
         div{
-            span{
+            className = "attribute-person-div"
+            p{
                 +"${person.firstName} ${person.lastName}"
             }
-            span{
+            p{
                 +person.domain
             }
-            span{
+            p{
                 +person.description
             }
             div{
-                basicSVG("briefcase", "Fonction")
-                b{
+                className = "icon-text-person"
+                basicSVG("Briefcase", "Fonction", "person-icon")
+                span{
                     +"Titre : "
                 }
                 span{
                     +person.title
                 }
             }
+            div{
+                className = "icon-text-person"
+                basicSVG("MapMarker", "Lieu", "person-icon")
+                span{
+                    +"Lieu de naissance : "
+                }
+                span{
+                    +person.birthCountry
+                }
+            }
+            div{
+                className = "icon-text-person"
+                basicSVG("GraduateStudent", "Universités", "person-icon")
+                span{
+                    +"Parcours universitaire : "
+                }
+                ul{
+                    person.universities.forEach { uni ->
+                        li{
+                            +uni
+                        }
+                    }
+                }
+            }
         }
         div{
-
+            className = "img-person"
+            img{
+                src = person.imageURL
+            }
         }
     }
 }
