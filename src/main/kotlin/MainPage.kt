@@ -81,7 +81,7 @@ val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
         props.suggestions.forEachIndexed { i, suggestion ->
             div {
                 if (props.selectedSuggestion == i) className = "selected"
-                val labelSplit = Regex("(.*)(${props.searchText})(.*)").find(suggestion.label)
+                val labelSplit = Regex("(.*)(${props.searchText})(.*)",RegexOption.IGNORE_CASE).find(suggestion.label)
                 if (labelSplit != null) {
                     b {
                         +labelSplit.groupValues[1]
