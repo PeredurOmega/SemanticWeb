@@ -9,10 +9,11 @@ WHERE {
 
     OPTIONAL { <$uri$> foaf:name ?nameFoaf . }
     OPTIONAL { <$uri$> dbp:name ?nameDbp . }
-    OPTIONAL { <$uri$> dbo:city ?city . }
-    OPTIONAL { ?city rdfs:label ?citylabel . }
+    OPTIONAL { <$uri$> dbo:city ?city .
+               ?city rdfs:label ?citylabel . }
+    OPTIONAL { <$uri$> dbo:location ?location .}
     OPTIONAL { <$uri$> dbo:country ?country .
-               ?country rdfs:label ?countrylabel . }
+               ?country dbp:commonName ?countrylabel . }
     OPTIONAL { <$uri$> dbp:state ?state . }
     OPTIONAL { <$uri$> dbo:endowment ?endowment . }
     OPTIONAL { <$uri$> dbp:motto ?motto . }
