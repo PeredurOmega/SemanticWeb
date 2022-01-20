@@ -1,6 +1,7 @@
 import kotlinext.js.Object.Companion.create
 import kotlinx.browser.document
 import kotlinx.browser.window
+import locationDetails.locationDetailsPage
 import react.*
 import react.dom.render
 import react.router.Route
@@ -47,6 +48,11 @@ val app = FC<Props> {
         Route{
             path = "search"
             element = searchPage.create()
+        }
+        Route{
+            //TODO renommer city
+            path = "location-details"
+            element = locationDetailsPage.create()
         }
     }
 }

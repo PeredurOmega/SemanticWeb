@@ -1,0 +1,12 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?name, ?communeStatusLabel, ?country, ?abstract
+WHERE {
+    OPTIONAL {<$uri$> dbp:name ?name}.
+    OPTIONAL {<$uri$> dbp:communeStatus ?communeStatus}.
+    OPTIONAL {?communeStatus rdfs:label ?communeStatusLabel. FILTER langMatches( lang(?communeStatusLabel), "FR")}.
+    OPTIONAL {<$uri$> dbo:country ?country}.
+    OPTIONAL {<$uri$> dbo:abstract ?abstract. FILTER langMatches( lang(?abstract), "FR")}.
+}
