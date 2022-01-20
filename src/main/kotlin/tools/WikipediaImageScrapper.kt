@@ -29,10 +29,8 @@ fun getImagesFromWikipediaPage(pageName: String, nbImages: Int, setSchoolImagesU
                 val schoolImagesUri = results.items.map {
                     formatUri(it.srcset.last().src)
                 }.filter {
-                    println("in filter :$it")
                     it.contains(filter, ignoreCase = true)
                 }.take(nbImages)
-                println(schoolImagesUri)
                 setSchoolImagesUri(schoolImagesUri)
             }
             else if (xhr.status == 404.toShort() && domain != "en") {

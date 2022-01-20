@@ -23,17 +23,21 @@ val SmallPersonCard = FC<SmallPersonCardPersonProps> { props ->
     Link {
         this.to = "/person"
         this.state = jso<PersonPageLocationState> { personUri = personInfo.person.value }
-        if (!personInfo.thumbnail?.value.isNullOrBlank()) {
-            img {
-                src =  personInfo.thumbnail!!.value
+        div {
+            div {
+                if (!personInfo.thumbnail?.value.isNullOrBlank()) {
+                    img {
+                        src =  personInfo.thumbnail!!.value
+                    }
+                } else wikipediaPhoto {
+                    this.personUri = props.personInfo.person.value
+                }
             }
-        } else wikipediaPhoto {
-            this.personUri = props.personInfo.person.value
-        }
-        span {
-            if (!personInfo.nameFoaf?.value.isNullOrBlank()) +personInfo.nameFoaf!!.value
-            else if (!personInfo.nameDbp?.value.isNullOrBlank()) +personInfo.nameDbp!!.value
-            else if (!personInfo.label.value.isBlank()) +personInfo.label.value
+            span {
+                if (!personInfo.nameFoaf?.value.isNullOrBlank()) +personInfo.nameFoaf!!.value
+                else if (!personInfo.nameDbp?.value.isNullOrBlank()) +personInfo.nameDbp!!.value
+                else if (!personInfo.label.value.isBlank()) +personInfo.label.value
+            }
         }
     }
 }
@@ -44,7 +48,6 @@ external interface WikipediaPhotoProps  : Props {
 
 private val wikipediaPhoto = FC<WikipediaPhotoProps> { props ->
     val schoolImagesUri = useWikipediaScrapper(props.personUri, 1)
-    println(props.personUri)
     img {
         src = if (schoolImagesUri.isNotEmpty()) schoolImagesUri[0]
         else "${imageDir}PersonPlaceholder.png"

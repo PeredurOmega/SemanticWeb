@@ -20,10 +20,10 @@ val cardResult = FC<CardResultProps> { props ->
     val searchResult = props.queryResult
     val setCoordinates = useContext(MapCoordinatesSetterContext)
     useEffectOnce {
-        searchResult.coordinates.value?.let { coordinates ->
+        searchResult.coordinates?.value?.let { coordinates ->
             if (setCoordinates != null) {
                 setCoordinates {
-                    it.add(Coordinates(coordinates, (searchResult.name.value?:searchResult.label.value), searchResult.cityName.value, searchResult.countryName.value))
+                    it.add(Coordinates(coordinates, (searchResult.name?.value?:searchResult.label.value), searchResult.cityName?.value, searchResult.countryName?.value))
                     mutableListOf(*it.toTypedArray())
                 }
             }
@@ -34,21 +34,22 @@ val cardResult = FC<CardResultProps> { props ->
         div {
             div {
                 span {
-                    +(searchResult.name.value?.replace('-', '‑') ?:searchResult.label.value).replace('-', '‑')
+                    +(searchResult.name?.value?.replace('-', '‑') ?:searchResult.label.value).replace('-', '‑')
                 }
                 span {
-                    +"${searchResult.cityName.value}, ${searchResult.countryName.value}"
+                    if(!searchResult.cityName?.value.isNullOrBlank() && !searchResult.countryName?.value.isNullOrBlank())
+                        +"${searchResult.cityName?.value}, ${searchResult.countryName?.value}"
                 }
             }
             schoolLogo {
                 uri = props.uri
-                alt = "Logo de ${searchResult.name.value?:searchResult.label.value}"
+                alt = "Logo de ${searchResult.name?.value?:searchResult.label.value}"
             }
         }
         p {
-            if (!searchResult.abstract.value.isNullOrBlank())  +searchResult.abstract.value!!
-            else if (!searchResult.comment.value.isNullOrBlank()) +searchResult.comment.value!!
-            // TODO wrap text
+            println(searchResult.comment)
+            if (!searchResult.comment?.value.isNullOrBlank()) +searchResult.comment?.value!!
+            else if (!searchResult.abstract?.value.isNullOrBlank())  +searchResult.abstract?.value!!
         }
     }
 }

@@ -16,9 +16,11 @@ val imagesPanel = FC<ImagesPanelProps> { props ->
         val schoolLogoUri = schoolImagesUri[0]
         val schoolImageUri = schoolImagesUri[1]
         imageDisplay {
+            className = "logo-img"
             this.schoolImageUri = schoolLogoUri
         }
         imageDisplay {
+            className = "school-img"
             this.schoolImageUri = schoolImageUri
         }
     }

@@ -16,12 +16,16 @@ external interface PersonPanelProps : SparqlQueryArrayConsumerProps<GetPersonGen
 val personPanel = FC<PersonPanelProps> { props ->
     if (props.queryResult.isNotEmpty()) {
         div {
+            className = "related-person-panel"
             span {
                 +props.title
             }
-            props.queryResult.distinctBy{it.person.value}.take(5).forEach {
-                SmallPersonCard {
-                    this.personInfo = it
+            div {
+                className = "person-panel"
+                props.queryResult.distinctBy{it.person.value}.take(5).forEach {
+                    SmallPersonCard {
+                        this.personInfo = it
+                    }
                 }
             }
         }

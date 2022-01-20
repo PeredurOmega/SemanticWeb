@@ -19,6 +19,7 @@
     margin-bottom: 30px;
     padding: 25px 40px;
     border-radius: 20px;
+    transition: box-shadow 0.3s cubic-bezier(.17,.84,.44,1);
     @extend %shadow;
 
     &:last-child {
@@ -64,6 +65,12 @@
       @extend %big-text-size;
     }
   }
+
+  .card-result:hover {
+    cursor: pointer;
+    @extend %big-shadow;
+  }
+
 }
 
 .map-results {

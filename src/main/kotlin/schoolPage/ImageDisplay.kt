@@ -7,13 +7,13 @@ import react.dom.html.ReactHTML.img
 
 external interface ImageDisplayProps : Props {
     var schoolImageUri : String
+    var className : String
 }
 
 
 val imageDisplay = FC<ImageDisplayProps> { props ->
-    div {
-        img {
-            src = props.schoolImageUri
-        }
+    img {
+        className = props.className
+        src = props.schoolImageUri
     }
 }
