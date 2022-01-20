@@ -1,3 +1,4 @@
+import history.To
 import kotlinext.js.jso
 import kotlinx.browser.document
 import kotlinx.dom.addClass
@@ -9,8 +10,11 @@ import react.dom.html.InputType
 import react.dom.html.ReactHTML.b
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
+import react.router.Navigate
+import react.router.NavigateOptions
 import react.router.dom.Link
 import schoolPage.SchoolPageLocationState
+import search.SearchPageLocationState
 import tools.basicSVG
 import tools.requireSCSS
 
@@ -31,10 +35,29 @@ fun search(event: Event) {
     //TODO
 }
 
+data class NavigateData (val to : To, val options: NavigateOptions?)
+
+fun ChildrenBuilder.useNavigate(): (To, NavigateOptions?) -> Unit {
+    val (navigate, setNavigate) = useState<NavigateData?>(null)
+    if (navigate != null) {
+        Navigate {
+            to = navigate.to
+            this.state = navigate.options?.state
+            this.replace = navigate.options?.replace
+        }
+    }
+    val navigator = useCallback { to : To, options : NavigateOptions? ->
+        setNavigate(NavigateData(to, options))
+    }
+    return navigator
+
+}
+
 val mainSearchBar = FC<Props> {
     val (searchText, setSearchText) = useState("")
     val (selectedSuggestion, setSelectedSuggestion) = useState<Int?>(null)
     val suggestions = useLookup(searchText)
+    val navigate = useNavigate()
     div {
         className = "main-search-bar"
         basicSVG("MainSearchIcon", "Rechercher", "search-icon", ::search)
@@ -48,7 +71,10 @@ val mainSearchBar = FC<Props> {
             placeholder = "Recherchez votre future université ..."
             onKeyDown = {
                 if (it.key == "Enter" || it.key == "Return") {
-                    //TODO Search
+                    if (selectedSuggestion != null) {
+                        navigate("/school", jso{ state = jso<SchoolPageLocationState> { schoolUri = suggestions[selectedSuggestion].uri }})
+                    }
+                    else navigate("/search",jso{ state = jso<SearchPageLocationState> { this.searchText = searchText }} )
                 } else if (it.key == "ArrowDown") {
                     setSelectedSuggestion(((selectedSuggestion ?: -1) + 1).coerceIn(0, suggestions.size - 1))
                     it.preventDefault()
@@ -102,7 +128,7 @@ val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
     }
 }
 
-fun useLookup(searchText: String): List<Suggestion> {
+fun useLookup(searchText: String, isMainPage : Boolean = true): List<Suggestion> {
     val (suggestions, setSuggestions) = useState<List<Suggestion>>(listOf())
     val queryRef = useRef(0)
     useEffect(searchText) {
@@ -110,10 +136,12 @@ fun useLookup(searchText: String): List<Suggestion> {
             dbpediaLookup(searchText, setSuggestions, queryRef)
         }
     }
-    useEffect(suggestions.isEmpty()) {
-        val input = document.getElementById("search")!!
-        if (suggestions.isEmpty()) input.removeClass("with-suggestions")
-        else input.addClass("with-suggestions")
+    if (isMainPage) {
+        useEffect(suggestions.isEmpty()) {
+            val input = document.getElementById("search")!!
+            if (suggestions.isEmpty()) input.removeClass("with-suggestions")
+            else input.addClass("with-suggestions")
+        }
     }
     return suggestions
 }

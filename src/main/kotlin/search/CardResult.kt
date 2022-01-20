@@ -59,7 +59,7 @@ external interface LogoUrlProps : Props {
 }
 
 private val schoolLogo = FC<LogoUrlProps> { props ->
-    val logoUri = useWikipediaScrapper(props.uri, 1)
+    val logoUri = useWikipediaScrapper(props.uri, 1, "logo")
     if (logoUri.isNotEmpty()) {
         img {
             src = logoUri[0]

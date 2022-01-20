@@ -22,7 +22,6 @@ val schoolPage = FC<Props> {
         to = "/"
         replace = true
     }
-    println(schoolUri)
 
     div {
         schoolInfoPanel {
