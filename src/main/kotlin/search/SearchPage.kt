@@ -6,7 +6,9 @@ import react.Props
 import react.State
 import react.dom.html.ReactHTML.div
 import react.router.Navigate
+import react.router.dom.Link
 import react.router.useLocation
+import schoolPage.SchoolPageLocationState
 import tools.requireSCSS
 import tools.sparql.getSearchResult
 import tools.sparql.sparqlQueryLoaderSingle
@@ -37,8 +39,8 @@ val searchPage = FC<Props> {
                             jso {
                                 uri = it.uri
                             }) {
-                            cardResult {
-                                uri = it.uri
+                                cardResult {
+                                    uri = it.uri
                             }
                         }
                     }

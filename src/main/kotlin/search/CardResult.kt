@@ -1,13 +1,16 @@
 package search
 
+import kotlinext.js.jso
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.img
 import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.span
+import react.router.dom.Link
 import react.useContext
 import react.useEffectOnce
+import schoolPage.SchoolPageLocationState
 import tools.sparql.GetSearchResultResponse
 import tools.sparql.SparqlQueryConsumerProps
 import tools.useWikipediaScrapper
@@ -29,27 +32,31 @@ val cardResult = FC<CardResultProps> { props ->
             }
         }
     }
-    div {
-        className = "card-result"
+    Link {
+        this.to = "/school"
+        this.state = jso<SchoolPageLocationState> { schoolUri = props.uri}
         div {
+            className = "card-result"
             div {
-                span {
-                    +(searchResult.name?.value?.replace('-', '‑') ?:searchResult.label.value).replace('-', '‑')
+                div {
+                    span {
+                        +(searchResult.name?.value?.replace('-', '‑') ?: searchResult.label.value).replace('-', '‑')
+                    }
+                    span {
+                        if (!searchResult.cityName?.value.isNullOrBlank() && !searchResult.countryName?.value.isNullOrBlank())
+                            +"${searchResult.cityName?.value}, ${searchResult.countryName?.value}"
+                    }
                 }
-                span {
-                    if(!searchResult.cityName?.value.isNullOrBlank() && !searchResult.countryName?.value.isNullOrBlank())
-                        +"${searchResult.cityName?.value}, ${searchResult.countryName?.value}"
+                schoolLogo {
+                    uri = props.uri
+                    alt = "Logo de ${searchResult.name?.value ?: searchResult.label.value}"
                 }
             }
-            schoolLogo {
-                uri = props.uri
-                alt = "Logo de ${searchResult.name?.value?:searchResult.label.value}"
+            p {
+                println(searchResult.comment)
+                if (!searchResult.comment?.value.isNullOrBlank()) +searchResult.comment?.value!!
+                else if (!searchResult.abstract?.value.isNullOrBlank()) +searchResult.abstract?.value!!
             }
-        }
-        p {
-            println(searchResult.comment)
-            if (!searchResult.comment?.value.isNullOrBlank()) +searchResult.comment?.value!!
-            else if (!searchResult.abstract?.value.isNullOrBlank())  +searchResult.abstract?.value!!
         }
     }
 }
@@ -60,7 +67,7 @@ external interface LogoUrlProps : Props {
 }
 
 private val schoolLogo = FC<LogoUrlProps> { props ->
-    val logoUri = useWikipediaScrapper(props.uri, 1, "logo")
+    val logoUri = useWikipediaScrapper(props.uri, 1) { it.contains("logo", ignoreCase = true) }
     if (logoUri.isNotEmpty()) {
         img {
             src = logoUri[0]

@@ -1,7 +1,7 @@
 package tools.sparql
 
 val getPersonAlmaMaterInfo = SparqlMultipleResults<GetPersonGeneralInfoVariables, GetPersonGeneralInfoResponse>("getPersonAlmaMaterInfo")
-val getPersonEducationalInfo = SparqlMultipleResults<GetPersonGeneralInfoVariables, GetPersonGeneralInfoResponse>("getPersonEducationalInfo")
+val getPersonEducationalInfo = SparqlMultipleResults<GetPersonGeneralInfoVariables, GetPersonGeneralInfoResponse>("getPersonEducationInfo")
 
 
 external interface GetPersonGeneralInfoResponse : SparqlResponse {

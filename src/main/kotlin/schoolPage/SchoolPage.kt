@@ -14,7 +14,6 @@ external interface SchoolPageLocationState : State {
     var schoolUri : String?
 }
 
-
 val schoolPage = FC<Props> {
 
     requireSCSS("school-page")
