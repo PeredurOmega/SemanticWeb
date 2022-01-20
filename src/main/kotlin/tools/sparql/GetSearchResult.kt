@@ -5,7 +5,7 @@ val getSearchResult = SparqlSingleResult<GetSearchResultVariables, GetSearchResu
 external interface GetSearchResultResponse : SparqlResponse, GetSearchResultResponseCard, GetSearchResultResponseMaps
 
 external interface GetSearchResultResponseCard {
-    var label: SparqlValue<String> //TODO If no name --> label
+    var label: SparqlValue<String>
     var cityName: SparqlValue<String>
     var countryName: SparqlValue<String>
     var name: SparqlValue<String?>

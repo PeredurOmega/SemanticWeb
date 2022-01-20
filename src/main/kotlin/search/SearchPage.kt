@@ -12,8 +12,6 @@ import tools.sparql.sparqlQueryLoader
 val searchPage = FC<Props> {
     requireSCSS("search-page")
 
-    navBar { }
-
     div {
         className = "search-page"
         mapCoordinatesContextProvider {
@@ -23,11 +21,10 @@ val searchPage = FC<Props> {
                     sparqlQueryLoader(
                         getSearchResult,
                         jso {
-                            uri =
-                                "http://dbpedia.org/resource/École_nationale_supérieure_d'informatique_et_de_mathématiques_appliquées_de_Grenoble"
+                            uri = "http://dbpedia.org/resource/École_des_mines_d'Alès"
                         }) {
                         cardResult {
-
+                            uri = "http://dbpedia.org/resource/École_des_mines_d'Alès"
                         }
                     }
                 }
