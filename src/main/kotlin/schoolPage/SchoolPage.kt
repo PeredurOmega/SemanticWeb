@@ -4,6 +4,7 @@ import react.FC
 import react.Props
 import react.State
 import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.hr
 import react.router.Navigate
 import react.router.useLocation
 import search.mapResult
@@ -24,19 +25,25 @@ val schoolPage = FC<Props> {
     }
 
     div {
-        schoolInfoPanel {
-            this.schoolUri = schoolUri
+        className = "school-page"
+        div {
+            className = "left-panel"
+            schoolInfoPanel {
+                this.schoolUri = schoolUri
+            }
+            hr { }
+            relatedPersonPanel {
+                this.schoolUri = schoolUri
+            }
         }
-        relatedPersonPanel {
-            this.schoolUri = schoolUri
-        }
-    }
-    div {
-        imagesPanel {
-            this.schoolUri = schoolUri
-        }
-        mapResult {
-
+        div {
+            className = "right-panel"
+            imagesPanel {
+                this.schoolUri = schoolUri
+            }
+//            mapResult {
+//
+//            }
         }
     }
 

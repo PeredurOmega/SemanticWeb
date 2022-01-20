@@ -3,6 +3,7 @@ package schoolPage
 import kotlinext.js.jso
 import react.FC
 import react.Props
+import react.dom.html.ReactHTML.div
 import tools.sparql.*
 
 external interface RelatedPersonPanelProps : Props {
@@ -10,14 +11,17 @@ external interface RelatedPersonPanelProps : Props {
 }
 
 val relatedPersonPanel = FC<RelatedPersonPanelProps> { props ->
-    sparqlQueryLoaderMultiple(getPersonAlmaMaterInfo, jso { uri = props.schoolUri }) {
-        personPanel {
-            this.title = "Ils en sont diplômés :"
+    div {
+        className = "related-person-panels"
+        sparqlQueryLoaderMultiple(getPersonAlmaMaterInfo, jso { uri = props.schoolUri }) {
+            personPanel {
+                this.title = "Ils en sont diplômés :"
+            }
         }
-    }
-    sparqlQueryLoaderMultiple(getPersonEducationalInfo, jso { uri = props.schoolUri }) {
-        personPanel {
+        sparqlQueryLoaderMultiple(getPersonEducationalInfo, jso { uri = props.schoolUri }) {
+            personPanel {
                 this.title = "Ils enseignent dans cette école :"
             }
+        }
     }
 }

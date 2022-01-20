@@ -6,15 +6,15 @@ external interface GetSearchResultResponse : SparqlResponse, GetSearchResultResp
 
 external interface GetSearchResultResponseCard {
     var label: SparqlValue<String>
-    var cityName: SparqlValue<String>
-    var countryName: SparqlValue<String>
-    var name: SparqlValue<String?>
-    var comment: SparqlValue<String?>
-    var abstract: SparqlValue<String?>
+    var cityName: SparqlValue<String>?
+    var countryName: SparqlValue<String>?
+    var name: SparqlValue<String>?
+    var comment: SparqlValue<String>?
+    var abstract: SparqlValue<String>?
 }
 
 external interface GetSearchResultResponseMaps {
-    var coordinates: SparqlValue<String?>
+    var coordinates: SparqlValue<String>?
 }
 
 external interface GetSearchResultVariables : SparqlVariables {

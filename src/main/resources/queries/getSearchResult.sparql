@@ -5,24 +5,30 @@ PREFIX dbr: <http://dbpedia.org/resource/>
 
 SELECT *
 WHERE {
-    <$uri$>
-        rdfs:label ?label ;
-        dbo:city ?cityUrl .
+    <$uri$> rdfs:label ?label .
 
     OPTIONAL {
-        <$uri$>
-            georss:point ?coordinates ;
-            rdfs:comment ?comment ;
-            dbp:name ?name ;
-            dbo:abstract ?abstract .
+        <$uri$> dbo:city ?cityUrl .
+        ?cityUrl
+            dbp:name ?cityName ;
+            dbo:country ?countryUrl .
+        ?countryUrl
+            dbp:commonName ?countryName .
     }
 
-    ?cityUrl
-        dbp:name ?cityName ;
-        dbo:country ?countryUrl .
+    OPTIONAL {
+        <$uri$> dbo:location ?cityUrl .
+        ?cityUrl
+            dbp:name ?cityName ;
+            dbo:country ?countryUrl .
+        ?countryUrl
+            dbp:commonName ?countryName .
+    }
 
-    ?countryUrl
-        dbp:commonName ?countryName .
+    OPTIONAL { <$uri$> georss:point ?coordinates . }
+    OPTIONAL { <$uri$> rdfs:comment ?comment . }
+    OPTIONAL { <$uri$> dbp:name ?name . }
+    OPTIONAL { <$uri$> dbo:abstract ?abstract . }
 
     FILTER (lang(?label) = "fr") .
     FILTER (lang(?comment) = "fr") .

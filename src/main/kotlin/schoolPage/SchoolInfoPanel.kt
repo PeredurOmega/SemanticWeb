@@ -5,6 +5,7 @@ import react.ConsumerProps
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.hr
 import tools.sparql.GetSchoolInfoResponse
 import tools.sparql.SparqlQueryConsumerProps
 import tools.sparql.getSchoolInfo
@@ -30,6 +31,7 @@ private val infoPanelWrapper = FC<InfoPanelWrapperProps> { props ->
     generalInfoPanel {
         this.schoolInfo = props.queryResult
     }
+    hr { }
     detailedInfoPanel {
         this.schoolInfo = props.queryResult
     }

@@ -13,6 +13,7 @@ external interface GeneralInfoPanelProps : Props {
 val generalInfoPanel = FC<GeneralInfoPanelProps> { props ->
     val schoolInfo = props.schoolInfo
     div {
+        className = "general-info"
         div {
             className = "school-name"
             span {
@@ -29,8 +30,8 @@ val generalInfoPanel = FC<GeneralInfoPanelProps> { props ->
         div {
             className = "school-description"
             span {
-                if (!schoolInfo.abstract?.value.isNullOrBlank()) +schoolInfo.abstract?.value!!
-                else if (!schoolInfo.comment?.value.isNullOrBlank()) +schoolInfo.comment?.value!!
+                if (!schoolInfo.comment?.value.isNullOrBlank()) +schoolInfo.comment?.value!!
+                else if (!schoolInfo.abstract?.value.isNullOrBlank()) +schoolInfo.abstract?.value!!
             }
         }
     }

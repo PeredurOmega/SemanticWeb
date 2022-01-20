@@ -64,12 +64,14 @@ private val MapPositioner = FC<Props> {
     val mapCoordinates = useContext(MapCoordinatesContext)
     useEffect(mapCoordinates) {
         if (mapCoordinates.isNotEmpty()) {
+            println("Maps size start : " + mapCoordinates.size)
             val bounds = latLngBounds(mapCoordinates.map {
                 val (lat, lng) = it.coordinates.split(" ")
                 latLng(lat.toDouble(), lng.toDouble())
             }.toTypedArray())
             map.fitBounds(bounds)
             map.invalidateSize(true)
+            println("Maps size end : " + mapCoordinates.size)
         }
     }
 }
