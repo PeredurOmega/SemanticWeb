@@ -5,9 +5,15 @@ PREFIX dbr: <http://dbpedia.org/resource/>
 
 SELECT *
 WHERE {
-    { ?person dbo:education <$uri$> . }
+    { ?person dbp:institution <$uri$> . }
     UNION
-    { ?person dbo:education <$uri$> . }
+    { ?person dbp:institutions <$uri$> . }
+    UNION
+    { ?person dbp:workInstitution <$uri$> . }
+    UNION
+    { ?person dbp:workInstitutions <$uri$> . }
+    UNION
+    { ?person dbp:workPlaces <$uri$> . }
     ?person rdfs:label ?label .
     OPTIONAL { ?person dbp:name ?nameDbp . }
     OPTIONAL { ?person foaf:name ?nameFoaf . }
