@@ -1,22 +1,28 @@
 package schoolPage
 
-import kotlinext.js.jso
-import navBar
 import react.FC
 import react.Props
+import react.State
 import react.dom.html.ReactHTML.div
-import react.useState
+import react.router.Navigate
+import react.router.useLocation
 import search.mapResult
-import tools.getImagesFromWikipediaPage
 import tools.requireSCSS
-import tools.sparql.*
+
+external interface SchoolPageLocationState : State {
+    var schoolUri : String?
+}
+
 
 val schoolPage = FC<Props> {
 
     requireSCSS("school-page")
-
-    val schoolUri = "http://dbpedia.org/resource/Institut_national_des_sciences_appliquées_de_Lyon"
-
+    val location = useLocation()
+    val schoolUri = location.state.unsafeCast<SchoolPageLocationState?>()?.schoolUri?: return@FC Navigate {
+        to = "/"
+        replace = true
+    }
+    println(schoolUri)
 
     div {
         schoolInfoPanel {
@@ -28,7 +34,7 @@ val schoolPage = FC<Props> {
     }
     div {
         imagesPanel {
-
+            this.schoolUri = schoolUri
         }
         mapResult {
 

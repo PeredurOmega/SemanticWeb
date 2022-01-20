@@ -1,3 +1,4 @@
+import kotlinext.js.jso
 import kotlinx.browser.document
 import kotlinx.dom.addClass
 import kotlinx.dom.removeClass
@@ -8,12 +9,10 @@ import react.dom.html.InputType
 import react.dom.html.ReactHTML.b
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
-import react.router.Route
-import react.router.Routes
-import react.router.dom.BrowserRouter
+import react.router.dom.Link
+import schoolPage.SchoolPageLocationState
 import tools.basicSVG
 import tools.requireSCSS
-
 
 
 val mainPage = FC<Props> {
@@ -55,7 +54,12 @@ val mainSearchBar = FC<Props> {
                     it.preventDefault()
                 } else if (it.key == "ArrowUp") {
                     if (selectedSuggestion == 0) setSelectedSuggestion(null)
-                    else if (selectedSuggestion != null) setSelectedSuggestion((selectedSuggestion - 1).coerceIn(0, suggestions.size - 1))
+                    else if (selectedSuggestion != null) setSelectedSuggestion(
+                        (selectedSuggestion - 1).coerceIn(
+                            0,
+                            suggestions.size - 1
+                        )
+                    )
                     it.preventDefault()
                 }
             }
@@ -69,9 +73,9 @@ val mainSearchBar = FC<Props> {
 }
 
 external interface AutocompletionPanelProps : Props {
-    var searchText : String
-    var selectedSuggestion : Int?
-    var suggestions : List<Suggestion>
+    var searchText: String
+    var selectedSuggestion: Int?
+    var suggestions: List<Suggestion>
 }
 
 val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
@@ -79,9 +83,11 @@ val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
     div {
         className = "autocompletion"
         props.suggestions.forEachIndexed { i, suggestion ->
-            div {
+            Link {
+                this.to = "/school"
+                this.state = jso<SchoolPageLocationState> { schoolUri = suggestion.component2() }
                 if (props.selectedSuggestion == i) className = "selected"
-                val labelSplit = Regex("(.*)(${props.searchText})(.*)",RegexOption.IGNORE_CASE).find(suggestion.label)
+                val labelSplit = Regex("(.*)(${props.searchText})(.*)", RegexOption.IGNORE_CASE).find(suggestion.label)
                 if (labelSplit != null) {
                     b {
                         +labelSplit.groupValues[1]
@@ -96,7 +102,7 @@ val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
     }
 }
 
-fun useLookup(searchText: String) : List<Suggestion> {
+fun useLookup(searchText: String): List<Suggestion> {
     val (suggestions, setSuggestions) = useState<List<Suggestion>>(listOf())
     val queryRef = useRef(0)
     useEffect(searchText) {
@@ -105,7 +111,7 @@ fun useLookup(searchText: String) : List<Suggestion> {
         }
     }
     useEffect(suggestions.isEmpty()) {
-        val input = document.getElementById("search") !!
+        val input = document.getElementById("search")!!
         if (suggestions.isEmpty()) input.removeClass("with-suggestions")
         else input.addClass("with-suggestions")
     }
@@ -119,7 +125,7 @@ fun dbpediaLookup(searchText: String, setSuggestions: StateSetter<List<Suggestio
     xhr.onreadystatechange = {
         if (xhr.readyState == 4.toShort() && currentQueryRef == queryRef.current) {
             if (xhr.status == 200.toShort()) {
-                val result : LookupResult = JSON.parse(xhr.responseText)
+                val result: LookupResult = JSON.parse(xhr.responseText)
                 val filteredResult = result.docs.filter {
                     it.category?.any { category ->
                         category == "http://dbpedia.org/resource/Category:Grandes_écoles" || category == "http://dbpedia.org/resource/Category:Technical_universities_and_colleges_in_France"
@@ -128,25 +134,27 @@ fun dbpediaLookup(searchText: String, setSuggestions: StateSetter<List<Suggestio
                 val suggestions = filteredResult.map {
                     val labels = (it.label ?: arrayOf()) + (it.redirectlabel ?: arrayOf())
                     val firstLabel = (labels.firstOrNull { label ->
-                        label.replace(Regex("<[^>]*>"), "").contains(searchText,true)
-                    }?: labels.first()).replace(Regex("<[^>]*>"), "")
+                        label.replace(Regex("<[^>]*>"), "").contains(searchText, true)
+                    } ?: labels.first()).replace(Regex("<[^>]*>"), "")
                     Suggestion(firstLabel, it.resource.first())
                 }
                 setSuggestions(suggestions)
-            }
-            else {
+            } else {
                 //TODO Gérer les cas d'erreurs
             }
         }
     }
-    xhr.open("GET", "https://lookup.dbpedia.org/api/search?query=${encodeURIComponent(searchText)}&type=Grande_école&format=json")
+    xhr.open(
+        "GET",
+        "https://lookup.dbpedia.org/api/search?query=${encodeURIComponent(searchText)}&type=Grande_école&format=json"
+    )
     xhr.send()
 }
 
-data class Suggestion (val label : String, val uri : String)
+data class Suggestion(val label: String, val uri: String)
 
 
-external fun encodeURIComponent(str : String) : String
+external fun encodeURIComponent(str: String): String
 
 external interface LookupResult {
     var docs: Array<Result>

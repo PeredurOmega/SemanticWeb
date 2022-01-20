@@ -1,6 +1,7 @@
 import kotlinext.js.jso
 import react.FC
 import react.Props
+import react.State
 import react.dom.html.ReactHTML.b
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.img
@@ -8,7 +9,9 @@ import react.dom.html.ReactHTML.li
 import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.span
 import react.dom.html.ReactHTML.ul
+import react.router.Navigate
 import react.router.useLocation
+import react.router.useNavigate
 import tools.basicSVG
 import tools.requireSCSS
 
@@ -22,9 +25,17 @@ external interface PersonResult {
     var universities : List<String>
 }
 
+external interface PersonPageLocationState : State {
+    var personUri : String?
+}
+
 val personPage = FC<Props> {
     requireSCSS("person-page")
-    //val location = useLocation()
+    val location = useLocation()
+    val personUri = location.state.unsafeCast<PersonPageLocationState?>()?.personUri?: return@FC Navigate {
+        to = "/"
+        replace = true
+    }
     val person = jso<PersonResult>{
         label = "Lucas Emile"
         domain = "Informatique"
@@ -40,7 +51,7 @@ val personPage = FC<Props> {
         div{
             className = "attribute-person-div"
             p{
-                +"${person.label}"
+                +person.label
             }
             p{
                 +person.domain
