@@ -1,13 +1,11 @@
 @use "commons/shadow";
 @use "commons/texts";
 
-
-
 .search-page {
   display: flex;
   flex-direction: row;
   background-color: #f9f9f9;
-  padding: 30px 2%;
+  padding: 102px 2% 30px 2%;
 }
 
 .card-results {
@@ -30,6 +28,7 @@
     & > div {
       display: flex;
       flex-direction: row;
+      align-items: center;
       justify-content: space-between;
 
       & > div {
@@ -39,6 +38,7 @@
         & > span:first-child {
           font-size: 2em;
           font-weight: 700;
+          margin-right: 20px;
         }
 
         & > span:last-child {
@@ -47,11 +47,19 @@
       }
 
       & > img {
-        width: 300px;
+        object-fit: contain;
+        max-width: 300px;
+        height: 70px;
       }
     }
 
     & > p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      line-clamp: 5;
+      -webkit-box-orient: vertical;
       margin: 20px 0 0 0;
       @extend %big-text-size;
     }
@@ -68,7 +76,7 @@
     position: sticky !important;
     position: -webkit-sticky !important;
     display: flex;
-    top: 60px;
+    top: 102px;
     @extend %shadow;
 
     & .marker-popup {

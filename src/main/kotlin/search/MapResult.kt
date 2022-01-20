@@ -1,13 +1,12 @@
 package search
 
-import react.FC
-import react.Props
+import react.*
 import react.dom.html.ReactHTML.br
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
-import react.useContext
 import tools.map.*
 import kotlin.js.json
+import kotlin.random.Random
 
 val mapResult = FC<Props> {
     val mapCoordinates = useContext(MapCoordinatesContext)
@@ -15,12 +14,14 @@ val mapResult = FC<Props> {
         className = "map-results"
         mapContainer {
             id = "map"
-            center = json("lat" to "46.71", "lng" to "1.72")
-            zoom = 6
+//            center = json("lat" to "46.71", "lng" to "1.72")
+//            zoom = 6
             tileSize = 1
 
+            MapPositioner { }
+
             tileLayer {
-                attribution = "Grandes Ecoles"
+                attribution = "Grandes Écoles"
                 url = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
             }
 
@@ -54,6 +55,21 @@ val mapResult = FC<Props> {
                     }
                 }
             }
+        }
+    }
+}
+
+private val MapPositioner = FC<Props> {
+    val map = useMap()
+    val mapCoordinates = useContext(MapCoordinatesContext)
+    useEffect(mapCoordinates) {
+        if (mapCoordinates.isNotEmpty()) {
+            val bounds = latLngBounds(mapCoordinates.map {
+                val (lat, lng) = it.coordinates.split(" ")
+                latLng(lat.toDouble(), lng.toDouble())
+            }.toTypedArray())
+            map.fitBounds(bounds)
+            map.invalidateSize(true)
         }
     }
 }

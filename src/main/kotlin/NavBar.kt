@@ -8,7 +8,7 @@ import tools.requireSCSS
 val navBar = FC<Props> {
     requireSCSS("navbar")
     nav {
-        basicSVG("GesearchLogo", "Logo de Gesearch")
+        basicSVG("GesearchLogoSmall", "Logo de Gesearch")
         input {
             className = "search-input"
         }

@@ -1,6 +1,7 @@
 package search
 
 import react.FC
+import react.Props
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.img
 import react.dom.html.ReactHTML.p
@@ -9,8 +10,11 @@ import react.useContext
 import react.useEffectOnce
 import tools.sparql.GetSearchResultResponse
 import tools.sparql.SparqlQueryConsumerProps
+import tools.useWikipediaScrapper
 
-external interface CardResultProps : SparqlQueryConsumerProps<GetSearchResultResponse>
+external interface CardResultProps : SparqlQueryConsumerProps<GetSearchResultResponse> {
+    var uri : String
+}
 
 val cardResult = FC<CardResultProps> { props ->
     val searchResult = props.queryResult
@@ -30,26 +34,36 @@ val cardResult = FC<CardResultProps> { props ->
         div {
             div {
                 span {
-                    +(searchResult.name.value?:searchResult.label.value)
+                    +(searchResult.name.value?.replace('-', '‑') ?:searchResult.label.value).replace('-', '‑')
                 }
                 span {
                     +"${searchResult.cityName.value}, ${searchResult.countryName.value}"
                 }
             }
-            // TODO
-//            img {
-//                src = props.logoURL
-//                alt = "Image de ${props.title}"
-//            }
-            img {
-                src = "https://www.insa-lyon.fr/sites/www.insa-lyon.fr/files/logo-coul.jpg"
-                alt = "INSA"
+            schoolLogo {
+                uri = props.uri
+                alt = "Logo de ${searchResult.name.value?:searchResult.label.value}"
             }
         }
         p {
             if (!searchResult.abstract.value.isNullOrBlank())  +searchResult.abstract.value!!
             else if (!searchResult.comment.value.isNullOrBlank()) +searchResult.comment.value!!
             // TODO wrap text
+        }
+    }
+}
+
+external interface LogoUrlProps : Props {
+    var uri : String
+    var alt : String
+}
+
+private val schoolLogo = FC<LogoUrlProps> { props ->
+    val logoUri = useWikipediaScrapper(props.uri, 1)
+    if (logoUri.isNotEmpty()) {
+        img {
+            src = logoUri[0]
+            alt = props.alt
         }
     }
 }
