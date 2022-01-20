@@ -7,7 +7,7 @@ import react.Props
 import react.dom.html.ReactHTML.div
 import tools.requireSCSS
 import tools.sparql.getSearchResult
-import tools.sparql.sparqlQueryLoader
+import tools.sparql.sparqlQueryLoaderSingle
 
 val searchPage = FC<Props> {
     requireSCSS("search-page")
@@ -18,7 +18,7 @@ val searchPage = FC<Props> {
             div {
                 className = "card-results"
                 repeat(5) {
-                    sparqlQueryLoader(
+                    sparqlQueryLoaderSingle(
                         getSearchResult,
                         jso {
                             uri = "http://dbpedia.org/resource/École_des_mines_d'Alès"

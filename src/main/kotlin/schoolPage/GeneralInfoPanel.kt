@@ -1,11 +1,16 @@
 package schoolPage
 
 import react.FC
+import react.Props
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
+import tools.sparql.GetSchoolInfoResponse
 
+external interface GeneralInfoPanelProps : Props {
+    var schoolInfo : GetSchoolInfoResponse
+}
 
-val generalInfoPanel = FC<SchoolInfoPanelProps> { props ->
+val generalInfoPanel = FC<GeneralInfoPanelProps> { props ->
     val schoolInfo = props.schoolInfo
     div {
         div {

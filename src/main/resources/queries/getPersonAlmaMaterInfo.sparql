@@ -5,10 +5,6 @@ PREFIX dbr: <http://dbpedia.org/resource/>
 
 SELECT *
 WHERE {
-    { ?person dbo:education <$uri$> . }
-    UNION
-    { ?person dbo:education <$uri$> . }
-    UNION
     { ?person dbp:almaMater <$uri$> . }
     UNION
     { ?person dbo:almaMater <$uri$> . }

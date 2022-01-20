@@ -1,13 +1,19 @@
 package schoolPage
 
 import react.FC
+import react.Props
 import react.dom.html.AnchorTarget
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
 import tools.basicSVG
+import tools.sparql.GetSchoolInfoResponse
 
-val detailedInfoPanel = FC<SchoolInfoPanelProps> { props ->
+external interface DetailedInfoPanelProps : Props {
+    var schoolInfo : GetSchoolInfoResponse
+}
+
+val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
     val schoolInfo = props.schoolInfo
     div {
         div {
@@ -17,9 +23,16 @@ val detailedInfoPanel = FC<SchoolInfoPanelProps> { props ->
             }
             span {
                 a {
-                    if (!schoolInfo.website.value.isNullOrBlank())  href = schoolInfo.website.value!!
-                    else if (!schoolInfo.homepage.value.isNullOrBlank())  href = schoolInfo.homepage.value!!
+                    if (!schoolInfo.website.value.isNullOrBlank())  {
+                        +schoolInfo.website.value!!
+                        href = schoolInfo.website.value!!
+                    }
+                    else if (!schoolInfo.homepage.value.isNullOrBlank()) {
+                        +schoolInfo.homepage.value!!
+                        href = schoolInfo.homepage.value!!
+                    }
                     target = AnchorTarget._blank
+
                 }
             }
         }
@@ -29,14 +42,14 @@ val detailedInfoPanel = FC<SchoolInfoPanelProps> { props ->
                 +"Localisation : "
             }
             span {
-                if (!schoolInfo.city.value.isNullOrBlank()) +schoolInfo.city.value!!
+                if (!schoolInfo.citylabel.value.isNullOrBlank()) +schoolInfo.citylabel.value!!
                 +", "
                 if (!schoolInfo.state.value.isNullOrBlank()) +schoolInfo.state.value!!
                 else if (!schoolInfo.country.value.isNullOrBlank()) +schoolInfo.country.value!!
             }
         }
         div {
-            basicSVG("Calendar", "Date de création", "info-icon")
+            basicSVG("CalendarEvent", "Date de création", "info-icon")
             span {
                 +"Date de création : "
             }

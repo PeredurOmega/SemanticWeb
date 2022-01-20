@@ -17,32 +17,22 @@ val schoolPage = FC<Props> {
 
     val schoolUri = "http://dbpedia.org/resource/Institut_national_des_sciences_appliquées_de_Lyon"
 
-    val schoolInfo = useSparqlSingleResult(getSchoolInfo, jso {
-        uri = schoolUri
-    })
 
-    val personInfo = useSparqlMultipleResults(getPersonGeneralInfo, jso {
-        uri = schoolUri
-    })
-
-    println(JSON.stringify(personInfo))
-
-    if (schoolInfo != null && personInfo != null) {
-        div {
-            schoolInfoPanel {
-                this.schoolInfo = schoolInfo
-            }
-            relatedPersonPanel {
-                //TODO
-            }
+    div {
+        schoolInfoPanel {
+            this.schoolUri = schoolUri
         }
-        div {
-            imagesPanel {
-
-            }
-            mapResult {
-
-            }
+        relatedPersonPanel {
+            this.schoolUri = schoolUri
         }
     }
+    div {
+        imagesPanel {
+
+        }
+        mapResult {
+
+        }
+    }
+
 }

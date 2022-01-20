@@ -7,6 +7,7 @@ external interface GetSchoolInfoResponse : SparqlResponse {
     var nameFoaf: SparqlValue<String?>
     var nameDbp: SparqlValue<String?>
     var city: SparqlValue<String?>
+    var citylabel: SparqlValue<String?>
     var country: SparqlValue<String?>
     var state: SparqlValue<String?>
     var endowment: SparqlValue<String?>
