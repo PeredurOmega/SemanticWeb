@@ -9,12 +9,20 @@ WHERE {
 
     OPTIONAL { <$uri$> foaf:name ?nameFoaf . }
     OPTIONAL { <$uri$> dbp:name ?nameDbp . }
-    OPTIONAL { <$uri$> dbo:city ?city .
-               ?city rdfs:label ?citylabel . }
-    OPTIONAL { <$uri$> dbo:location ?location .}
-    OPTIONAL { <$uri$> dbo:country ?country .
-               ?country dbp:commonName ?countrylabel . }
-    OPTIONAL { <$uri$> dbp:state ?state . }
+    OPTIONAL {
+        <$uri$> dbo:city ?cityUrl .
+        ?cityUrl dbp:name ?cityName ;
+                 dbo:country ?countryUrl .
+        ?countryUrl dbp:commonName ?countryName .
+    }
+    OPTIONAL {
+        <$uri$> dbo:location ?cityUrl .
+        ?cityUrl
+        dbp:name ?cityName ;
+        dbo:country ?countryUrl .
+        ?countryUrl
+        dbp:commonName ?countryName .
+    }
     OPTIONAL { <$uri$> dbo:endowment ?endowment . }
     OPTIONAL { <$uri$> dbp:motto ?motto . }
     OPTIONAL { <$uri$> dbp:academicStaff ?academicStaff . }
@@ -33,9 +41,7 @@ WHERE {
     OPTIONAL { <$uri$> dbo:abstract ?abstract . }
 
 
-    FILTER (lang(?countrylabel) = "fr")
     FILTER (lang(?label) = "fr")
-    FILTER (lang(?citylabel) = "fr")
     FILTER (lang(?comment) = "fr")
     FILTER (lang(?abstract) = "fr")
 }

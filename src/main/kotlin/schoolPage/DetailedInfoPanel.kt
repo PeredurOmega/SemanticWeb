@@ -7,7 +7,6 @@ import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.i
 import react.dom.html.ReactHTML.span
-import tools.basicSVG
 import tools.sparql.GetSchoolInfoResponse
 
 external interface DetailedInfoPanelProps : Props {
@@ -52,11 +51,9 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
                         +"Localisation : "
                     }
                     span {
-                        if (!schoolInfo.citylabel?.value.isNullOrBlank()) +schoolInfo.citylabel?.value!!
-                        else if (!schoolInfo.location?.value.isNullOrBlank()) +schoolInfo.location?.value!!
+                        if (!schoolInfo.cityName?.value.isNullOrBlank()) +schoolInfo.cityName?.value!!
                         +", "
-                        if (!schoolInfo.state?.value.isNullOrBlank()) +schoolInfo.state?.value!!
-                        else if (!schoolInfo.countrylabel?.value.isNullOrBlank()) +schoolInfo.countrylabel?.value!!
+                        if (!schoolInfo.countryName?.value.isNullOrBlank()) +schoolInfo.countryName?.value!!
                         else +"France"
                     }
                 }
