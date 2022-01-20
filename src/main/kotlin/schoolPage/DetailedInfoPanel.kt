@@ -45,7 +45,7 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
                 if (!schoolInfo.citylabel?.value.isNullOrBlank()) +schoolInfo.citylabel?.value!!
                 +", "
                 if (!schoolInfo.state?.value.isNullOrBlank()) +schoolInfo.state?.value!!
-                else if (!schoolInfo.country?.value.isNullOrBlank()) +schoolInfo.country?.value!!
+                else if (!schoolInfo.countrylabel?.value.isNullOrBlank()) +schoolInfo.countrylabel?.value!!
             }
         }
         div {
