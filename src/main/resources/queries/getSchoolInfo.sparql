@@ -36,7 +36,7 @@ WHERE {
     OPTIONAL { <$uri$> dbp:undergrad ?undergrad . }
     OPTIONAL { <$uri$> dbp:website ?website . }
     OPTIONAL { <$uri$> foaf:homepage ?homepage . }
-    OPTIONAL { <$uri$> georss:point ?point . }
+    OPTIONAL { <$uri$> georss:point ?coordinate . }
     OPTIONAL { <$uri$> rdfs:comment ?comment . }
     OPTIONAL { <$uri$> dbo:abstract ?abstract . }
 

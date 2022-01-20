@@ -51,7 +51,7 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
                         +"Localisation : "
                     }
                     span {
-                        if (!schoolInfo.cityName?.value.isNullOrBlank()) +schoolInfo.cityName?.value!!
+                        if (!schoolInfo.cityName?.value.isNullOrBlank()) +(schoolInfo.cityName?.value!! + ", ")
                         +", "
                         if (!schoolInfo.countryName?.value.isNullOrBlank()) +schoolInfo.countryName?.value!!
                         else +"France"

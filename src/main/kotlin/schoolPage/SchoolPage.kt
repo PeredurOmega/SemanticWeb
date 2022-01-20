@@ -7,6 +7,7 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.hr
 import react.router.Navigate
 import react.router.useLocation
+import search.mapCoordinatesContextProvider
 import search.mapResult
 import tools.requireSCSS
 
@@ -25,24 +26,27 @@ val schoolPage = FC<Props> {
 
     div {
         className = "school-page"
-        div {
-            className = "left-panel"
-            schoolInfoPanel {
-                this.schoolUri = schoolUri
+        mapCoordinatesContextProvider {
+            div {
+                className = "left-panel"
+                schoolInfoPanel {
+                    this.schoolUri = schoolUri
+                }
+                hr { }
+                relatedPersonPanel {
+                    this.schoolUri = schoolUri
+                }
             }
-            hr { }
-            relatedPersonPanel {
-                this.schoolUri = schoolUri
+            div {
+                className = "right-panel"
+                imagesPanel {
+                    this.schoolUri = schoolUri
+                }
+
+                mapResult {
+
+                }
             }
-        }
-        div {
-            className = "right-panel"
-            imagesPanel {
-                this.schoolUri = schoolUri
-            }
-//            mapResult {
-//
-//            }
         }
     }
 
