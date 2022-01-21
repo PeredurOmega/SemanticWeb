@@ -69,7 +69,6 @@ external interface LogoUrlProps : Props {
 
 
 private val schoolLogo = FC<LogoUrlProps> { props ->
-//    println("URI : ${props.uri}")
     val logoUri = useWikipediaScrapper(props.uri, props.sameFr, 1) { it.contains("logo", ignoreCase = true) || it.contains("signature", ignoreCase = true) }
 
 
