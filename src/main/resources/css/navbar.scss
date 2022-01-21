@@ -24,10 +24,11 @@ nav {
     line-height: 1.75;
     text-rendering: optimizeSpeed;
     border: none;
+    margin-left: 40px;
   }
 }
 
 nav > a > svg {
   height: 40px;
-  margin: 0 30px;
+  padding-left: 4%;
 }

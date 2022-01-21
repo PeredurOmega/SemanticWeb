@@ -1,6 +1,5 @@
 import react.FC
 import react.Props
-import react.dom.html.ReactHTML.input
 import react.dom.html.ReactHTML.nav
 import react.router.dom.Link
 import tools.basicSVG
@@ -13,8 +12,8 @@ val navBar = FC<Props> {
             to = "/"
             basicSVG("GesearchLogoSmall", "Logo de Gesearch")
         }
-        input {
-            className = "search-input"
+        searchBar {
+            this.isSmall = true
         }
     }
 }

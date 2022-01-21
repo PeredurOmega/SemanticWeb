@@ -1,12 +1,14 @@
 package search
 
+import kotlinext.js.jso
 import react.*
 import react.dom.html.ReactHTML.br
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
+import react.router.dom.Link
+import schoolPage.SchoolPageLocationState
 import tools.map.*
 import kotlin.js.json
-import kotlin.random.Random
 
 val mapResult = FC<Props> {
     val mapCoordinates = useContext(MapCoordinatesContext)
@@ -44,12 +46,20 @@ val mapResult = FC<Props> {
                     popup {
                         div {
                             className = "marker-popup"
-                            span {
-                                +it.popupText
+                            Link {
+                                this.to = "/school"
+                                this.state = jso<SchoolPageLocationState> { schoolUri = it.schoolUri}
+                                span {
+                                    +it.popupText
+                                }
                             }
                             br { }
-                            span {
-                                +"${it.cityName}, ${it.countryName}"
+                            Link {
+                                this.to = "/city"
+                                this.state = jso<SchoolPageLocationState> { schoolUri = it.cityUri}
+                                span {
+                                    +"${it.cityName}, ${it.countryName}"
+                                }
                             }
                         }
                     }

@@ -2,11 +2,7 @@ package person
 
 import kotlinext.js.jso
 import react.FC
-import react.dom.html.AnchorTarget
-import react.dom.html.ReactHTML.a
-import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.li
-import react.dom.html.ReactHTML.span
 import react.dom.html.ReactHTML.ul
 import react.router.dom.Link
 import schoolPage.SchoolPageLocationState
@@ -19,7 +15,6 @@ external interface PersonUniversitiesPanelProps : SparqlQueryArrayConsumerProps<
 }
 
 val personUniversitiesPanel = FC<PersonUniversitiesPanelProps> { props ->
-    println(props.personUri)
     if (props.queryResult.isNotEmpty()) {
         ul {
             props.queryResult.distinctBy { it.universities?.value }.forEach {

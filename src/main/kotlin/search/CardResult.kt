@@ -26,7 +26,7 @@ val cardResult = FC<CardResultProps> { props ->
         searchResult.coordinates?.value?.let { coordinates ->
             if (setCoordinates != null) {
                 setCoordinates {
-                    it.add(Coordinates(coordinates, (searchResult.name?.value?:searchResult.label.value), searchResult.cityName?.value, searchResult.countryName?.value))
+                    it.add(Coordinates(coordinates, (searchResult.name?.value?:searchResult.label.value), searchResult.cityName?.value, searchResult.countryName?.value, searchResult.cityUrl?.value, props.uri))
                     mutableListOf(*it.toTypedArray())
                 }
             }
@@ -69,7 +69,6 @@ external interface LogoUrlProps : Props {
 
 
 private val schoolLogo = FC<LogoUrlProps> { props ->
-//    println("URI : ${props.uri}")
     val logoUri = useWikipediaScrapper(props.uri, props.sameFr, 1) { it.contains("logo", ignoreCase = true) || it.contains("signature", ignoreCase = true) }
 
 
