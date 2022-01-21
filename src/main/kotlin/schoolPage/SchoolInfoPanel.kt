@@ -17,10 +17,8 @@ external interface SchoolInfoPanelProps : Props {
 
 val schoolInfoPanel = FC<SchoolInfoPanelProps> { props ->
     div {
-        sparqlQueryLoaderSingle(getSchoolInfo, jso { uri = props.schoolUri }) {
-            infoPanelWrapper {
-
-            }
+        sparqlQueryLoaderSingle(getSchoolInfo, jso { uri = props.schoolUri }, true) {
+            infoPanelWrapper { }
         }
     }
 }

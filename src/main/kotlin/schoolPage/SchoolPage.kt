@@ -47,9 +47,7 @@ val schoolPage = FC<Props> {
                         this.uri = schoolUri
                     }
                 }
-                mapResult {
-
-                }
+                mapResult {}
             }
         }
     }
