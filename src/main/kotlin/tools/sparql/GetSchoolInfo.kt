@@ -23,7 +23,7 @@ external interface GetSchoolInfoResponse : SparqlResponse {
     var undergrad: SparqlValue<String>?
     var website: SparqlValue<String>?
     var homepage: SparqlValue<String>?
-    var georss: SparqlValue<String>?
+    var coordinate: SparqlValue<String>?
     var comment: SparqlValue<String>?
     var abstract: SparqlValue<String>?
 

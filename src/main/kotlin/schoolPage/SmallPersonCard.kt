@@ -49,7 +49,7 @@ external interface WikipediaPhotoProps  : Props {
 private val wikipediaPhoto = FC<WikipediaPhotoProps> { props ->
     val schoolImagesUri = useWikipediaScrapper(props.personUri, 1)
     img {
-        src = if (schoolImagesUri.isNotEmpty()) schoolImagesUri[0]
+        src = if (schoolImagesUri.isNotEmpty() && !schoolImagesUri[0].contains("defaut", ignoreCase = true)) schoolImagesUri[0]
         else "${imageDir}PersonPlaceholder.png"
     }
 }

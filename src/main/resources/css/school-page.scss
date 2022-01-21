@@ -80,10 +80,11 @@
     }
 
     & .related-person-panels {
+      margin-top: -5px;
 
       & > .related-person-panel {
         background-color: white;
-        margin-top: 25px;
+        margin-top: 30px;
         padding: 20px;
         border-radius: 20px;
         @extend %shadow;
@@ -161,15 +162,28 @@
       width: 100%;
       max-height: 160px;
       margin: 30px;
+      border-radius: 5px;
     }
 
     & > .school-img {
       object-fit: cover;
       width: 100%;
       max-height: 400px;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       border-radius: 20px;
       @extend %shadow;
+    }
+
+    & > .map-results {
+      width: 100%;
+
+      & > #map {
+        width: 100%;
+        height: 400px;
+        border-radius: 20px;
+        @extend %shadow;
+      }
+
     }
   }
 

@@ -53,7 +53,6 @@ val cardResult = FC<CardResultProps> { props ->
                 }
             }
             p {
-                println(searchResult.comment)
                 if (!searchResult.comment?.value.isNullOrBlank()) +searchResult.comment?.value!!
                 else if (!searchResult.abstract?.value.isNullOrBlank()) +searchResult.abstract?.value!!
             }
