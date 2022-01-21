@@ -44,6 +44,7 @@ val schoolPage = FC<Props> {
                 className = "right-panel"
                 sparqlQueryLoaderSingle(getSchoolSameFr, jso { uri = schoolUri }) {
                     imagesPanel {
+                        this.uri = schoolUri
                     }
                 }
                 mapResult {

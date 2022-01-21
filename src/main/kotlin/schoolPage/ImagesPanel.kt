@@ -5,16 +5,18 @@ import tools.sparql.GetSchoolSameFrResponse
 import tools.sparql.SparqlQueryConsumerProps
 import tools.useWikipediaScrapper
 
-external interface ImagePanelProps : SparqlQueryConsumerProps<GetSchoolSameFrResponse>
+external interface ImagePanelProps : SparqlQueryConsumerProps<GetSchoolSameFrResponse> {
+    var uri : String
+}
 
 val imagesPanel = FC<ImagePanelProps> { props ->
-    val schoolLogoUri = useWikipediaScrapper(props.queryResult.sameFr.value,1) {
+    val schoolLogoUri = useWikipediaScrapper(props.uri, props.queryResult.sameFr.value,1) {
         it.contains("logo", ignoreCase = true) || it.contains(
             "signature",
             ignoreCase = true
         )
     }
-    val schoolImageUri = useWikipediaScrapper(props.queryResult.sameFr.value, 1) {
+    val schoolImageUri = useWikipediaScrapper(props.uri, props.queryResult.sameFr.value, 1) {
         !(it.contains("logo", ignoreCase = true) || it.contains(
             "signature",
             ignoreCase = true
