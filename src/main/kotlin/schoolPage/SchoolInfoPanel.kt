@@ -1,6 +1,7 @@
 package schoolPage
 
 import kotlinext.js.jso
+import kotlinx.browser.document
 import react.*
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.hr
@@ -39,6 +40,9 @@ private val infoPanelWrapper = FC<InfoPanelWrapperProps> { props ->
         val cityUri = props.queryResult.cityUrl?.value?:""
         val schoolUri = props.schoolUri
         setCoordinates?.invoke(mutableListOf(Coordinates(coordinates, schoolName, cityName, countryName, cityUri, schoolUri)))
+    }
+    useEffectOnce {
+        document.getElementById("special-hr")?.className += " with-pane1"
     }
 
     generalInfoPanel {

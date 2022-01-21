@@ -35,7 +35,9 @@ val schoolPage = FC<Props> {
                 schoolInfoPanel {
                     this.schoolUri = schoolUri
                 }
-                hr { }
+                hr {
+                    id = "special-hr"
+                }
                 relatedPersonPanel {
                     this.schoolUri = schoolUri
                 }

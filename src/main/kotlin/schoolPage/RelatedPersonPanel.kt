@@ -4,10 +4,12 @@ import kotlinext.js.jso
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
-import tools.sparql.*
+import tools.sparql.getPersonAlmaMaterInfo
+import tools.sparql.getPersonEducationalInfo
+import tools.sparql.sparqlQueryLoaderMultiple
 
 external interface RelatedPersonPanelProps : Props {
-    var schoolUri : String
+    var schoolUri: String
 }
 
 val relatedPersonPanel = FC<RelatedPersonPanelProps> { props ->
