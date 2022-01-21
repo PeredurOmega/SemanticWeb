@@ -26,7 +26,9 @@ val searchBar = FC<SearchBarProps> { props ->
     val navigate = useNavigate()
     div {
         className = "search-bar " + if (props.isSmall == true) "small-bar" else "main-bar"
-        basicSVG("MainSearchIcon", "Rechercher", "search-icon", ::search)
+        basicSVG("MainSearchIcon", "Rechercher", "search-icon") {
+            search(searchText, navigate)
+        }
         ReactHTML.input {
             value = searchText
             id = "search"
@@ -63,6 +65,10 @@ val searchBar = FC<SearchBarProps> { props ->
         this.selectedSuggestion = selectedSuggestion
         this.suggestions = suggestions
     }
+}
+
+fun search(searchText: String, navigate: (To, NavigateOptions?) -> Unit) {
+    navigate("/search", jso{ state = jso<SearchPageLocationState> { this.searchText = searchText } } )
 }
 
 data class NavigateData (val to : To, val options: NavigateOptions?)
@@ -112,6 +118,7 @@ val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
         }
     }
 }
+
 
 fun useLookup(searchText: String, isMainPage : Boolean = true): List<Suggestion> {
     val (suggestions, setSuggestions) = useState<List<Suggestion>>(listOf())

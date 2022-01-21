@@ -26,7 +26,7 @@ val cardResult = FC<CardResultProps> { props ->
         searchResult.coordinates?.value?.let { coordinates ->
             if (setCoordinates != null) {
                 setCoordinates {
-                    it.add(Coordinates(coordinates, (searchResult.name?.value?:searchResult.label.value), searchResult.cityName?.value, searchResult.countryName?.value))
+                    it.add(Coordinates(coordinates, (searchResult.name?.value?:searchResult.label.value), searchResult.cityName?.value, searchResult.countryName?.value, searchResult.cityUrl?.value, props.uri))
                     mutableListOf(*it.toTypedArray())
                 }
             }
