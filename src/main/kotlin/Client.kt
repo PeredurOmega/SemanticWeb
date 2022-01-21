@@ -1,6 +1,7 @@
 import kotlinx.browser.document
 import kotlinx.browser.window
 import locationPage.locationDetailsPage
+import person.personPage
 import react.*
 import react.dom.render
 import react.router.Route

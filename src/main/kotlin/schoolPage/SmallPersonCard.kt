@@ -1,13 +1,11 @@
 package schoolPage
 
-import PersonPageLocationState
+import person.PersonPageLocationState
 import kotlinext.js.jso
 import react.FC
 import react.Props
-import react.dom.html.ReactHTML
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.img
-import react.dom.html.ReactHTML.link
 import react.dom.html.ReactHTML.span
 import react.router.dom.Link
 import tools.imageDir
@@ -46,7 +44,7 @@ external interface WikipediaPhotoProps  : Props {
     var personUri : String
 }
 
-private val wikipediaPhoto = FC<WikipediaPhotoProps> { props ->
+val wikipediaPhoto = FC<WikipediaPhotoProps> { props ->
     val schoolImagesUri = useWikipediaScrapper(props.personUri, 1)
     img {
         src = if (schoolImagesUri.isNotEmpty() && !schoolImagesUri[0].contains("defaut", ignoreCase = true)) schoolImagesUri[0]
