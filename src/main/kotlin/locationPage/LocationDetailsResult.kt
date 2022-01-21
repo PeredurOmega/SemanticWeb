@@ -1,4 +1,4 @@
-package locationDetails
+package locationPage
 
 import react.FC
 import react.dom.html.ReactHTML.div

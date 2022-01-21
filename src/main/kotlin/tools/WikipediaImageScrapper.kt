@@ -26,21 +26,16 @@ fun getImagesFromWikipediaPage(pageName: String, nbImages: Int, setSchoolImagesU
         if (xhr.readyState == 4.toShort()) {
             if (xhr.status == 200.toShort()) {
                 val results : WikipediaScrapperResults = JSON.parse(xhr.responseText)
-                println("page name : $pageName")
                 val formattedResults = results.items.map {
                     formatUri(it.srcset.last().src)
                 }
-                println("RAW: $formattedResults, $filter")
                 var filteredResults = formattedResults.filter(filter).take(nbImages)
-                println("FILTERED: $filteredResults, $filter")
                 if (filteredResults.isEmpty()) {
                     filteredResults = formattedResults.take(nbImages)
                 }
-                println("FINAL: $filteredResults, $filter")
                 setSchoolImagesUri(filteredResults)
             }
             else if (xhr.status == 404.toShort() && domain != "en") {
-                println("404 page name : $pageName")
                 getImagesFromWikipediaPage(pageName, nbImages, setSchoolImagesUri, filter,"en")
             }
             else {
@@ -54,10 +49,19 @@ fun getImagesFromWikipediaPage(pageName: String, nbImages: Int, setSchoolImagesU
 
 private fun acceptAll(str : String) = true
 
+private fun cleanPageName(pageName: String, prefix : List<String>) : String {
+    var cleanedPageName = pageName
+    prefix.forEach {
+        cleanedPageName = cleanedPageName.removePrefix(it)
+    }
+    return cleanedPageName
+}
+
 fun useWikipediaScrapper(pageName: String, nbImages : Int = 2, filter : (String) -> Boolean = ::acceptAll) : List<String> {
     val (schoolImagesUri, setSchoolImagesUri) = useState(listOf<String>())
+    val prefix = listOf("http://dbpedia.org/resource/", "http://fr.dbpedia.org/resource/")
     useEffectOnce {
-        getImagesFromWikipediaPage(pageName.removePrefix("http://dbpedia.org/resource/"), nbImages, setSchoolImagesUri, filter = filter)
+        getImagesFromWikipediaPage(cleanPageName(pageName, prefix), nbImages, setSchoolImagesUri, filter = filter)
     }
     return schoolImagesUri
 }

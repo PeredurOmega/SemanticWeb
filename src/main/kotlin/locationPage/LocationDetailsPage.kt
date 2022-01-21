@@ -1,14 +1,9 @@
-package locationDetails
+package locationPage
 
 import kotlinext.js.jso
-import navBar
 import react.*
 import react.dom.html.ReactHTML.div
-import react.router.Navigate
 import react.router.useLocation
-import schoolPage.SchoolPageLocationState
-import search.cardResult
-import search.mapResult
 import tools.requireSCSS
 import tools.sparql.*
 
@@ -21,10 +16,10 @@ val locationDetailsPage = FC<Props> {
 
     val location = useLocation()
     val locationDetailsName = "http://dbpedia.org/resource/Villeurbanne";
-      //  location.state.unsafeCast<LocationDetailsPageLocationState?>()?.locationDetailsName ?: return@FC Navigate {
-        //    to = "/"
-          //  replace = true
-        //}
+  //  location.state.unsafeCast<LocationDetailsPageLocationState?>()?.locationDetailsName ?: return@FC Navigate {
+    //    to = "/"
+      //  replace = true
+    //}
 
     div {
         className = ""

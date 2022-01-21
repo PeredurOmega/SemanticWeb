@@ -1,5 +1,6 @@
 package schoolPage
 
+import kotlinext.js.jso
 import react.FC
 import react.Props
 import react.State
@@ -10,6 +11,8 @@ import react.router.useLocation
 import search.mapCoordinatesContextProvider
 import search.mapResult
 import tools.requireSCSS
+import tools.sparql.getSchoolSameFr
+import tools.sparql.sparqlQueryLoaderSingle
 
 external interface SchoolPageLocationState : State {
     var schoolUri : String?
@@ -39,15 +42,14 @@ val schoolPage = FC<Props> {
             }
             div {
                 className = "right-panel"
-                imagesPanel {
-                    this.schoolUri = schoolUri
+                sparqlQueryLoaderSingle(getSchoolSameFr, jso { uri = schoolUri }) {
+                    imagesPanel {
+                    }
                 }
-
                 mapResult {
 
                 }
             }
         }
     }
-
 }

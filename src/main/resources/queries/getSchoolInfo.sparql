@@ -6,6 +6,7 @@ PREFIX dbr: <http://dbpedia.org/resource/>
 SELECT *
 WHERE {
     <$uri$> rdfs:label ?label .
+    <$uri$> owl:sameAs ?sameFr .
 
     OPTIONAL { <$uri$> foaf:name ?nameFoaf . }
     OPTIONAL { <$uri$> dbp:name ?nameDbp . }

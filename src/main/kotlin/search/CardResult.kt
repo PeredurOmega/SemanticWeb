@@ -48,7 +48,7 @@ val cardResult = FC<CardResultProps> { props ->
                     }
                 }
                 schoolLogo {
-                    uri = props.uri
+                    uri = searchResult.sameFr.value
                     alt = "Logo de ${searchResult.name?.value ?: searchResult.label.value}"
                 }
             }
@@ -66,7 +66,7 @@ external interface LogoUrlProps : Props {
 }
 
 private val schoolLogo = FC<LogoUrlProps> { props ->
-    val logoUri = useWikipediaScrapper(props.uri, 1) { it.contains("logo", ignoreCase = true) }
+    val logoUri = useWikipediaScrapper(props.uri, 1) { it.contains("logo", ignoreCase = true) || it.contains("signature", ignoreCase = true) }
     if (logoUri.isNotEmpty()) {
         img {
             src = logoUri[0]

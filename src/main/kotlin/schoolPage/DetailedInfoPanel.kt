@@ -1,5 +1,7 @@
 package schoolPage
 
+import kotlinext.js.jso
+import locationPage.LocationDetailsPageLocationState
 import react.FC
 import react.Props
 import react.dom.html.AnchorTarget
@@ -7,6 +9,7 @@ import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.i
 import react.dom.html.ReactHTML.span
+import react.router.dom.Link
 import tools.sparql.GetSchoolInfoResponse
 
 external interface DetailedInfoPanelProps : Props {
@@ -42,19 +45,23 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
         }
         div {
             div {
-                div {
-                    className = "detailled-info"
-                    i {
-                        className = "fas fa-fw fa-map-marked-alt"
-                    }
-                    span {
-                        +"Localisation : "
-                    }
-                    span {
-                        if (!schoolInfo.cityName?.value.isNullOrBlank()) +(schoolInfo.cityName?.value!! + ", ")
-                        +", "
-                        if (!schoolInfo.countryName?.value.isNullOrBlank()) +schoolInfo.countryName?.value!!
-                        else +"France"
+                Link {
+                    this.to = "/city"
+                    this.state = jso<LocationDetailsPageLocationState> { locationDetailsName = schoolInfo.cityUrl?.value!! }
+                    div {
+                        className = "detailled-info"
+                        i {
+                            className = "fas fa-fw fa-map-marked-alt"
+                        }
+                        span {
+                            +"Localisation : "
+                        }
+                        span {
+                            if (!schoolInfo.cityName?.value.isNullOrBlank()) +(schoolInfo.cityName?.value!! + ", ")
+                            +", "
+                            if (!schoolInfo.countryName?.value.isNullOrBlank()) +schoolInfo.countryName?.value!!
+                            else +"France"
+                        }
                     }
                 }
                 div {

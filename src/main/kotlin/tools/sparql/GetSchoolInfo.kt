@@ -1,6 +1,7 @@
 package tools.sparql
 
 val getSchoolInfo = SparqlSingleResult<GetSchoolInfoVariables, GetSchoolInfoResponse>("getSchoolInfo")
+val getSchoolSameFr = SparqlSingleResult<GetSchoolSameFrVariables, GetSchoolSameFrResponse>("getSchoolSameFr")
 
 external interface GetSchoolInfoResponse : SparqlResponse {
     var label: SparqlValue<String>
@@ -26,9 +27,16 @@ external interface GetSchoolInfoResponse : SparqlResponse {
     var coordinate: SparqlValue<String>?
     var comment: SparqlValue<String>?
     var abstract: SparqlValue<String>?
-
 }
 
 external interface GetSchoolInfoVariables : SparqlVariables {
+    var uri: String
+}
+
+external interface GetSchoolSameFrResponse : SparqlResponse {
+    var sameFr: SparqlValue<String>
+}
+
+external interface GetSchoolSameFrVariables : SparqlVariables {
     var uri: String
 }

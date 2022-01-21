@@ -6,6 +6,7 @@ external interface GetSearchResultResponse : SparqlResponse, GetSearchResultResp
 
 external interface GetSearchResultResponseCard {
     var label: SparqlValue<String>
+    var sameFr: SparqlValue<String>
     var cityName: SparqlValue<String>?
     var countryName: SparqlValue<String>?
     var name: SparqlValue<String>?

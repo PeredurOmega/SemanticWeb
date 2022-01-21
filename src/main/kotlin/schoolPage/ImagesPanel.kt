@@ -1,27 +1,33 @@
 package schoolPage
 
 import react.FC
-import react.Props
-import react.useState
-import search.mapResult
+import tools.sparql.GetSchoolSameFrResponse
+import tools.sparql.SparqlQueryConsumerProps
 import tools.useWikipediaScrapper
 
-external interface ImagesPanelProps : Props {
-    var schoolUri : String
-}
+external interface ImagePanelProps : SparqlQueryConsumerProps<GetSchoolSameFrResponse>
 
-val imagesPanel = FC<ImagesPanelProps> { props ->
-    val schoolImagesUri = useWikipediaScrapper(props.schoolUri)
-    if (schoolImagesUri.isNotEmpty()) {
-        val schoolLogoUri = schoolImagesUri[0]
-        val schoolImageUri = schoolImagesUri[1]
+val imagesPanel = FC<ImagePanelProps> { props ->
+    val schoolLogoUri = useWikipediaScrapper(props.queryResult.sameFr.value,1) {
+        it.contains("logo", ignoreCase = true) || it.contains(
+            "signature",
+            ignoreCase = true
+        )
+    }
+    val schoolImageUri = useWikipediaScrapper(props.queryResult.sameFr.value, 1) {
+        !(it.contains("logo", ignoreCase = true) || it.contains(
+            "signature",
+            ignoreCase = true
+        ))
+    }
+    if (schoolLogoUri.isNotEmpty() && schoolImageUri.isNotEmpty()) {
         imageDisplay {
             className = "logo-img"
-            this.schoolImageUri = schoolLogoUri
+            this.schoolImageUri = schoolLogoUri[0]
         }
         imageDisplay {
             className = "school-img"
-            this.schoolImageUri = schoolImageUri
+            this.schoolImageUri = schoolImageUri[0]
         }
     }
 }
