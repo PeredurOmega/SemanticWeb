@@ -25,43 +25,46 @@ val searchBar = FC<SearchBarProps> { props ->
     val suggestions = useLookup(searchText)
     val navigate = useNavigate()
     div {
-        className = "search-bar " + if (props.isSmall == true) "small-bar" else "main-bar"
-        basicSVG("MainSearchIcon", "Rechercher", "search-icon", ::search)
-        ReactHTML.input {
-            value = searchText
-            id = "search"
-            onChange = {
-                setSearchText(it.currentTarget.value)
-            }
-            type = InputType.search
-            placeholder = "Recherchez votre future université ..."
-            onKeyDown = {
-                if (it.key == "Enter" || it.key == "Return") {
-                    if (selectedSuggestion != null) {
-                        navigate("/school", jso{ state = jso<SchoolPageLocationState> { schoolUri = suggestions[selectedSuggestion].uri } })
-                    }
-                    else navigate("/search",
-                        jso{ state = jso<SearchPageLocationState> { this.searchText = searchText } } )
-                } else if (it.key == "ArrowDown") {
-                    setSelectedSuggestion(((selectedSuggestion ?: -1) + 1).coerceIn(0, suggestions.size - 1))
-                    it.preventDefault()
-                } else if (it.key == "ArrowUp") {
-                    if (selectedSuggestion == 0) setSelectedSuggestion(null)
-                    else if (selectedSuggestion != null) setSelectedSuggestion(
-                        (selectedSuggestion - 1).coerceIn(
-                            0,
-                            suggestions.size - 1
+        className = if (props.isSmall == true) "search-bar-container-small" else "search-bar-container"
+        div {
+            className = "search-bar " + if (props.isSmall == true) "small-bar" else "main-bar"
+            basicSVG("MainSearchIcon", "Rechercher", "search-icon", ::search)
+            ReactHTML.input {
+                value = searchText
+                id = "search"
+                onChange = {
+                    setSearchText(it.currentTarget.value)
+                }
+                type = InputType.search
+                placeholder = "Recherchez votre future université ..."
+                onKeyDown = {
+                    if (it.key == "Enter" || it.key == "Return") {
+                        if (selectedSuggestion != null) {
+                            navigate("/school", jso{ state = jso<SchoolPageLocationState> { schoolUri = suggestions[selectedSuggestion].uri } })
+                        }
+                        else navigate("/search",
+                            jso{ state = jso<SearchPageLocationState> { this.searchText = searchText } } )
+                    } else if (it.key == "ArrowDown") {
+                        setSelectedSuggestion(((selectedSuggestion ?: -1) + 1).coerceIn(0, suggestions.size - 1))
+                        it.preventDefault()
+                    } else if (it.key == "ArrowUp") {
+                        if (selectedSuggestion == 0) setSelectedSuggestion(null)
+                        else if (selectedSuggestion != null) setSelectedSuggestion(
+                            (selectedSuggestion - 1).coerceIn(
+                                0,
+                                suggestions.size - 1
+                            )
                         )
-                    )
-                    it.preventDefault()
+                        it.preventDefault()
+                    }
                 }
             }
         }
-    }
-    autocompletionPanel {
-        this.searchText = searchText
-        this.selectedSuggestion = selectedSuggestion
-        this.suggestions = suggestions
+        autocompletionPanel {
+            this.searchText = searchText
+            this.selectedSuggestion = selectedSuggestion
+            this.suggestions = suggestions
+        }
     }
 }
 

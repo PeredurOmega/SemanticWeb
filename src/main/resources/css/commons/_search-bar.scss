@@ -1,7 +1,42 @@
+@use "texts";
 @use "shadow";
+
+.search-bar-container-small {
+  position: relative;
+  margin-left: 50px;
+}
+
+.search-bar-container {
+  position: relative;
+}
+
+.main-bar {
+  margin-top: 30px;
+
+  & > input {
+    width: 800px;
+    height: 60px;
+  }
+}
+
+.small-bar > input {
+  width: 800px;
+  height: 50px;
+}
+
 
 .search-bar {
   position: relative;
+
+  & > .search-icon {
+    width: 40px;
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 375px);
+    right: auto;
+    z-index: 1;
+    cursor: pointer;
+  }
 
   & > input {
     border-radius: 40px;
@@ -22,23 +57,27 @@
   }
 }
 
-.main-bar {
-  margin-top: 30px;
+.autocompletion {
+  position: absolute;
+  width: 100%;
+  text-align: left;
+  background: white;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  overflow: hidden;
+  @extend %shadow-excluding-top;
 
-  & > input {
-    width: 800px;
-    height: 60px;
+  & > a {
+    display: block;
+    @extend %big-text;
+    @extend %huge-text-size;
+    text-decoration: none;
+    padding: 15px 25px 15px 90px;
+    border-top: 0.5px solid rgba(119, 119, 119, 0.2);
+    cursor: pointer;
+
+    &:hover, &.selected {
+      background: #f5f5f5;
+    }
   }
-
-}
-
-.small-bar {
-
-  margin-left:50px;
-
-  & > input {
-    width: 800px;
-    height: 50px;
-  }
-
 }
