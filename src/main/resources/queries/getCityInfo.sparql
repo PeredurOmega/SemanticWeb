@@ -1,0 +1,22 @@
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?name, ?communeStatusLabel, ?countryName, ?abstract, ?thumbnail,
+        ?postalCode, ?inseeCode, ?area, ?altitudeMin, ?altitudeMax, ?mayor, ?politicalParty, ?district
+WHERE {
+    OPTIONAL {<$uri$> dbp:name ?name}.
+    OPTIONAL {<$uri$> dbp:communeStatus ?communeStatus}.
+    OPTIONAL {?communeStatus rdfs:label ?communeStatusLabel. FILTER langMatches( lang(?communeStatusLabel), "FR")}.
+    OPTIONAL {<$uri$> dbo:country ?country. ?country rdfs:label ?countryName . FILTER langMatches( lang(?countryName), "EN")}.
+    OPTIONAL {<$uri$> dbo:abstract ?abstract. FILTER langMatches( lang(?abstract), "FR")}.
+    OPTIONAL {<$uri$> dbo:thumbnail ?thumbnail}.
+    OPTIONAL {<$uri$> dbo:postalCode ?postalCode}.
+    OPTIONAL {<$uri$> dbo:inseeCode ?inseeCode}.
+    OPTIONAL {<$uri$> dbp:areaKm ?area}.
+    OPTIONAL {<$uri$> dbo:minimumElevation ?altitudeMin}.
+    OPTIONAL {<$uri$> dbo:maximumElevation ?altitudeMax}.
+    OPTIONAL {<$uri$> dbp:mayor ?mayor}.
+    OPTIONAL {<$uri$> dbp:party ?party. ?party dbp:nativeName ?politicalParty}.
+    OPTIONAL {<$uri$> dbp:arrondissement ?arrondissement. ?arrondissement dbp:name ?district}.
+}
