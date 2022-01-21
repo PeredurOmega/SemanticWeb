@@ -9,7 +9,7 @@ private fun <V : SparqlVariables, R : SparqlResponse> useSparqlQuery(
 ): Array<R>? {
     val (response, setResponse) = useState<Array<R>?>(null)
 
-    useEffectOnce {
+    useEffect(sparqlQuery, variables) {
         sparqlQuery.execute(variables, setResponse)
     }
 
