@@ -1,0 +1,30 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+
+SELECT *
+WHERE {
+ OPTIONAL {<$uri$> rdfs:label ?labelen.}
+  FILTER (lang(?labelen) = "en")
+ OPTIONAL {<$uri$> rdfs:comment ?descriptionen . }
+  FILTER (lang(?descriptionen) = "en")
+ OPTIONAL {<$uri$> rdfs:comment ?descriptionfr . }
+  FILTER (lang(?descriptionfr) = "fr")
+ OPTIONAL {<$uri$> gold:hypernym ?hypernym.
+ ?hypernym rdfs:label ?domain.}
+  FILTER (lang(?domain) = "fr")
+  OPTIONAL {<$uri$> foaf:isPrimaryTopicOf ?wiki}
+ OPTIONAL {<$uri$> dbp:title ?titles. }
+   FILTER (lang(?titles) = "en")
+ OPTIONAL {<$uri$> dbp:title ?titler.
+ ?titler rdfs:label ?titlelab. }
+   FILTER (strStarts(xsd:string(?titler), "http"))
+   FILTER (lang(?titlelab) = "en")
+ OPTIONAL {<$uri$> dbp:birthPlace ?cityen.  }
+   FILTER(lang(?cityen) = "en")
+   {select (concat(group_concat(?ville;separator=', '))) as ?cityconcat where {
+ OPTIONAL {<$uri$> dbo:birthPlace ?birth.
+   ?birth rdfs:label ?ville. }
+   FILTER(lang(?ville) = "fr")
+   }}
+}

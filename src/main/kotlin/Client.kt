@@ -1,5 +1,6 @@
 import kotlinx.browser.document
 import kotlinx.browser.window
+import person.personPage
 import react.*
 import react.dom.render
 import react.router.Route
@@ -22,7 +23,7 @@ val mainRouter = FC<Props> {
         Routes {
             Route {
                 path = "/"
-                element = cityPage.create()
+                element = mainPage.create()
             }
             Route {
                 path = "*"

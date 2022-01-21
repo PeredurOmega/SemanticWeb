@@ -1,0 +1,11 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+
+SELECT *
+WHERE {
+ OPTIONAL {<$uri$> dbo:almaMater ?resource.
+?resource rdfs:label ?universities; dbo:type ?ge}
+  FILTER (lang(?universities) = "en")
+}
+ORDER BY ASC(?ge)
