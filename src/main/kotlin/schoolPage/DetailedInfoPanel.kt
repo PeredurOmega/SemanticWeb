@@ -1,7 +1,7 @@
 package schoolPage
 
+import cityPage.CityPageLocationState
 import kotlinext.js.jso
-import locationPage.LocationDetailsPageLocationState
 import react.FC
 import react.Props
 import react.dom.html.AnchorTarget
@@ -47,7 +47,7 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
             div {
                 Link {
                     this.to = "/city"
-                    this.state = jso<LocationDetailsPageLocationState> { locationDetailsName = schoolInfo.cityUrl?.value!! }
+                    this.state = jso<CityPageLocationState> { cityName = schoolInfo.cityUrl?.value!! }
                     div {
                         className = "detailled-info"
                         i {

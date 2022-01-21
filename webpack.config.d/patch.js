@@ -85,6 +85,6 @@ config.resolve.modules.push("processedResources/js/main");
 // resources
 ;(function (config) {
 config.resolve.modules.unshift(
-    'D:\\Cours INSA\\WebSemantic\\src\\main\\resources'
+    '/Users/louisepietropaoli/Documents/pro/insa/4ifa/WS/SemanticWeb/src/main/resources'
 )
 })(config)

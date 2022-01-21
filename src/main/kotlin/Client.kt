@@ -1,6 +1,5 @@
 import kotlinx.browser.document
 import kotlinx.browser.window
-import locationPage.locationDetailsPage
 import react.*
 import react.dom.render
 import react.router.Route
@@ -8,6 +7,7 @@ import react.router.Routes
 import react.router.dom.BrowserRouter
 import schoolPage.schoolPage
 import search.searchPage
+import cityPage.cityPage
 import tools.requireSCSS
 
 fun main() {
@@ -22,7 +22,7 @@ val mainRouter = FC<Props> {
         Routes {
             Route {
                 path = "/"
-                element = mainPage.create()
+                element = cityPage.create()
             }
             Route {
                 path = "*"
@@ -50,7 +50,7 @@ val app = FC<Props> {
         }
         Route{
             path = "city"
-            element = locationDetailsPage.create()
+            element = cityPage.create()
         }
     }
 }
