@@ -8,3 +8,4 @@ WHERE {
 ?resource rdfs:label ?universities; dbo:type ?ge}
   FILTER (lang(?universities) = "en")
 }
+ORDER BY ASC(?ge)
