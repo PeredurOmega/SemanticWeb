@@ -1,9 +1,8 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX dbp: <http://dbpedia.org/property/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-SELECT ?name, ?communeStatusLabel, ?countryName, ?abstract, ?thumbnail,
-        ?postalCode, ?inseeCode, ?area, ?altitudeMin, ?altitudeMax, ?mayor, ?politicalParty, ?district
+SELECT *
 WHERE {
     OPTIONAL {<$uri$> dbp:name ?name}.
     OPTIONAL {<$uri$> dbp:communeStatus ?communeStatus}.
@@ -19,4 +18,5 @@ WHERE {
     OPTIONAL {<$uri$> dbp:mayor ?mayor}.
     OPTIONAL {<$uri$> dbp:party ?party. ?party dbp:nativeName ?politicalParty}.
     OPTIONAL {<$uri$> dbp:arrondissement ?arrondissement. ?arrondissement dbp:name ?district}.
+    OPTIONAL {<$uri$> georss:point ?coordinates}.
 }

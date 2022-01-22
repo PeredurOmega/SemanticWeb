@@ -5,7 +5,10 @@ import react.FC
 import react.Props
 import react.State
 import react.dom.html.ReactHTML.div
+import react.dom.html.ReactHTML.hr
 import react.router.useLocation
+import search.mapCoordinatesContextProvider
+import search.mapResult
 import tools.redirectToHome
 import tools.requireSCSS
 import sparql.getCityImage
@@ -22,24 +25,36 @@ val cityPage = FC<Props> {
     val location = useLocation()
     val cityUri = location.state.unsafeCast<CityPageLocationState?>()?.cityUri ?: return@FC redirectToHome()
 
-    div {
-        className = ""
+
+    mapCoordinatesContextProvider {
         div {
-            className = "city-results"
-            sparqlQueryLoaderSingle(getCityInfo, jso { uri = cityUri }, true) {
-                cityResult {
+            className = "city-container"
+            div {
+                className = "left-panel"
+                sparqlQueryLoaderSingle(getCityInfo, jso { uri = cityUri }, true) {
+                    cityResult {
+                        this.cityUri = cityUri
+                    }
+                }
+                hr { }
+                cityBirthDeathPlacePersonsPanel {
                     this.cityUri = cityUri
                 }
             }
-        }
-        sparqlQueryLoaderSingle(getCityImage, jso { uri = cityUri }) {
-            cityImagePanel {
-                this.cityUri = cityUri
+            div {
+                className = "right-panel"
+                div {
+                    className = "media-container"
+                    sparqlQueryLoaderSingle(getCityImage, jso { uri = cityUri }){
+                        cityImagePanel{
+                            this.cityUri = cityUri
+                        }
+                    }
+                    mapResult {
+                        expectedCount = 1
+                    }
+                }
             }
-        }
-
-        cityBirthDeathPlacePersonsPanel {
-            this.cityUri = cityUri
         }
     }
 }

@@ -1,0 +1,158 @@
+@use "commons/shadow";
+@use "commons/texts";
+@use "commons/persons";
+
+.city-container {
+  display: flex;
+  flex-direction: row;
+  background-color: #f9f9f9;
+  padding: 102px 2% 30px 2%;
+  min-height: calc(100vh - 132px);
+
+  & > .left-panel {
+    display: flex;
+    flex-direction: column;
+    width: 58%;
+    margin-right: 2%;
+
+    & > .city-info {
+      display: flex;
+      flex-direction: column;
+
+      & > .general-info {
+        display: flex;
+        flex-direction: column;
+        background-color: #ffffff;
+        margin-bottom: 25px;
+        padding: 40px 50px;
+        border-radius: 20px;
+        @extend %shadow;
+
+        & > .city-name {
+          font-size: 2.4em;
+          font-weight: 700;
+        }
+
+        & > .city-status {
+          font-size: 1.4em;
+          font-weight: 500;
+          color: #696969;
+          font-style: italic;
+          letter-spacing: 1px;
+          margin-bottom: 15px;
+        }
+
+        & > .city-description {
+          @extend %huge-text-size;
+        }
+
+      }
+
+      & > .detailled-info {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: #ffffff;
+        margin: 25px 0;
+        padding: 30px 50px 40px;
+        border-radius: 20px;
+        @extend %shadow;
+
+        & > .detailled-info-panel {
+          display: flex;
+          flex-direction: column;
+
+          & > .raw-info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-top: 10px;
+
+            & > i {
+              font-size: 2.6em;
+              margin-right: 14px;
+            }
+
+            & > span {
+              font-size: 1.3em;
+              font-weight: 600;
+              margin-left: 10px;
+            }
+
+            & > span:last-child {
+              font-weight: 400;
+            }
+
+          }
+        }
+      }
+    }
+
+    & > .birth-death-related-person-panels {
+      @extend %person-panel;
+    }
+  }
+
+  & > .right-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 38%;
+    margin-left: 2%;
+
+    & > .media-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: calc(100vh - 132px);
+      position: sticky !important;
+      position: -webkit-sticky !important;
+      border-radius: 20px;
+      top: 102px;
+
+      & > .city-img {
+        width: 100%;
+        max-height: calc(50vh - 81px);
+        margin-bottom: 30px;
+
+        & > img {
+          -o-object-fit: cover;
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          border-radius: 20px;
+          @extend %shadow;
+        }
+      }
+
+      & > .map-results {
+        width: 100%;
+
+        & > #map {
+          width: 100%;
+          height: calc(50vh - 81px);
+          border-radius: 20px;
+          @extend %shadow;
+
+          & .marker-popup {
+
+            & > a {
+              color: initial;
+            }
+            & > a:first-child > span {
+              @extend %big-title;
+            }
+            & > a:last-child > span {
+              @extend %big-text;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+hr {
+  width: calc(100% - 40px);
+  color: #9d9d9d;
+}

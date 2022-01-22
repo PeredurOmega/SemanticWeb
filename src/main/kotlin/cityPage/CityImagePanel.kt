@@ -13,7 +13,7 @@ external interface CityImagePanelProps : SparqlQueryConsumerProps<GetPersonImage
 
 val cityImagePanel = FC<CityImagePanelProps> { props ->
     div {
-        className = "img-city"
+        className = "city-img"
         if (!props.queryResult.imageURL?.value.isNullOrBlank()) {
             img {
                 src = props.queryResult.imageURL!!.value
