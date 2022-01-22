@@ -1,0 +1,8 @@
+@use "commons/shadow";
+@use "commons/texts";
+@use "commons/persons";
+
+
+* {
+  @extend %person-panel;
+}
