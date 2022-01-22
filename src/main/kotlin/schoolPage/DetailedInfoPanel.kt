@@ -14,7 +14,7 @@ import tools.sparql.GetSchoolInfoResponse
 import kotlin.math.pow
 
 external interface DetailedInfoPanelProps : Props {
-    var schoolInfo : GetSchoolInfoResponse
+    var schoolInfo: GetSchoolInfoResponse
 }
 
 val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
@@ -31,37 +31,50 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
             }
             span {
                 a {
-                    if (!schoolInfo.website?.value.isNullOrBlank())  {
+                    if (!schoolInfo.website?.value.isNullOrBlank()) {
                         +schoolInfo.website?.value!!
                         href = schoolInfo.website?.value!!
-                    }
-                    else if (!schoolInfo.homepage?.value.isNullOrBlank()) {
+                    } else if (!schoolInfo.homepage?.value.isNullOrBlank()) {
                         +schoolInfo.homepage?.value!!
                         href = schoolInfo.homepage?.value!!
-                    }
+                    } else +"NC"
                     target = AnchorTarget._blank
-
                 }
             }
         }
         div {
             div {
-                Link {
-                    this.to = "/city"
-                    this.state = jso<CityPageLocationState> { cityUri = schoolInfo.cityUrl?.value!! }
+                if (!schoolInfo.cityName?.value.isNullOrBlank()) {
+                    Link {
+                        this.to = "/city"
+                        this.state = jso<CityPageLocationState> { cityUri = schoolInfo.cityUrl?.value!! }
+                        div {
+                            className = "detailled-info"
+                            i {
+                                className = "fas fa-fw fa-map-marked-alt"
+                            }
+                            span {
+                                +"Localisation : "
+                            }
+                            span {
+                                +(schoolInfo.cityName?.value!! + ", ")
+                                +", "
+                                if (!schoolInfo.countryName?.value.isNullOrBlank()) +schoolInfo.countryName?.value!!
+                                else +"France"
+                            }
+                        }
+                    }
+                } else {
                     div {
                         className = "detailled-info"
                         i {
                             className = "fas fa-fw fa-map-marked-alt"
                         }
                         span {
-                            +"Localisation : "
+                            +"Localisation :"
                         }
                         span {
-                            if (!schoolInfo.cityName?.value.isNullOrBlank()) +(schoolInfo.cityName?.value!! + ", ")
-                            +", "
-                            if (!schoolInfo.countryName?.value.isNullOrBlank()) +schoolInfo.countryName?.value!!
-                            else +"France"
+                            +"France"
                         }
                     }
                 }
@@ -166,7 +179,7 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
     }
 }
 
-fun scientificStrToIntStr(strNumber: String) : String {
+fun scientificStrToIntStr(strNumber: String): String {
     val parts = strNumber.split("E", ignoreCase = true)
     return if (parts.size != 2) strNumber
     else (parts[0].toDouble() * (10.0.pow(parts[1].toDouble()))).toInt().toString()

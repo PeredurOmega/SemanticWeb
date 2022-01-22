@@ -15,14 +15,14 @@ import tools.sparql.getSchoolSameFr
 import tools.sparql.sparqlQueryLoaderSingle
 
 external interface SchoolPageLocationState : State {
-    var schoolUri : String?
+    var schoolUri: String?
 }
 
 val schoolPage = FC<Props> {
 
     requireSCSS("school-page")
     val location = useLocation()
-    val schoolUri = location.state.unsafeCast<SchoolPageLocationState?>()?.schoolUri?: return@FC Navigate {
+    val schoolUri = location.state.unsafeCast<SchoolPageLocationState?>()?.schoolUri ?: return@FC Navigate {
         to = "/"
         replace = true
     }
@@ -49,7 +49,9 @@ val schoolPage = FC<Props> {
                         this.uri = schoolUri
                     }
                 }
-                mapResult {}
+                mapResult {
+                    expectedCount = 1
+                }
             }
         }
     }
