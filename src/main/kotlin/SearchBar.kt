@@ -4,8 +4,9 @@ import kotlinx.dom.addClass
 import kotlinx.dom.removeClass
 import org.w3c.xhr.XMLHttpRequest
 import react.*
+import react.dom.html.AutoComplete
 import react.dom.html.InputType
-import react.dom.html.ReactHTML
+import react.dom.html.ReactHTML.b
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
 import react.router.NavigateFunction
@@ -22,14 +23,14 @@ external interface SearchBarProps : Props {
 val searchBar = FC<SearchBarProps> { props ->
     val (searchText, setSearchText) = useState("")
     val (selectedSuggestion, setSelectedSuggestion) = useState<Int?>(null)
-    val suggestions = useLookup(searchText)
+    val (suggestions, resetSuggestions) = useLookup(searchText)
     val navigate = useNavigate()
     div {
         className = if (props.isSmall == true) "search-bar-container-small" else "search-bar-container"
         div {
             className = "search-bar " + if (props.isSmall == true) "small-bar" else "main-bar"
             basicSVG("MainSearchIcon", "Rechercher", "search-icon") {
-                search(searchText, navigate)
+                search(searchText, navigate, resetSuggestions)
             }
             input {
                 value = searchText
@@ -38,30 +39,40 @@ val searchBar = FC<SearchBarProps> { props ->
                     setSearchText(it.currentTarget.value)
                 }
                 type = InputType.search
+                autoComplete = AutoComplete.off
                 placeholder = "Recherchez votre future université ..."
                 onKeyDown = {
-                    if (it.key == "Enter" || it.key == "Return") {
-                        if (selectedSuggestion != null) {
-                            navigate(
-                                "/school",
-                                jso {
-                                    state =
-                                        jso<SchoolPageLocationState> { schoolUri = suggestions[selectedSuggestion].uri }
-                                })
-                        } else search(searchText, navigate)
-                    } else if (it.key == "ArrowDown") {
-                        setSelectedSuggestion(((selectedSuggestion ?: -1) + 1).coerceIn(0, suggestions.size - 1))
-                        it.preventDefault()
-                    } else if (it.key == "ArrowUp") {
-                        if (selectedSuggestion == 0) setSelectedSuggestion(null)
-                        else if (selectedSuggestion != null) setSelectedSuggestion(
-                            (selectedSuggestion - 1).coerceIn(
-                                0,
-                                suggestions.size - 1
-                            )
-                        )
-                        it.preventDefault()
-                    }
+                    //TODO REFACTOR
+                    if (suggestions != null) {
+                        when (it.key) {
+                            "Enter", "Return" -> {
+                                if (selectedSuggestion != null) {
+                                    navigate("/school", jso {
+                                        state = jso<SchoolPageLocationState> {
+                                            schoolUri = suggestions[selectedSuggestion].uri
+                                        }
+                                    })
+                                } else search(searchText, navigate, resetSuggestions)
+                                it.preventDefault()
+                            }
+                            "ArrowDown" -> {
+                                setSelectedSuggestion(
+                                    ((selectedSuggestion ?: -1) + 1).coerceIn(0, suggestions.size - 1)
+                                )
+                                it.preventDefault()
+                            }
+                            "ArrowUp" -> {
+                                if (selectedSuggestion == 0) setSelectedSuggestion(null)
+                                else if (selectedSuggestion != null) setSelectedSuggestion(
+                                    (selectedSuggestion - 1).coerceIn(
+                                        0,
+                                        suggestions.size - 1
+                                    )
+                                )
+                                it.preventDefault()
+                            }
+                        }
+                    } else if (it.key == "Enter" || it.key == "Return") search(searchText, navigate, resetSuggestions)
                 }
             }
         }
@@ -73,32 +84,37 @@ val searchBar = FC<SearchBarProps> { props ->
     }
 }
 
-fun search(searchText: String, navigate: NavigateFunction) {
+private fun search(
+    searchText: String,
+    navigate: NavigateFunction,
+    resetSuggestions: (immediateDiscard: Boolean) -> Unit
+) {
     navigate("/search?$searchText", jso { state = jso<SearchPageLocationState> { this.searchText = searchText } })
+    resetSuggestions(true)
+
 }
 
-external interface AutocompletionPanelProps : Props {
+private external interface AutocompletionPanelProps : Props {
     var searchText: String
     var selectedSuggestion: Int?
-    var suggestions: List<Suggestion>
+    var suggestions: List<Suggestion>?
 }
 
-val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
-
+private val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
     div {
         className = "autocompletion"
-        props.suggestions.forEachIndexed { i, suggestion ->
+        props.suggestions?.forEachIndexed { i, suggestion ->
             Link {
                 this.to = "/school"
                 this.state = jso<SchoolPageLocationState> { schoolUri = suggestion.component2() }
                 if (props.selectedSuggestion == i) className = "selected"
                 val labelSplit = Regex("(.*)(${props.searchText})(.*)", RegexOption.IGNORE_CASE).find(suggestion.label)
                 if (labelSplit != null) {
-                    ReactHTML.b {
+                    b {
                         +labelSplit.groupValues[1]
                     }
                     +labelSplit.groupValues[2]
-                    ReactHTML.b {
+                    b {
                         +labelSplit.groupValues[3]
                     }
                 } else +suggestion.label
@@ -107,26 +123,36 @@ val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
     }
 }
 
-
-fun useLookup(searchText: String, isMainPage: Boolean = true): List<Suggestion> {
-    val (suggestions, setSuggestions) = useState<List<Suggestion>>(listOf())
+fun useLookup(
+    searchText: String,
+    isMainPage: Boolean = true
+): Pair<List<Suggestion>?, (immediateDiscard: Boolean) -> Unit> {
+    val (suggestions, setSuggestions) = useState<List<Suggestion>?>(null)
     val queryRef = useRef(0)
+    val reset = useCallback { immediateDiscard: Boolean ->
+        if (immediateDiscard) queryRef.current = queryRef.current?.plus(100)
+        setSuggestions(null)
+    }
     useEffect(searchText) {
         if (searchText.isNotBlank()) {
             dbpediaLookup(searchText, setSuggestions, queryRef)
         }
     }
     if (isMainPage) {
-        useEffect(suggestions.isEmpty()) {
+        useEffect(suggestions?.isEmpty() != false) {
             val input = document.getElementById("search")!!
-            if (suggestions.isEmpty()) input.removeClass("with-suggestions")
+            if (suggestions?.isEmpty() != false) input.removeClass("with-suggestions")
             else input.addClass("with-suggestions")
         }
     }
-    return suggestions
+    return suggestions to reset
 }
 
-fun dbpediaLookup(searchText: String, setSuggestions: StateSetter<List<Suggestion>>, queryRef: MutableRefObject<Int>) {
+private fun dbpediaLookup(
+    searchText: String,
+    setSuggestions: StateSetter<List<Suggestion>?>,
+    queryRef: MutableRefObject<Int>
+) {
     queryRef.current = queryRef.current?.plus(1)
     val currentQueryRef = queryRef.current
     val xhr = XMLHttpRequest()
@@ -147,9 +173,7 @@ fun dbpediaLookup(searchText: String, setSuggestions: StateSetter<List<Suggestio
                     Suggestion(firstLabel, it.resource.first())
                 }
                 setSuggestions(suggestions)
-            } else {
-                //TODO Gérer les cas d'erreurs
-            }
+            } else setSuggestions(listOf())
         }
     }
     xhr.open(
@@ -161,9 +185,10 @@ fun dbpediaLookup(searchText: String, setSuggestions: StateSetter<List<Suggestio
 
 data class Suggestion(val label: String, val uri: String)
 
+//TODO MOVE
 external fun encodeURIComponent(str: String): String
 
-external interface LookupResult {
+private external interface LookupResult {
     var docs: Array<Result>
 
     interface Result {

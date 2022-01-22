@@ -2,7 +2,14 @@ package search
 
 import react.*
 
-data class Coordinates(val coordinates: String, val popupText: String, val cityName: String?, val countryName : String?, val cityUri : String?, val schoolUri : String)
+data class Coordinates(
+    val coordinates: String?,
+    val popupText: String,
+    val cityName: String?,
+    val countryName: String?,
+    val cityUri: String?,
+    val schoolUri: String
+)
 
 val MapCoordinatesContext = createContext(mutableListOf<Coordinates>())
 
