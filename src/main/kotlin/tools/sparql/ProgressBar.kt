@@ -3,7 +3,7 @@ package tools.sparql
 import react.*
 import react.dom.html.ReactHTML.div
 
-private val ProgressBarContext = createContext<StateSetter<Boolean>>()
+val ProgressBarContext = createContext<StateSetter<Boolean>>()
 
 val progressBarContextProvider = FC<PropsWithChildren> { props ->
     val (showProgressBar, setShowProgressBar) = useState(false)

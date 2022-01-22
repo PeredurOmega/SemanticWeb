@@ -10,7 +10,7 @@ class SparqlSingleResult <V: SparqlVariables, R: SparqlResponse> (queryName: Str
 
 class SparqlMultipleResults <V: SparqlVariables, R: SparqlResponse> (queryName: String) : SparqlQuery<V, R>(queryName)
 
-abstract class SparqlQuery<V: SparqlVariables, R: SparqlResponse> (val queryName: String) {
+abstract class SparqlQuery<V: SparqlVariables, R: SparqlResponse> (private val queryName: String) {
 
     fun execute(variables: V, saveState: StateSetter<Array<R>?>) {
         retrieveSparqlQuery {
