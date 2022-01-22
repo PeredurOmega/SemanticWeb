@@ -79,7 +79,7 @@ private val MapPositioner = FC<Props> {
                 latLng(lat.toDouble(), lng.toDouble())
             }.toTypedArray())
             map.fitBounds(bounds)
-            map.invalidateSize(true)
+            map.invalidateSize(false)
         } else if (mapCoordinates.isNotEmpty()) {
             val bounds = latLngBounds(arrayOf(
                 latLng(48.0, -5.5),
