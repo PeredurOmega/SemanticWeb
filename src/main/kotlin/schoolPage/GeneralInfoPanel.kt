@@ -4,10 +4,11 @@ import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
+import tools.cleanPageName
 import tools.sparql.GetSchoolInfoResponse
 
 external interface GeneralInfoPanelProps : Props {
-    var schoolInfo : GetSchoolInfoResponse
+    var schoolInfo: GetSchoolInfoResponse
 }
 
 val generalInfoPanel = FC<GeneralInfoPanelProps> { props ->
@@ -17,8 +18,9 @@ val generalInfoPanel = FC<GeneralInfoPanelProps> { props ->
         div {
             className = "school-name"
             span {
-                if (!schoolInfo.nameFoaf?.value.isNullOrBlank()) +schoolInfo.nameFoaf?.value!!
-                else if (!schoolInfo.nameDbp?.value.isNullOrBlank()) +schoolInfo.nameDbp?.value!!
+                if (!schoolInfo.nameFoaf?.value.isNullOrBlank()) +cleanPageName(schoolInfo.nameFoaf?.value!!, listOf("http://dbpedia.org/resource/"))
+                else if (!schoolInfo.nameDbp?.value.isNullOrBlank()) +cleanPageName(schoolInfo.nameDbp?.value!!, listOf("http://dbpedia.org/resource/"))
+                else +schoolInfo.label.value
             }
         }
         div {

@@ -23,19 +23,19 @@ val cardResult = FC<CardResultProps> { props ->
     val searchResult = props.queryResult
     val setCoordinates = useContext(MapCoordinatesSetterContext)
     useEffectOnce {
-            setCoordinates!!.invoke {
-                it.add(
-                    Coordinates(
-                        searchResult.coordinates?.value,
-                        (searchResult.name?.value ?: searchResult.label.value),
-                        searchResult.cityName?.value,
-                        searchResult.countryName?.value,
-                        searchResult.cityUrl?.value,
-                        props.uri
-                    )
+        setCoordinates!!.invoke {
+            it.add(
+                Coordinates(
+                    searchResult.coordinates?.value,
+                    (searchResult.name?.value ?: searchResult.label.value),
+                    searchResult.cityName?.value,
+                    searchResult.countryName?.value,
+                    searchResult.cityUrl?.value,
+                    props.uri
                 )
-                mutableListOf(*it.toTypedArray())
-            }
+            )
+            mutableListOf(*it.toTypedArray())
+        }
     }
     Link {
         this.to = "/school"
@@ -45,7 +45,9 @@ val cardResult = FC<CardResultProps> { props ->
             div {
                 div {
                     span {
-                        +(searchResult.name?.value?.replace('-', '‑') ?: searchResult.label.value).replace('-', '‑')
+                        val name = if (!searchResult.name?.value.isNullOrBlank()) searchResult.name?.value!!
+                        else searchResult.label.value
+                        +(name.replace('-', '‑'))
                     }
                     span {
                         if (!searchResult.cityName?.value.isNullOrBlank() && !searchResult.countryName?.value.isNullOrBlank())

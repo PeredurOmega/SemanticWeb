@@ -28,12 +28,16 @@ WHERE {
     }
 
     OPTIONAL { <$uri$> georss:point ?coordinates . }
-    OPTIONAL { <$uri$> rdfs:comment ?comment . }
+    OPTIONAL {
+        <$uri$> rdfs:comment ?comment .
+        FILTER (lang(?comment) = "fr")
+    }
     OPTIONAL { <$uri$> dbp:name ?name . }
-    OPTIONAL { <$uri$> dbo:abstract ?abstract . }
+    OPTIONAL {
+        <$uri$> dbo:abstract ?abstract .
+        FILTER (lang(?abstract) = "fr")
+    }
 
     FILTER (strstarts(str(?sameFr), 'http://fr.dbpedia.org/resource/'))
-    FILTER (lang(?label) = "fr") .
-    FILTER (lang(?comment) = "fr") .
-    FILTER (lang(?abstract) = "fr") .
+    FILTER (lang(?label) = "fr")
 }
