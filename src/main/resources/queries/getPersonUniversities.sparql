@@ -4,8 +4,11 @@ PREFIX dbr: <http://dbpedia.org/resource/>
 
 SELECT *
 WHERE {
- OPTIONAL {<$uri$> dbo:almaMater ?resource.
-?resource rdfs:label ?universities; dbo:type ?ge}
-  FILTER (lang(?universities) = "en")
+ OPTIONAL {
+    <$uri$> dbo:almaMater ?resource.
+    ?resource rdfs:label ?universities.
+    OPTIONAL{?resource dbo:type ?ge.}
+    FILTER (lang(?universities) = "en")
+    }
 }
 ORDER BY ASC(?ge)
