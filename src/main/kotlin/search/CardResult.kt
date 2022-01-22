@@ -16,25 +16,30 @@ import tools.sparql.SparqlQueryConsumerProps
 import tools.useWikipediaScrapper
 
 external interface CardResultProps : SparqlQueryConsumerProps<GetSearchResultResponse> {
-    var uri : String
+    var uri: String
 }
 
 val cardResult = FC<CardResultProps> { props ->
     val searchResult = props.queryResult
     val setCoordinates = useContext(MapCoordinatesSetterContext)
     useEffectOnce {
-        searchResult.coordinates?.value?.let { coordinates ->
-            if (setCoordinates != null) {
-                setCoordinates {
-                    it.add(Coordinates(coordinates, (searchResult.name?.value?:searchResult.label.value), searchResult.cityName?.value, searchResult.countryName?.value, searchResult.cityUrl?.value, props.uri))
-                    mutableListOf(*it.toTypedArray())
-                }
+            setCoordinates!!.invoke {
+                it.add(
+                    Coordinates(
+                        searchResult.coordinates?.value,
+                        (searchResult.name?.value ?: searchResult.label.value),
+                        searchResult.cityName?.value,
+                        searchResult.countryName?.value,
+                        searchResult.cityUrl?.value,
+                        props.uri
+                    )
+                )
+                mutableListOf(*it.toTypedArray())
             }
-        }
     }
     Link {
         this.to = "/school"
-        this.state = jso<SchoolPageLocationState> { schoolUri = props.uri}
+        this.state = jso<SchoolPageLocationState> { schoolUri = props.uri }
         div {
             className = "card-result"
             div {
@@ -62,14 +67,19 @@ val cardResult = FC<CardResultProps> { props ->
 }
 
 external interface LogoUrlProps : Props {
-    var uri : String
-    var sameFr : String
-    var alt : String
+    var uri: String
+    var sameFr: String
+    var alt: String
 }
 
 
 private val schoolLogo = FC<LogoUrlProps> { props ->
-    val logoUri = useWikipediaScrapper(props.uri, props.sameFr, 1) { it.contains("logo", ignoreCase = true) || it.contains("signature", ignoreCase = true) }
+    val logoUri = useWikipediaScrapper(props.uri, props.sameFr, 1) {
+        it.contains(
+            "logo",
+            ignoreCase = true
+        ) || it.contains("signature", ignoreCase = true)
+    }
 
 
     if (logoUri.isNotEmpty()) {

@@ -68,6 +68,8 @@ private val searchPageResults = FC<SearchPageResultsProps> { props ->
                 }
             }
         }
-        mapResult { }
+        mapResult {
+            expectedCount = props.suggestions.size
+        }
     }
 }
