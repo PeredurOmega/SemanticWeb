@@ -79,3 +79,5 @@ fun <V : String?> SparqlValue<V>?.whenNotBlank(block: (String) -> Unit): Placeho
 infix fun Placeholder.placeholder(block: () -> Unit) {
     if (showPlaceholder) block()
 }
+
+infix fun Placeholder.orElse(block: () -> Placeholder) = if (showPlaceholder) block() else this
