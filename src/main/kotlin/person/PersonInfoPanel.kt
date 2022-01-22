@@ -8,6 +8,7 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.hr
 import react.dom.html.ReactHTML.i
 import react.dom.html.ReactHTML.span
+import tools.cleanPageName
 import tools.sparql.GetPersonInfoResponse
 import tools.sparql.SparqlQueryConsumerProps
 import tools.sparql.getPersonUniversities
@@ -83,8 +84,8 @@ val personInfoPanel = FC<PersonInfoPanelProps> { props ->
                     +"Lieu de naissance : "
                 }
                 span {
-                    if (!props.queryResult.cityconcat?.value.isNullOrBlank()) +props.queryResult.cityconcat?.value!!
-                    else if (!props.queryResult.cityen?.value.isNullOrBlank()) +props.queryResult.cityen?.value!!
+                    if (!props.queryResult.cityconcat?.value.isNullOrBlank()) +props.queryResult.cityconcat?.value!!.removePrefix("Franca, ")
+                    else if (!props.queryResult.cityen?.value.isNullOrBlank()) +props.queryResult.cityen?.value!!.removePrefix("Franca, ")
                     else +"NC"
                 }
             }
