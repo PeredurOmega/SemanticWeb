@@ -42,7 +42,7 @@ private val infoPanelWrapper = FC<InfoPanelWrapperProps> { props ->
         setCoordinates?.invoke(mutableListOf(Coordinates(coordinates, schoolName, cityName, countryName, cityUri, schoolUri)))
     }
     useEffectOnce {
-        document.getElementById("special-hr")?.className += " with-pane1"
+        document.getElementById("special-hr")?.className += " with-panel1"
     }
 
     generalInfoPanel {

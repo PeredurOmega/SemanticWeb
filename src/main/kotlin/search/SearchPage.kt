@@ -31,11 +31,7 @@ val searchPage = FC<Props> {
                 div {
                     className = "card-results"
                     suggestions.forEach {
-                        sparqlQueryLoaderSingle(
-                            getSearchResult,
-                            jso {
-                                uri = it.uri
-                            }) {
+                        sparqlQueryLoaderSingle(getSearchResult, jso { uri = it.uri }, true) {
                             cardResult {
                                 uri = it.uri
                             }

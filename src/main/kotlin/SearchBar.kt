@@ -4,6 +4,7 @@ import kotlinx.dom.addClass
 import kotlinx.dom.removeClass
 import org.w3c.xhr.XMLHttpRequest
 import react.*
+import react.dom.html.AutoComplete
 import react.dom.html.InputType
 import react.dom.html.ReactHTML
 import react.dom.html.ReactHTML.div
@@ -38,29 +39,35 @@ val searchBar = FC<SearchBarProps> { props ->
                     setSearchText(it.currentTarget.value)
                 }
                 type = InputType.search
+                autoComplete = AutoComplete.off
                 placeholder = "Recherchez votre future université ..."
                 onKeyDown = {
-                    if (it.key == "Enter" || it.key == "Return") {
-                        if (selectedSuggestion != null) {
-                            navigate(
-                                "/school",
-                                jso {
-                                    state =
-                                        jso<SchoolPageLocationState> { schoolUri = suggestions[selectedSuggestion].uri }
-                                })
-                        } else search(searchText, navigate)
-                    } else if (it.key == "ArrowDown") {
-                        setSelectedSuggestion(((selectedSuggestion ?: -1) + 1).coerceIn(0, suggestions.size - 1))
-                        it.preventDefault()
-                    } else if (it.key == "ArrowUp") {
-                        if (selectedSuggestion == 0) setSelectedSuggestion(null)
-                        else if (selectedSuggestion != null) setSelectedSuggestion(
-                            (selectedSuggestion - 1).coerceIn(
-                                0,
-                                suggestions.size - 1
+                    when (it.key) {
+                        "Enter", "Return" -> {
+                            if (selectedSuggestion != null) {
+                                navigate(
+                                    "/school",
+                                    jso {
+                                        state =
+                                            jso<SchoolPageLocationState> { schoolUri = suggestions[selectedSuggestion].uri }
+                                    })
+                            } else search(searchText, navigate)
+                            it.preventDefault()
+                        }
+                        "ArrowDown" -> {
+                            setSelectedSuggestion(((selectedSuggestion ?: -1) + 1).coerceIn(0, suggestions.size - 1))
+                            it.preventDefault()
+                        }
+                        "ArrowUp" -> {
+                            if (selectedSuggestion == 0) setSelectedSuggestion(null)
+                            else if (selectedSuggestion != null) setSelectedSuggestion(
+                                (selectedSuggestion - 1).coerceIn(
+                                    0,
+                                    suggestions.size - 1
+                                )
                             )
-                        )
-                        it.preventDefault()
+                            it.preventDefault()
+                        }
                     }
                 }
             }

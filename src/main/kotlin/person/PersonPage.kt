@@ -31,7 +31,7 @@ val personPage = FC<Props> {
     }
     div{
         className = "main-person-div"
-        sparqlQueryLoaderSingle(getPersonInfo, jso { uri = personUri }){
+        sparqlQueryLoaderSingle(getPersonInfo, jso { uri = personUri }, true){
             personInfoPanel {
                 this.personUri = personUri
             }

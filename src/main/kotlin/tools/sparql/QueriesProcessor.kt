@@ -59,16 +59,13 @@ private external interface SparqlQueryLoaderSingleProps<V : SparqlVariables, R :
 }
 
 private val sparqlQueryLoaderSingle = FC<SparqlQueryLoaderSingleProps<SparqlVariables, SparqlResponse>> { props ->
-    val setShowProgressBar = useContext(ProgressBarContext)
     val queryResult = useSparqlSingleResult(props.sparqlQuery, props.variables)
+    useProgressBar(queryResult == null, props.displayLoading)
     if (queryResult != null) {
-        setShowProgressBar(false)
         val element = cloneElement(
             Children.only(props.children),
             jso<SparqlQueryConsumerProps<SparqlResponse>> { this.queryResult = queryResult })
         child(element)
-    } else if (props.displayLoading == true) {
-        setShowProgressBar(true)
     }
 }
 
@@ -101,16 +98,13 @@ private external interface SparqlQueryLoaderMultipleProps<V : SparqlVariables, R
 }
 
 private val sparqlQueryLoaderMultiple = FC<SparqlQueryLoaderMultipleProps<SparqlVariables, SparqlResponse>> { props ->
-    val setShowProgressBar = useContext(ProgressBarContext)
     val queryResult = useSparqlMultipleResults(props.sparqlQuery, props.variables)
+    useProgressBar(queryResult == null, props.displayLoading)
     if (queryResult != null) {
-        setShowProgressBar(false)
         val element = cloneElement(
             Children.only(props.children),
             jso<SparqlQueryArrayConsumerProps<SparqlResponse>> { this.queryResult = queryResult })
         child(element)
-    } else if (props.displayLoading == true) {
-        setShowProgressBar(true)
     }
 }
 
