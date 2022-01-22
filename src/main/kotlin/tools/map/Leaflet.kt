@@ -14,7 +14,11 @@ external interface Map {
 }
 
 @JsName("LatLngBounds")
-external interface LatLngBounds
+external interface LatLngBounds {
+
+    fun extend(latLng: LatLng): LatLngBounds
+
+}
 
 @JsName("latLngBounds")
 external fun latLngBounds(latLngs: Array<LatLng>): LatLngBounds
