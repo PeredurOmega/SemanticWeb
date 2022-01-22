@@ -49,7 +49,7 @@ fun getImagesFromWikipediaPage(pageName: String, nbImages: Int, setSchoolImagesU
 
 private fun acceptAll(str : String) = true
 
-private fun cleanPageName(pageName: String, prefix : List<String>) : String {
+fun cleanPageName(pageName: String, prefix : List<String>) : String {
     var cleanedPageName = pageName
     prefix.forEach {
         cleanedPageName = cleanedPageName.removePrefix(it)
@@ -62,6 +62,7 @@ private fun choosePageName(pageUri: String, pageSame: String) : String {
     val nbMatch = parts.count {
         pageSame.contains(it, ignoreCase = true)
     }
+    if (pageUri.contains("po", ignoreCase = true) && pageSame.contains("politiques", ignoreCase = true)) return pageSame
     return if (nbMatch > parts.size * (0.9)) pageSame else pageUri
 }
 
@@ -71,6 +72,7 @@ fun useWikipediaScrapper(pageUri : String, pageSame : String? = null, nbImages :
     val prefix = listOf("http://dbpedia.org/resource/", "http://fr.dbpedia.org/resource/")
 
     val pageName = if (pageSame != null) choosePageName(cleanPageName(pageUri, prefix), cleanPageName(pageSame, prefix)) else pageUri
+    println("pageName : $pageName, URI : $pageUri, URN: $pageSame")
     useEffectOnce {
         getImagesFromWikipediaPage(cleanPageName(pageName, prefix), nbImages, setSchoolImagesUri, filter = filter)
     }
