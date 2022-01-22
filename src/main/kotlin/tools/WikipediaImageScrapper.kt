@@ -39,16 +39,13 @@ fun getImagesFromWikipediaPage(pageName: String, nbImages: Int, setSchoolImagesU
             else if (xhr.status == 404.toShort() && domain != "en") {
                 getImagesFromWikipediaPage(pageName, nbImages, setSchoolImagesUri, filter,"en")
             }
-            else {
-                //TODO Gérer les cas d'erreurs
-            }
         }
     }
     xhr.open("GET", "https://${domain}.wikipedia.org/api/rest_v1/page/media-list/${pageName}")
     xhr.send()
 }
 
-private fun acceptAll(str : String) = true
+private fun acceptAll(@Suppress("UNUSED_PARAMETER") str : String) = true
 
 fun cleanPageName(pageName: String, prefix : List<String>) : String {
     var cleanedPageName = pageName

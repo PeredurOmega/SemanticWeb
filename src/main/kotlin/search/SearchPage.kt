@@ -7,7 +7,7 @@ import react.dom.html.ReactHTML.h1
 import react.router.useLocation
 import tools.redirectToHome
 import tools.requireSCSS
-import tools.sparql.ProgressBarContext
+import tools.ProgressBarContext
 import tools.sparql.getSearchResult
 import tools.sparql.sparqlQueryLoaderSingle
 

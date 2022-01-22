@@ -8,7 +8,7 @@ import react.ComponentClass
 import react.Props
 
 @JsName("default")
-external val inlineSVG: ComponentClass<InlineSVGProps> //TODO REMOVE USAGE OUTSIDE OF THE PACKAGE
+external val inlineSVG: ComponentClass<InlineSVGProps>
 
 external interface InlineSVGProps : Props{
     var src: String

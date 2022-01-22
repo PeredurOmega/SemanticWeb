@@ -3,8 +3,6 @@ package tools
 import kotlinext.js.jso
 import org.w3c.dom.events.Event
 import react.ChildrenBuilder
-import react.ReactElement
-import react.createElement
 
 const val imageDir = "/images/"
 
@@ -15,15 +13,6 @@ fun ChildrenBuilder.basicSVG(
     onClick: ((Event) -> Unit)? = null
 ) {
     child(inlineSVG, basicSVGProps(iconName, title, className, onClick))
-}
-
-fun basicSVGElement(
-    iconName: String,
-    title: String,
-    className: String? = null,
-    onClick: ((Event) -> Unit)? = null
-): ReactElement {
-    return createElement(inlineSVG, basicSVGProps(iconName, title, className, onClick))
 }
 
 private fun basicSVGProps(

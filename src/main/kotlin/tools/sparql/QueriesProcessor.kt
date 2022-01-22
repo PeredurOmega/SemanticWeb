@@ -2,6 +2,7 @@ package tools.sparql
 
 import kotlinext.js.jso
 import react.*
+import tools.useProgressBar
 
 private fun <V : SparqlVariables, R : SparqlResponse> useSparqlQuery(
     sparqlQuery: SparqlQuery<V, R>,

@@ -20,7 +20,8 @@ external interface GetPersonInfoVariables : SparqlVariables {
     var uri: String
 }
 
-val getPersonUniversities = SparqlMultipleResults<GetPersonUniversitiesVariables, GetPersonUniversitiesResponse>("getPersonUniversities")
+val getPersonUniversities =
+    SparqlMultipleResults<GetPersonUniversitiesVariables, GetPersonUniversitiesResponse>("getPersonUniversities")
 
 external interface GetPersonUniversitiesResponse : SparqlResponse, GetPersonUniversitiesResponseCard
 
@@ -34,6 +35,7 @@ external interface GetPersonUniversitiesResponseCard {
 external interface GetPersonUniversitiesVariables : SparqlVariables {
     var uri: String
 }
+
 val getPersonImage = SparqlSingleResult<GetPersonImageVariables, GetPersonImageResponse>("getImage")
 
 external interface GetPersonImageResponse : SparqlResponse, GetPersonImageResponseCard

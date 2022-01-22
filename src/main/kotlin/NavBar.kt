@@ -14,7 +14,7 @@ val navBar = FC<Props> {
             basicSVG("GesearchLogoSmall", "Logo de Gesearch")
         }
         searchBar {
-            this.isSmall = true
+            isSmall = true
         }
     }
 }

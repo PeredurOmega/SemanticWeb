@@ -1,4 +1,4 @@
-package tools.sparql
+package tools
 
 import react.*
 import react.dom.html.ReactHTML.div

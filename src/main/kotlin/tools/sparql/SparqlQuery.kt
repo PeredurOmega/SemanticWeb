@@ -40,15 +40,12 @@ abstract class SparqlQuery<V : SparqlVariables, R : SparqlResponse>(private val 
             if (xhr.readyState == 4.toShort()) {
                 if (xhr.status == 200.toShort()) {
                     operation(xhr.responseText)
-                } else {
-                    //TODO Gérer les cas d'erreurs
                 }
             }
         }
         xhr.open("GET", "/queries/$queryName.sparql")
         xhr.send()
     }
-
 }
 
 external interface SparqlVariables
