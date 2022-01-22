@@ -100,7 +100,7 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
                         +"Dotation : "
                     }
                     span {
-                        if (!schoolInfo.endowment?.value.isNullOrBlank()) +scientificStrToIntStr(schoolInfo.endowment?.value!!)
+                        if (!schoolInfo.endowment?.value.isNullOrBlank()) +(scientificStrToIntStr(schoolInfo.endowment?.value!!) + " €")
                         else +"NC"
                     }
                 }
@@ -181,6 +181,10 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
 
 private fun scientificStrToIntStr(strNumber: String): String {
     val parts = strNumber.split("E", ignoreCase = true)
-    return if (parts.size != 2) strNumber
-    else (parts[0].toDouble() * (10.0.pow(parts[1].toDouble()))).toInt().toString()
+    return if (parts.size != 2) {
+        strNumber
+    } else {
+        val str = (parts[0].toDouble() * (10.0.pow(parts[1].toDouble()))).toInt().toString()
+        str.reversed().chunked(3).joinToString(separator = " ").reversed()
+    }
 }
