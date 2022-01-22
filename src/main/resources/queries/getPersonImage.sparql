@@ -1,3 +1,0 @@
-select * where {
- OPTIONAL {<$uri$> dbo:thumbnail ?imageURL.}
- }

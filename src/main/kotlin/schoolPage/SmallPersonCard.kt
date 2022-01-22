@@ -8,9 +8,8 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.img
 import react.dom.html.ReactHTML.span
 import react.router.dom.Link
-import tools.imageDir
 import tools.sparql.GetPersonGeneralInfoResponse
-import tools.useWikipediaScrapper
+import tools.wikipediaPhoto
 
 external interface SmallPersonCardPersonProps : Props {
     var personInfo : GetPersonGeneralInfoResponse
@@ -28,7 +27,8 @@ val SmallPersonCard = FC<SmallPersonCardPersonProps> { props ->
                         src =  personInfo.thumbnail!!.value
                     }
                 } else wikipediaPhoto {
-                    this.personUri = props.personInfo.person.value
+                    this.uri = props.personInfo.person.value
+                    this.type = "person"
                 }
             }
             span {
@@ -40,15 +40,4 @@ val SmallPersonCard = FC<SmallPersonCardPersonProps> { props ->
     }
 }
 
-external interface WikipediaPhotoProps  : Props {
-    var personUri : String
-}
-
-val wikipediaPhoto = FC<WikipediaPhotoProps> { props ->
-    val schoolImagesUri = useWikipediaScrapper(props.personUri, nbImages = 1)
-    img {
-        src = if (schoolImagesUri.isNotEmpty() && !schoolImagesUri[0].contains("defaut", ignoreCase = true)) schoolImagesUri[0]
-        else "${imageDir}PersonPlaceholder.png"
-    }
-}
 

@@ -21,3 +21,15 @@ external interface GetCityResponse: SparqlResponse {
 external interface GetCityInfoVariables : SparqlVariables {
     var uri: String
 }
+
+val getCityImage = SparqlSingleResult<GetCityImageVariables, GetCityImageResponse>("getImage")
+
+external interface GetCityImageResponse : SparqlResponse, GetCityImageResponseCard
+
+external interface GetCityImageResponseCard {
+    var imageURL: SparqlValue<String>?
+}
+
+external interface GetCityImageVariables : SparqlVariables {
+    var uri: String
+}

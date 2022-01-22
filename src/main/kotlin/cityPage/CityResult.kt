@@ -2,14 +2,14 @@ package cityPage
 
 import react.FC
 import react.dom.html.ReactHTML.div
-import react.dom.html.ReactHTML.img
-import react.dom.html.ReactHTML.li
+import react.dom.html.ReactHTML.i
 import react.dom.html.ReactHTML.span
-import react.dom.html.ReactHTML.ul
 import tools.sparql.GetCityResponse
 import tools.sparql.SparqlQueryConsumerProps
 
-external interface CityResultProps : SparqlQueryConsumerProps<GetCityResponse>
+external interface CityResultProps : SparqlQueryConsumerProps<GetCityResponse> {
+    var cityUri : String
+}
 
 val cityResult = FC<CityResultProps> { props ->
     val searchResult = props.queryResult
@@ -31,79 +31,114 @@ val cityResult = FC<CityResultProps> { props ->
                     if (!searchResult.abstract?.value.isNullOrBlank()) {
                         +searchResult.abstract!!.value
                     }
-                    img {
-                        if (!searchResult.thumbnail?.value.isNullOrBlank()) {
-                            src = convertThumbnailToPath(searchResult.thumbnail!!.value)
-                        }
-                        //"https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Place_lazare_goujon.jpg/300px-Place_lazare_goujon.jpg"
-                    }
                 }
                 div {
-                    ul {
-                        if (!searchResult.postalCode?.value.isNullOrBlank()) {
-                            li {
-                                +"Code postal: "
-                                span {
-                                    +searchResult.postalCode!!.value
-                                }
-                            }
+                    div {
+                        className = "detailled-info"
+                        i {
+                            className = "fas fa-fw fa-calendar-day"
                         }
-                        if (!searchResult.inseeCode?.value.isNullOrBlank()) {
-                            li {
-                                +"Code commune INSEE: "
-                                span {
-                                    +searchResult.inseeCode!!.value
-                                }
-                            }
+                        span {
+                            +"Code postal: "
                         }
-                        if (!searchResult.area?.value.isNullOrBlank()) {
-                            li {
-                                +"Superficie :"
-                                span {
-                                    +searchResult.area!!.value
-                                }
-                            }
+                        span {
+                            if (!searchResult.postalCode?.value.isNullOrBlank()) +searchResult.postalCode?.value!!
+                            else +"NC"
                         }
-                        if (!searchResult.altitudeMin?.value.isNullOrBlank()) {
-                            li {
-                                +"Altitude min.: "
-                            }
+                    }
+                    div {
+                        className = "detailled-info"
+                        i {
+                            className = "fas fa-fw fa-calendar-day"
                         }
-                        if (!searchResult.altitudeMax?.value.isNullOrBlank()) {
-                            li {
-                                +"Altitude max.: "
-                            }
+                        span {
+                            +"Code commune INSEE: "
                         }
-                        if (!searchResult.mayor?.value.isNullOrBlank()) {
-                            li {
-                                +"Maire: "
-                            }
+                        span {
+                            if (!searchResult.inseeCode?.value.isNullOrBlank()) +searchResult.inseeCode?.value!!
+                            else +"NC"
                         }
-                        if (!searchResult.politicalParty?.value.isNullOrBlank()) {
-                            li {
-                                +"Parti politique: "
-                            }
+                    }
+                    div {
+                        className = "detailled-info"
+                        i {
+                            className = "fas fa-fw fa-calendar-day"
                         }
-                        if (!searchResult.district?.value.isNullOrBlank()) {
-                            li {
-                                +"Arrondissement: "
-                            }
+                        span {
+                            +"Superficie :"
+                        }
+                        span {
+                            if (!searchResult.area?.value.isNullOrBlank()) +searchResult.area?.value!!
+                            else +"NC"
+                        }
+                    }
+                    div {
+                        className = "detailled-info"
+                        i {
+                            className = "fas fa-fw fa-calendar-day"
+                        }
+                        span {
+                            +"Altitude min.: "
+                        }
+                        span {
+                            if (!searchResult.altitudeMin?.value.isNullOrBlank()) +searchResult.altitudeMin?.value!!
+                            else +"NC"
+                        }
+                    }
+                    div {
+                        className = "detailled-info"
+                        i {
+                            className = "fas fa-fw fa-calendar-day"
+                        }
+                        span {
+                            +"Altitude max.: "
+                        }
+                        span {
+                            if (!searchResult.altitudeMax?.value.isNullOrBlank())  +searchResult.altitudeMax?.value!!
+                            else +"NC"
+                        }
+                    }
+                    div {
+                        className = "detailled-info"
+                        i {
+                            className = "fas fa-fw fa-calendar-day"
+                        }
+                        span {
+                            +"Maire: "
+                        }
+                        span {
+                            if (!searchResult.mayor?.value.isNullOrBlank())  +searchResult.mayor?.value!!
+                            else +"NC"
+                        }
+                    }
+                    div {
+                        className = "detailled-info"
+                        i {
+                            className = "fas fa-fw fa-calendar-day"
+                        }
+                        span {
+                            +"Parti politique: "
+                        }
+                        span {
+                            if (!searchResult.politicalParty?.value.isNullOrBlank())  +searchResult.politicalParty?.value!!
+                            else +"NC"
+                        }
+                    }
+                    div {
+                        className = "detailled-info"
+                        i {
+                            className = "fas fa-fw fa-calendar-day"
+                        }
+                        span {
+                            +"Arrondissement: "
+                        }
+                        span {
+                            if (!searchResult.district?.value.isNullOrBlank())  +searchResult.district?.value!!
+                            else +"NC"
                         }
                     }
                 }
             }
         }
     }
-}
-
-fun convertThumbnailToPath(thumbnail: String): String {
-    console.log(thumbnail)
-    val delimPath = "Special:FilePath/"
-    val pathWithArgs = thumbnail.split(delimPath)[1]
-    console.log("pathWithArgs=", pathWithArgs)
-    val delimArgs = '?'
-    val path = pathWithArgs.split(delimArgs)[0]
-    console.log("path=", "Special:FilePath/$path")
-
-    return "http://en.wikipedia.org/wiki/Special:FilePath/$path";
 }
