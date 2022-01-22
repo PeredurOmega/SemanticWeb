@@ -1,2 +1,4 @@
 /build/
 /.gradle/
+/webpack.config.d/
+/.idea/gradle.xml
