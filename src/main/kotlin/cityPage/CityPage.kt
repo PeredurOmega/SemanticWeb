@@ -3,21 +3,19 @@ package cityPage
 import kotlinext.js.jso
 import react.*
 import react.dom.html.ReactHTML.div
-import react.dom.html.ReactHTML.li
-import react.dom.html.ReactHTML.ul
 import react.router.useLocation
 import tools.requireSCSS
 import tools.sparql.*
 
 external interface CityPageLocationState : State {
-    var cityName : String?
+    var cityUri : String?
 }
 
 val cityPage = FC<Props> {
     requireSCSS("city-page")
 
     val location = useLocation()
-    val cityName = "http://dbpedia.org/resource/Villeurbanne";
+    val cityUri = "http://dbpedia.org/resource/Villeurbanne";
   //  location.state.unsafeCast<CityPageLocationState?>()?.cityName ?: return@FC Navigate {
     //    to = "/"
       //  replace = true
@@ -30,11 +28,14 @@ val cityPage = FC<Props> {
             sparqlQueryLoaderSingle(
                 getCityInfo,
                 jso {
-                    uri = cityName
+                    uri = cityUri
                 }, true) {
                 cityResult {
                 }
             }
+        }
+        cityBirthDeathPlacePersonsPanel {
+            this.cityUri = cityUri
         }
     }
 }
