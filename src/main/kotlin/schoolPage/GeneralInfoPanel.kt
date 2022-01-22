@@ -8,7 +8,7 @@ import tools.cleanPageName
 import tools.sparql.GetSchoolInfoResponse
 
 external interface GeneralInfoPanelProps : Props {
-    var schoolInfo : GetSchoolInfoResponse
+    var schoolInfo: GetSchoolInfoResponse
 }
 
 val generalInfoPanel = FC<GeneralInfoPanelProps> { props ->
@@ -20,6 +20,7 @@ val generalInfoPanel = FC<GeneralInfoPanelProps> { props ->
             span {
                 if (!schoolInfo.nameFoaf?.value.isNullOrBlank()) +cleanPageName(schoolInfo.nameFoaf?.value!!, listOf("http://dbpedia.org/resource/"))
                 else if (!schoolInfo.nameDbp?.value.isNullOrBlank()) +cleanPageName(schoolInfo.nameDbp?.value!!, listOf("http://dbpedia.org/resource/"))
+                else +schoolInfo.label.value
             }
         }
         div {

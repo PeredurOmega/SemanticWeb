@@ -1,20 +1,13 @@
 package person
 
-import cityPage.CityPageLocationState
 import kotlinext.js.jso
 import react.FC
-import react.Props
 import react.dom.html.AnchorTarget
-import react.dom.html.ReactHTML
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.div
-import react.dom.html.ReactHTML.li
-import react.dom.html.ReactHTML.p
+import react.dom.html.ReactHTML.hr
+import react.dom.html.ReactHTML.i
 import react.dom.html.ReactHTML.span
-import react.dom.html.ReactHTML.ul
-import react.router.dom.Link
-import react.useEffectOnce
-import tools.basicSVG
 import tools.sparql.GetPersonInfoResponse
 import tools.sparql.SparqlQueryConsumerProps
 import tools.sparql.getPersonUniversities
@@ -27,72 +20,90 @@ external interface PersonInfoPanelProps : SparqlQueryConsumerProps<GetPersonInfo
 val personInfoPanel = FC<PersonInfoPanelProps> { props ->
     div {
         className = "attribute-person-div"
-        p {
-            if (!props.queryResult.labelen?.value.isNullOrBlank()) +props.queryResult.labelen?.value!!
-        }
-        p {
-            if (!props.queryResult.domain?.value.isNullOrBlank()) +props.queryResult.domain?.value!!
-            else if (!props.queryResult.titles?.value.isNullOrBlank()) +props.queryResult.titles?.value!!
-            else if (!props.queryResult.titlelab?.value.isNullOrBlank()) +props.queryResult.titlelab?.value!!
-            else +""
-        }
-        p {
-            if (!props.queryResult.descriptionfr?.value.isNullOrBlank()) +props.queryResult.descriptionfr?.value!!
-            else if (!props.queryResult.descriptionen?.value.isNullOrBlank()) +props.queryResult.descriptionen?.value!!
-            else +"Aucune description"
-        }
         div {
+            className = "general-info"
             span {
+                if (!props.queryResult.labelen?.value.isNullOrBlank()) +props.queryResult.labelen?.value!!
+            }
+            span {
+                if (!props.queryResult.domain?.value.isNullOrBlank()) +props.queryResult.domain?.value!!
+                else if (!props.queryResult.titles?.value.isNullOrBlank()) +props.queryResult.titles?.value!!
+                else if (!props.queryResult.titlelab?.value.isNullOrBlank()) +props.queryResult.titlelab?.value!!
+                else +""
+            }
+            span {
+                if (!props.queryResult.descriptionfr?.value.isNullOrBlank()) +props.queryResult.descriptionfr?.value!!
+                else if (!props.queryResult.descriptionen?.value.isNullOrBlank()) +props.queryResult.descriptionen?.value!!
+                else +"Aucune description"
+            }
+        }
+        hr { }
+        div {
+            className = "icons-text-person"
+            div {
                 className = "icon-text-person"
-                basicSVG("GlobeWeb", "Site", "person-icon")
+                i {
+                    className = "fas fa-fw fa-globe"
+                }
                 span {
                     +"Site web : "
                 }
-                if (!props.queryResult.wiki?.value.isNullOrBlank()) {
-                    a {
-                        +props.queryResult.wiki?.value!!
-                        href = props.queryResult.wiki?.value!!
-                        target = AnchorTarget._blank
-                    }
-                } else +"NC"
+                span {
+                    if (!props.queryResult.wiki?.value.isNullOrBlank()) {
+                        a {
+                            +props.queryResult.wiki?.value!!
+                            href = props.queryResult.wiki?.value!!
+                            target = AnchorTarget._blank
+                        }
+                    } else +"NC"
+                }
             }
-        }
-        div {
-            span {
+            div {
                 className = "icon-text-person"
-                basicSVG("Briefcase", "Fonction", "person-icon")
+
+                i {
+                    className = "fas fa-fw fa-briefcase"
+                }
                 span {
                     +"Titre : "
                 }
-                span{
+                span {
                     if (!props.queryResult.titles?.value.isNullOrBlank()) +props.queryResult.titles?.value!!
                     else if (!props.queryResult.titlelab?.value.isNullOrBlank()) +props.queryResult.titlelab?.value!!
                     else if (!props.queryResult.domain?.value.isNullOrBlank()) +props.queryResult.domain?.value!!
                     else +"NC"
                 }
             }
-        }
-        div {
-            className = "icon-text-person"
-            basicSVG("MapMarker", "Lieu", "person-icon")
-            span {
-                +"Lieu de naissance : "
+            div {
+                className = "icon-text-person"
+                i {
+                    className = "fas fa-fw fa-map-marker-alt"
+                }
+                span {
+                    +"Lieu de naissance : "
+                }
+                span {
+                    if (!props.queryResult.cityconcat?.value.isNullOrBlank()) +props.queryResult.cityconcat?.value!!
+                    else if (!props.queryResult.cityen?.value.isNullOrBlank()) +props.queryResult.cityen?.value!!
+                    else +"NC"
+                }
             }
-            span {
-                if (!props.queryResult.cityconcat?.value.isNullOrBlank()) +props.queryResult.cityconcat?.value!!
-                else if (!props.queryResult.cityen?.value.isNullOrBlank()) +props.queryResult.cityen?.value!!
-                else +"NC"
-            }
-        }
-        div {
-            className = "icon-text-person"
-            basicSVG("GraduateStudent", "Universités", "person-icon")
-            span {
-                +"Parcours universitaire : "
-            }
-            sparqlQueryLoaderMultiple(getPersonUniversities, jso { uri = props.personUri }) {
-                personUniversitiesPanel {
-                    this.personUri = props.personUri
+            div {
+                className = "icon-text-person"
+                div {
+                    i {
+                        className = "fas fa-fw fa-user-graduate"
+                    }
+                    span {
+                        +"Parcours universitaire : "
+                    }
+                }
+                div {
+                    sparqlQueryLoaderMultiple(getPersonUniversities, jso { uri = props.personUri }) {
+                        personUniversitiesPanel {
+                            this.personUri = props.personUri
+                        }
+                    }
                 }
             }
         }

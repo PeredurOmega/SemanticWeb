@@ -91,10 +91,14 @@
     @extend %shadow;
 
     & .marker-popup {
-      & > span:first-child {
+
+      & > a {
+        color: initial;
+      }
+      & > a:first-child > span {
         @extend %big-title;
       }
-      & > span:last-child {
+      & > a:last-child > span {
         @extend %big-text;
       }
     }
