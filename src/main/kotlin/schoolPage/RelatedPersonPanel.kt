@@ -4,9 +4,9 @@ import kotlinext.js.jso
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
-import tools.sparql.getPersonAlmaMaterInfo
-import tools.sparql.getPersonEducationalInfo
-import tools.sparql.sparqlQueryLoaderMultiple
+import sparql.getPersonAlmaMaterInfo
+import sparql.getPersonEducationalInfo
+import sparql.sparqlQueryLoaderMultiple
 
 external interface RelatedPersonPanelProps : Props {
     var schoolUri: String

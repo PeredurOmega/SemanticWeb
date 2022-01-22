@@ -3,8 +3,8 @@ package cityPage
 import react.FC
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.img
-import tools.sparql.GetPersonImageResponse
-import tools.sparql.SparqlQueryConsumerProps
+import sparql.GetPersonImageResponse
+import sparql.SparqlQueryConsumerProps
 import tools.wikipediaPhoto
 
 external interface CityImagePanelProps : SparqlQueryConsumerProps<GetPersonImageResponse> {

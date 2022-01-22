@@ -4,10 +4,10 @@ import react.FC
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.i
 import react.dom.html.ReactHTML.span
-import tools.sparql.GetCityResponse
-import tools.sparql.SparqlQueryConsumerProps
-import tools.sparql.placeholder
-import tools.sparql.whenNotBlank
+import sparql.GetCityResponse
+import sparql.SparqlQueryConsumerProps
+import sparql.placeholder
+import sparql.whenNotBlank
 
 external interface CityResultProps : SparqlQueryConsumerProps<GetCityResponse> {
     var cityUri: String

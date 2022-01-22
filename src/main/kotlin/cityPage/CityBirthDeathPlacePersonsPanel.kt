@@ -5,9 +5,9 @@ import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
 import schoolPage.personPanel
-import tools.sparql.getCityBirthPlacePersonsInfo
-import tools.sparql.getCityDeathPlacePersonsInfo
-import tools.sparql.sparqlQueryLoaderMultiple
+import sparql.getCityBirthPlacePersonsInfo
+import sparql.getCityDeathPlacePersonsInfo
+import sparql.sparqlQueryLoaderMultiple
 
 external interface CityBirthDeathPlacePersonsPanelProps : Props {
     var cityUri: String

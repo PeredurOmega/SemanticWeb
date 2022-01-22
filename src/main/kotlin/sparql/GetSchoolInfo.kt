@@ -1,4 +1,4 @@
-package tools.sparql
+package sparql
 
 val getSchoolInfo = SparqlSingleResult<GetSchoolInfoVariables, GetSchoolInfoResponse>("getSchoolInfo")
 val getSchoolSameFr = SparqlSingleResult<GetSchoolSameFrVariables, GetSchoolSameFrResponse>("getSchoolSameFr")

@@ -1,4 +1,4 @@
-package tools.sparql
+package sparql
 
 import kotlinext.js.jso
 import react.*

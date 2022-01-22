@@ -1,4 +1,4 @@
-package tools.sparql
+package sparql
 
 val getPersonInfo = SparqlSingleResult<GetPersonInfoVariables, GetPersonInfoResponse>("getPersonInfo")
 

@@ -11,7 +11,7 @@ import react.dom.html.ReactHTML.i
 import react.dom.html.ReactHTML.span
 import react.router.dom.Link
 import tools.cleanPageName
-import tools.sparql.GetSchoolInfoResponse
+import sparql.GetSchoolInfoResponse
 import kotlin.math.pow
 
 external interface DetailedInfoPanelProps : Props {

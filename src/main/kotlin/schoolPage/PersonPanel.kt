@@ -5,8 +5,8 @@ import react.FC
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
 import react.useEffectOnce
-import tools.sparql.GetPersonGeneralInfoResponse
-import tools.sparql.SparqlQueryArrayConsumerProps
+import sparql.GetPersonGeneralInfoResponse
+import sparql.SparqlQueryArrayConsumerProps
 
 external interface PersonPanelProps : SparqlQueryArrayConsumerProps<GetPersonGeneralInfoResponse> {
     var title: String

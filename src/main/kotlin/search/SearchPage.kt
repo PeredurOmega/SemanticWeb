@@ -8,8 +8,8 @@ import react.router.useLocation
 import tools.redirectToHome
 import tools.requireSCSS
 import tools.ProgressBarContext
-import tools.sparql.getSearchResult
-import tools.sparql.sparqlQueryLoaderSingle
+import sparql.getSearchResult
+import sparql.sparqlQueryLoaderSingle
 
 external interface SearchPageLocationState : State {
     var searchText: String?

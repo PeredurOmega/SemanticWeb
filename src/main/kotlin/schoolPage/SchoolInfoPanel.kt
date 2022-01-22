@@ -10,10 +10,10 @@ import react.useContext
 import react.useEffectOnce
 import search.Coordinates
 import search.MapCoordinatesSetterContext
-import tools.sparql.GetSchoolInfoResponse
-import tools.sparql.SparqlQueryConsumerProps
-import tools.sparql.getSchoolInfo
-import tools.sparql.sparqlQueryLoaderSingle
+import sparql.GetSchoolInfoResponse
+import sparql.SparqlQueryConsumerProps
+import sparql.getSchoolInfo
+import sparql.sparqlQueryLoaderSingle
 
 external interface SchoolInfoPanelProps : Props {
     var schoolUri: String

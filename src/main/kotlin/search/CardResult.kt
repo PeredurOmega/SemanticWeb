@@ -11,6 +11,7 @@ import react.router.dom.Link
 import react.useContext
 import react.useEffectOnce
 import schoolPage.SchoolPageLocationState
+import sparql.*
 import tools.sparql.*
 import tools.useWikipediaScrapper
 

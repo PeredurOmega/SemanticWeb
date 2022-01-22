@@ -1,4 +1,4 @@
-package tools.sparql
+package sparql
 
 val getPersonAlmaMaterInfo =
     SparqlMultipleResults<GetPersonGeneralInfoVariables, GetPersonGeneralInfoResponse>("getPersonAlmaMaterInfo")

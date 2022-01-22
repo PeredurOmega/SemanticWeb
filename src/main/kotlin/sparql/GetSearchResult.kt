@@ -1,4 +1,4 @@
-package tools.sparql
+package sparql
 
 val getSearchResult = SparqlSingleResult<GetSearchResultVariables, GetSearchResultResponse>("getSearchResult")
 

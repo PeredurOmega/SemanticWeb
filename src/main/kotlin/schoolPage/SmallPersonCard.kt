@@ -8,7 +8,7 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.img
 import react.dom.html.ReactHTML.span
 import react.router.dom.Link
-import tools.sparql.GetPersonGeneralInfoResponse
+import sparql.GetPersonGeneralInfoResponse
 import tools.wikipediaPhoto
 
 external interface SmallPersonCardPersonProps : Props {

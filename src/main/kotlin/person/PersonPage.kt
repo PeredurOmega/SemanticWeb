@@ -8,9 +8,9 @@ import react.dom.html.ReactHTML.div
 import react.router.useLocation
 import tools.redirectToHome
 import tools.requireSCSS
-import tools.sparql.getPersonImage
-import tools.sparql.getPersonInfo
-import tools.sparql.sparqlQueryLoaderSingle
+import sparql.getPersonImage
+import sparql.getPersonInfo
+import sparql.sparqlQueryLoaderSingle
 
 external interface PersonPageLocationState : State {
     var personUri: String?

@@ -8,9 +8,9 @@ import react.dom.html.ReactHTML.div
 import react.router.useLocation
 import tools.redirectToHome
 import tools.requireSCSS
-import tools.sparql.getCityImage
-import tools.sparql.getCityInfo
-import tools.sparql.sparqlQueryLoaderSingle
+import sparql.getCityImage
+import sparql.getCityInfo
+import sparql.sparqlQueryLoaderSingle
 
 external interface CityPageLocationState : State {
     var cityUri: String?

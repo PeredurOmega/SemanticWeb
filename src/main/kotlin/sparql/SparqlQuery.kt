@@ -1,4 +1,4 @@
-package tools.sparql
+package sparql
 
 import search.encodeURIComponent
 import kotlinext.js.getOwnPropertyNames

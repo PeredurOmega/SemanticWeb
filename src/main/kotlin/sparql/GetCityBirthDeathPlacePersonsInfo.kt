@@ -1,4 +1,4 @@
-package tools.sparql
+package sparql
 
 val getCityBirthPlacePersonsInfo =
     SparqlMultipleResults<GetCityBirthDeathPlacePersonsInfoVariables, GetPersonGeneralInfoResponse>("getCityBirthPlacePersonsInfo")

@@ -7,8 +7,8 @@ import react.dom.html.ReactHTML.li
 import react.dom.html.ReactHTML.ul
 import react.router.dom.Link
 import schoolPage.SchoolPageLocationState
-import tools.sparql.GetPersonUniversitiesResponse
-import tools.sparql.SparqlQueryArrayConsumerProps
+import sparql.GetPersonUniversitiesResponse
+import sparql.SparqlQueryArrayConsumerProps
 
 external interface PersonUniversitiesPanelProps : SparqlQueryArrayConsumerProps<GetPersonUniversitiesResponse> {
     var personUri: String

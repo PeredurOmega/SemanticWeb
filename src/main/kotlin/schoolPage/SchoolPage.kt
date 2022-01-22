@@ -11,8 +11,8 @@ import react.router.useLocation
 import search.mapCoordinatesContextProvider
 import search.mapResult
 import tools.requireSCSS
-import tools.sparql.getSchoolSameFr
-import tools.sparql.sparqlQueryLoaderSingle
+import sparql.getSchoolSameFr
+import sparql.sparqlQueryLoaderSingle
 
 external interface SchoolPageLocationState : State {
     var schoolUri: String?

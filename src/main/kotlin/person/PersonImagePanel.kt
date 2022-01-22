@@ -3,10 +3,10 @@ package person
 import react.FC
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.img
-import tools.sparql.GetPersonImageResponse
-import tools.sparql.SparqlQueryConsumerProps
-import tools.sparql.placeholder
-import tools.sparql.whenNotBlank
+import sparql.GetPersonImageResponse
+import sparql.SparqlQueryConsumerProps
+import sparql.placeholder
+import sparql.whenNotBlank
 import tools.wikipediaPhoto
 
 external interface PersonImagePanelProps : SparqlQueryConsumerProps<GetPersonImageResponse> {

@@ -1,8 +1,8 @@
 package schoolPage
 
 import react.FC
-import tools.sparql.GetSchoolSameFrResponse
-import tools.sparql.SparqlQueryConsumerProps
+import sparql.GetSchoolSameFrResponse
+import sparql.SparqlQueryConsumerProps
 import tools.useWikipediaScrapper
 
 external interface ImagePanelProps : SparqlQueryConsumerProps<GetSchoolSameFrResponse> {

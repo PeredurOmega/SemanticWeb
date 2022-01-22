@@ -5,7 +5,7 @@ import react.Props
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
 import tools.cleanPageName
-import tools.sparql.GetSchoolInfoResponse
+import sparql.GetSchoolInfoResponse
 
 external interface GeneralInfoPanelProps : Props {
     var schoolInfo: GetSchoolInfoResponse

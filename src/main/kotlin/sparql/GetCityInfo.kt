@@ -1,4 +1,4 @@
-package tools.sparql
+package sparql
 
 val getCityInfo = SparqlSingleResult<GetCityInfoVariables, GetCityResponse>("getCityInfo")
 
