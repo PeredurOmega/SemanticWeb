@@ -1,34 +1,48 @@
 package search
 
 import kotlinext.js.jso
-import react.*
+import kotlinx.browser.window
+import react.FC
+import react.Props
 import react.dom.html.ReactHTML.br
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
 import react.router.dom.Link
+import react.useContext
+import react.useEffect
 import schoolPage.SchoolPageLocationState
 import tools.map.*
 import kotlin.js.json
 
-val mapResult = FC<Props> {
+external interface MapResultProps : Props {
+    var expectedCount: Int
+}
+
+val mapResult = FC<MapResultProps> { props ->
     val mapCoordinates = useContext(MapCoordinatesContext)
     div {
         className = "map-results"
         mapContainer {
             id = "map"
-//            center = json("lat" to "46.71", "lng" to "1.72")
-//            zoom = 6
+            if (props.expectedCount == 1) {
+                center = json("lat" to "46.71", "lng" to "1.72")
+                zoom = 5
+            }
             tileSize = 1
 
-            MapPositioner { }
+            if (props.expectedCount != 1) {
+                MapPositioner {
+                    expectedCount = props.expectedCount
+                }
+            }
 
             tileLayer {
                 attribution = "Grandes Écoles"
                 url = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
             }
 
-            mapCoordinates.forEach {
-                val (lat, lng) = it.coordinates.split(" ")
+            mapCoordinates.filter { it.coordinates != null }.forEach {
+                val (lat, lng) = it.coordinates!!.split(" ")
                 marker {
                     icon = icon(
                         json(
@@ -39,16 +53,13 @@ val mapResult = FC<Props> {
                             "iconSize" to arrayOf(70, 70)
                         )
                     )
-                    position = json(
-                        "lat" to lat,
-                        "lng" to lng
-                    )
+                    position = json("lat" to lat, "lng" to lng)
                     popup {
                         div {
                             className = "marker-popup"
                             Link {
                                 this.to = "/school"
-                                this.state = jso<SchoolPageLocationState> { schoolUri = it.schoolUri}
+                                this.state = jso<SchoolPageLocationState> { schoolUri = it.schoolUri }
                                 span {
                                     +it.popupText
                                 }
@@ -56,7 +67,7 @@ val mapResult = FC<Props> {
                             br { }
                             Link {
                                 this.to = "/city"
-                                this.state = jso<SchoolPageLocationState> { schoolUri = it.cityUri}
+                                this.state = jso<SchoolPageLocationState> { schoolUri = it.cityUri }
                                 span {
                                     +"${it.cityName}, ${it.countryName}"
                                 }
@@ -69,28 +80,23 @@ val mapResult = FC<Props> {
     }
 }
 
-private val MapPositioner = FC<Props> {
+private val MapPositioner = FC<MapResultProps> { props ->
     val map = useMap()
     val mapCoordinates = useContext(MapCoordinatesContext)
     useEffect(mapCoordinates) {
-        if (mapCoordinates.size > 1) {
-            val bounds = latLngBounds(mapCoordinates.map {
-                val (lat, lng) = it.coordinates.split(" ")
+        val timeout = window.setTimeout({
+            val bounds = latLngBounds(mapCoordinates.filter { it.coordinates != null }.map {
+                val (lat, lng) = it.coordinates!!.split(" ")
                 latLng(lat.toDouble(), lng.toDouble())
-            }.toTypedArray())
+            }.toTypedArray(), jso {
+                padding = point(5.0, 5.0)
+            })
             map.fitBounds(bounds)
-            map.invalidateSize(true)
-        } else if (mapCoordinates.isNotEmpty()) {
-            val bounds = latLngBounds(arrayOf(
-                latLng(48.0, -5.5),
-                latLng(51.4, 2.3),
-                latLng(48.6, 8.4),
-                latLng(43.7, 8.0),
-                latLng(42.0, 3.1),
-                latLng(43.4, -2.4)
-            ))
-            map.fitBounds(bounds)
-            map.invalidateSize(true)
+            map.invalidateSize(false)
+        }, if (mapCoordinates.size == props.expectedCount) 0 else 500)
+
+        cleanup {
+            window.clearTimeout(timeout)
         }
     }
 }

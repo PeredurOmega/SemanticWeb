@@ -14,7 +14,7 @@ external interface PersonPanelProps : SparqlQueryArrayConsumerProps<GetPersonGen
 
 val personPanel = FC<PersonPanelProps> { props ->
     useEffectOnce {
-        if (props.queryResult.isNotEmpty()) document.getElementById("special-hr")?.className += " with-pane2"
+        if (props.queryResult.isNotEmpty()) document.getElementById("special-hr")?.className += " with-panel2"
     }
     if (props.queryResult.isNotEmpty()) {
         div {
