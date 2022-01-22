@@ -15,8 +15,8 @@ external interface PersonUniversitiesPanelProps : SparqlQueryArrayConsumerProps<
 }
 
 val personUniversitiesPanel = FC<PersonUniversitiesPanelProps> { props ->
-    if (props.queryResult.isNotEmpty()) {
-        ul {
+    ul {
+        if (props.queryResult.isNotEmpty()) {
             props.queryResult.distinctBy { it.universities?.value }.forEach {
                 li {
                     if(it.ge?.value!!.contains("Grande_école"))
@@ -30,8 +30,8 @@ val personUniversitiesPanel = FC<PersonUniversitiesPanelProps> { props ->
                     else +it.universities?.value!!
                 }
             }
+        } else {
+            +"Aucun parcours universitaire connu"
         }
-    } else {
-        +"NC"
     }
 }
