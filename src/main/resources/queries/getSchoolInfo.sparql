@@ -38,11 +38,14 @@ WHERE {
     OPTIONAL { <$uri$> dbp:website ?website . }
     OPTIONAL { <$uri$> foaf:homepage ?homepage . }
     OPTIONAL { <$uri$> georss:point ?coordinate . }
-    OPTIONAL { <$uri$> rdfs:comment ?comment . }
-    OPTIONAL { <$uri$> dbo:abstract ?abstract . }
-
+    OPTIONAL {
+        <$uri$> rdfs:comment ?comment .
+        FILTER (lang(?comment) = "fr")
+    }
+    OPTIONAL {
+        <$uri$> dbo:abstract ?abstract .
+        FILTER (lang(?abstract) = "fr")
+    }
 
     FILTER (lang(?label) = "fr")
-    FILTER (lang(?comment) = "fr")
-    FILTER (lang(?abstract) = "fr")
 }

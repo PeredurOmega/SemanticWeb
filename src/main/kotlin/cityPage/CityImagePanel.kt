@@ -1,4 +1,4 @@
-package person
+package cityPage
 
 import react.FC
 import react.dom.html.ReactHTML.div
@@ -7,20 +7,20 @@ import tools.sparql.GetPersonImageResponse
 import tools.sparql.SparqlQueryConsumerProps
 import tools.wikipediaPhoto
 
-external interface PersonImagePanelProps : SparqlQueryConsumerProps<GetPersonImageResponse> {
-    var personUri: String
+external interface CityImagePanelProps : SparqlQueryConsumerProps<GetPersonImageResponse> {
+    var cityUri: String
 }
 
-val personImagePanel = FC<PersonImagePanelProps> { props ->
+val cityImagePanel = FC<CityImagePanelProps> { props ->
     div {
-        className = "img-person"
+        className = "img-city"
         if (!props.queryResult.imageURL?.value.isNullOrBlank()) {
             img {
                 src =  props.queryResult.imageURL!!.value
             }
         } else wikipediaPhoto {
-            this.uri = props.personUri
-            this.type = "person"
+            this.uri = props.cityUri
+            this.type = "city"
         }
     }
 }

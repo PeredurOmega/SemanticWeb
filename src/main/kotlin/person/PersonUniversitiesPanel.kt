@@ -1,5 +1,6 @@
 package person
 
+import kotlinext.js.getOwnPropertyNames
 import kotlinext.js.jso
 import react.FC
 import react.dom.html.ReactHTML.li
@@ -16,7 +17,7 @@ external interface PersonUniversitiesPanelProps : SparqlQueryArrayConsumerProps<
 
 val personUniversitiesPanel = FC<PersonUniversitiesPanelProps> { props ->
     ul {
-        if (props.queryResult.isNotEmpty()) {
+        if (props.queryResult.filter { it.getOwnPropertyNames().isNotEmpty() }.isNotEmpty()) {
             props.queryResult.distinctBy { it.universities?.value }.forEach {
                 li {
                     if(it.ge?.value?.contains("Grande_école") == true)

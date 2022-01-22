@@ -34,12 +34,11 @@ external interface GetPersonUniversitiesResponseCard {
 external interface GetPersonUniversitiesVariables : SparqlVariables {
     var uri: String
 }
-val getPersonImage = SparqlSingleResult<GetPersonImageVariables, GetPersonImageResponse>("getPersonImage")
+val getPersonImage = SparqlSingleResult<GetPersonImageVariables, GetPersonImageResponse>("getImage")
 
 external interface GetPersonImageResponse : SparqlResponse, GetPersonImageResponseCard
 
 external interface GetPersonImageResponseCard {
-    //foaf:isPrimaryTopicOf lien wiki
     var imageURL: SparqlValue<String>?
 }
 

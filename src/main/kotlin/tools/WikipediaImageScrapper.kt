@@ -2,6 +2,7 @@ package tools
 
 import org.w3c.xhr.XMLHttpRequest
 import react.*
+import react.dom.html.ReactHTML
 
 external interface WikipediaScrapperResults {
     var items: Array<WikipediaScrapperResult>
@@ -72,9 +73,27 @@ fun useWikipediaScrapper(pageUri : String, pageSame : String? = null, nbImages :
     val prefix = listOf("http://dbpedia.org/resource/", "http://fr.dbpedia.org/resource/")
 
     val pageName = if (pageSame != null) choosePageName(cleanPageName(pageUri, prefix), cleanPageName(pageSame, prefix)) else pageUri
-    println("pageName : $pageName, URI : $pageUri, URN: $pageSame")
     useEffectOnce {
         getImagesFromWikipediaPage(cleanPageName(pageName, prefix), nbImages, setSchoolImagesUri, filter = filter)
     }
     return schoolImagesUri
+}
+
+external interface WikipediaPhotoProps  : Props {
+    var uri : String
+    var type : String
+}
+
+val wikipediaPhoto = FC<WikipediaPhotoProps> { props ->
+    val imagesUri = useWikipediaScrapper(props.uri, nbImages = 1)
+    ReactHTML.img {
+        if (imagesUri.isNotEmpty() && !imagesUri[0].contains("defaut", ignoreCase = true)) src = imagesUri[0]
+        else {
+            if (props.type == "person") {
+                src = "${imageDir}PersonPlaceholder.png"
+            } else if (props.type == "city") {
+                src = "${imageDir}CityPlaceholder.jpg"
+            }
+        }
+    }
 }
