@@ -48,7 +48,7 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
                 if (!schoolInfo.cityName?.value.isNullOrBlank()) {
                     Link {
                         this.to = "/city"
-                        this.state = jso<CityPageLocationState> { cityName = schoolInfo.cityUrl?.value!! }
+                        this.state = jso<CityPageLocationState> { cityUri = schoolInfo.cityUrl?.value!! }
                         div {
                             className = "detailled-info"
                             i {
