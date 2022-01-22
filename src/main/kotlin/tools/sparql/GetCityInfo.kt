@@ -16,6 +16,7 @@ external interface GetCityResponse: SparqlResponse {
     var mayor: SparqlValue<String>?
     var politicalParty: SparqlValue<String>?
     var district: SparqlValue<String>?
+    var coordinates: SparqlValue<String>?
 }
 
 external interface GetCityInfoVariables : SparqlVariables {

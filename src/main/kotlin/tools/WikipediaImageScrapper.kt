@@ -2,7 +2,7 @@ package tools
 
 import org.w3c.xhr.XMLHttpRequest
 import react.*
-import react.dom.html.ReactHTML
+import react.dom.html.ReactHTML.img
 
 external interface WikipediaScrapperResults {
     var items: Array<WikipediaScrapperResult>
@@ -86,7 +86,7 @@ external interface WikipediaPhotoProps  : Props {
 
 val wikipediaPhoto = FC<WikipediaPhotoProps> { props ->
     val imagesUri = useWikipediaScrapper(props.uri, nbImages = 1)
-    ReactHTML.img {
+    img {
         if (imagesUri.isNotEmpty() && !imagesUri[0].contains("defaut", ignoreCase = true)) src = imagesUri[0]
         else {
             if (props.type == "person") {
