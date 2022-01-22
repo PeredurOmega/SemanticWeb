@@ -7,7 +7,7 @@ import react.dom.html.ReactHTML.span
 import tools.sparql.GetSchoolInfoResponse
 
 external interface GeneralInfoPanelProps : Props {
-    var schoolInfo : GetSchoolInfoResponse
+    var schoolInfo: GetSchoolInfoResponse
 }
 
 val generalInfoPanel = FC<GeneralInfoPanelProps> { props ->
@@ -19,6 +19,7 @@ val generalInfoPanel = FC<GeneralInfoPanelProps> { props ->
             span {
                 if (!schoolInfo.nameFoaf?.value.isNullOrBlank()) +schoolInfo.nameFoaf?.value!!
                 else if (!schoolInfo.nameDbp?.value.isNullOrBlank()) +schoolInfo.nameDbp?.value!!
+                else +schoolInfo.label.value
             }
         }
         div {
