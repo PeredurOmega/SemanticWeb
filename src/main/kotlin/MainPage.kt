@@ -1,4 +1,3 @@
-import org.w3c.dom.events.Event
 import react.*
 import react.dom.html.ReactHTML.div
 import tools.basicSVG
@@ -16,12 +15,6 @@ val mainPage = FC<Props> {
         }
     }
 }
-
-fun search(event: Event) {
-    //TODO
-}
-
-
 
 val mainLogo = FC<Props> {
     basicSVG("GesearchLogo", "Logo de Gesearch", "main-logo")

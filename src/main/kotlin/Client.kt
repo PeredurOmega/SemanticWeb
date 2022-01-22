@@ -1,15 +1,19 @@
+import cityPage.cityPage
 import kotlinx.browser.document
 import kotlinx.browser.window
 import person.personPage
-import react.*
+import react.FC
+import react.Fragment
+import react.Props
+import react.create
 import react.dom.render
 import react.router.Route
 import react.router.Routes
 import react.router.dom.BrowserRouter
 import schoolPage.schoolPage
 import search.searchPage
-import cityPage.cityPage
 import tools.requireSCSS
+import tools.sparql.progressBarContextProvider
 
 fun main() {
     println("main")
@@ -36,22 +40,24 @@ val mainRouter = FC<Props> {
 
 val app = FC<Props> {
     navBar {}
-    Routes {
-        Route{
-            path = "person"
-            element = personPage.create()
-        }
-        Route{
-            path = "school"
-            element = schoolPage.create()
-        }
-        Route{
-            path = "search"
-            element = searchPage.create()
-        }
-        Route{
-            path = "city"
-            element = cityPage.create()
+    progressBarContextProvider {
+        Routes {
+            Route {
+                path = "person"
+                element = personPage.create()
+            }
+            Route {
+                path = "school"
+                element = schoolPage.create()
+            }
+            Route {
+                path = "search"
+                element = searchPage.create()
+            }
+            Route {
+                path = "city"
+                element = cityPage.create()
+            }
         }
     }
 }

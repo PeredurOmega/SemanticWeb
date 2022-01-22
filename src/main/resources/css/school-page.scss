@@ -38,7 +38,6 @@
       .school-description {
         @extend %huge-text-size;
       }
-
     }
 
     & .detailled-info-panel {
@@ -103,7 +102,6 @@
           flex-direction: row;
 
           & > a {
-
             & > div {
               display: flex;
               flex-direction: column;
@@ -122,9 +120,8 @@
                   height: 240px;
                   width: 240px;
                   object-fit: cover;
-                  transition: transform 1s cubic-bezier(.17,.84,.44,1);
+                  transition: transform 1s cubic-bezier(.17, .84, .44, 1);
                 }
-
               }
 
               & > span {
@@ -133,7 +130,6 @@
                 font-weight: 500;
                 text-align: center;
               }
-
             }
 
             & > div:hover {
@@ -142,7 +138,6 @@
               & img {
                 transform: scale(1.1);
               }
-
             }
           }
         }
@@ -150,7 +145,7 @@
     }
   }
 
-  & > .right-panel{
+  & > .right-panel {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -183,13 +178,19 @@
         border-radius: 20px;
         @extend %shadow;
       }
-
     }
   }
-
 }
 
 hr {
   width: calc(100% - 40px);
   color: #9d9d9d;
+
+  &#special-hr {
+    display: none;
+
+    &.with-panel1.with-panel2 {
+      display: block;
+    }
+  }
 }

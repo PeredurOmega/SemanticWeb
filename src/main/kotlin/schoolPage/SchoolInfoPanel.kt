@@ -1,6 +1,7 @@
 package schoolPage
 
 import kotlinext.js.jso
+import kotlinx.browser.document
 import react.*
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.hr
@@ -17,15 +18,17 @@ external interface SchoolInfoPanelProps : Props {
 
 val schoolInfoPanel = FC<SchoolInfoPanelProps> { props ->
     div {
-        sparqlQueryLoaderSingle(getSchoolInfo, jso { uri = props.schoolUri }) {
+        sparqlQueryLoaderSingle(getSchoolInfo, jso { uri = props.schoolUri }, true) {
             infoPanelWrapper {
-
+                this.schoolUri = props.schoolUri
             }
         }
     }
 }
 
-external interface InfoPanelWrapperProps : SparqlQueryConsumerProps<GetSchoolInfoResponse>
+external interface InfoPanelWrapperProps : SparqlQueryConsumerProps<GetSchoolInfoResponse> {
+    var schoolUri : String
+}
 
 private val infoPanelWrapper = FC<InfoPanelWrapperProps> { props ->
     val setCoordinates = useContext(MapCoordinatesSetterContext)
@@ -34,7 +37,12 @@ private val infoPanelWrapper = FC<InfoPanelWrapperProps> { props ->
         val schoolName = props.queryResult.nameDbp?.value?:props.queryResult.nameFoaf?.value?: props.queryResult.label.value
         val cityName = props.queryResult.cityName?.value?:""
         val countryName = props.queryResult.countryName?.value?:""
-        setCoordinates?.invoke(mutableListOf(Coordinates(coordinates, schoolName, cityName, countryName)))
+        val cityUri = props.queryResult.cityUrl?.value?:""
+        val schoolUri = props.schoolUri
+        setCoordinates?.invoke(mutableListOf(Coordinates(coordinates, schoolName, cityName, countryName, cityUri, schoolUri)))
+    }
+    useEffectOnce {
+        document.getElementById("special-hr")?.className += " with-pane1"
     }
 
     generalInfoPanel {

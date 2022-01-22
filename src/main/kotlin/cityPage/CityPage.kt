@@ -31,7 +31,7 @@ val cityPage = FC<Props> {
                 getCityInfo,
                 jso {
                     uri = cityName
-                }) {
+                }, true) {
                 cityResult {
                 }
             }
