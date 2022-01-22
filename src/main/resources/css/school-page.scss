@@ -119,6 +119,19 @@
         height: 400px;
         border-radius: 20px;
         @extend %shadow;
+
+        & .marker-popup {
+
+          & > a {
+            color: initial;
+          }
+          & > a:first-child > span {
+            @extend %big-title;
+          }
+          & > a:last-child > span {
+            @extend %big-text;
+          }
+        }
       }
     }
   }
