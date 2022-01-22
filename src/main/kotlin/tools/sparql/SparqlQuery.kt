@@ -66,3 +66,16 @@ private external interface RawResult<R : SparqlResponse> {
 external interface SparqlValue<V> {
     var value: V
 }
+
+class Placeholder(val showPlaceholder: Boolean)
+
+fun <V : String?> SparqlValue<V>?.whenNotBlank(block: (String) -> Unit): Placeholder {
+    return if (this != null && !value.isNullOrBlank()) {
+        block(value!!)
+        return Placeholder(false)
+    } else Placeholder(true)
+}
+
+infix fun Placeholder.placeholder(block: () -> Unit) {
+    if (showPlaceholder) block()
+}

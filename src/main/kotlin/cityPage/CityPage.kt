@@ -1,15 +1,19 @@
 package cityPage
 
 import kotlinext.js.jso
-import react.*
+import react.FC
+import react.Props
+import react.State
 import react.dom.html.ReactHTML.div
 import react.router.Navigate
 import react.router.useLocation
 import tools.requireSCSS
-import tools.sparql.*
+import tools.sparql.getCityImage
+import tools.sparql.getCityInfo
+import tools.sparql.sparqlQueryLoaderSingle
 
 external interface CityPageLocationState : State {
-    var cityUri : String?
+    var cityUri: String?
 }
 
 val cityPage = FC<Props> {
@@ -31,8 +35,8 @@ val cityPage = FC<Props> {
                 }
             }
         }
-        sparqlQueryLoaderSingle(getCityImage, jso { uri = cityUri }){
-            cityImagePanel{
+        sparqlQueryLoaderSingle(getCityImage, jso { uri = cityUri }) {
+            cityImagePanel {
                 this.cityUri = cityUri
             }
         }

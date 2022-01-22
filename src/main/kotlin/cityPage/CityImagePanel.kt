@@ -16,7 +16,7 @@ val cityImagePanel = FC<CityImagePanelProps> { props ->
         className = "img-city"
         if (!props.queryResult.imageURL?.value.isNullOrBlank()) {
             img {
-                src =  props.queryResult.imageURL!!.value
+                src = props.queryResult.imageURL!!.value
             }
         } else wikipediaPhoto {
             this.uri = props.cityUri
