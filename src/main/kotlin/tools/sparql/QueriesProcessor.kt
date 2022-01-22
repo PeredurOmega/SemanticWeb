@@ -8,9 +8,16 @@ private fun <V : SparqlVariables, R : SparqlResponse> useSparqlQuery(
     variables: V
 ): Array<R>? {
     val (response, setResponse) = useState<Array<R>?>(null)
+    val isMounted = useRef(true)
 
     useEffect(sparqlQuery, variables) {
-        sparqlQuery.execute(variables, setResponse)
+        sparqlQuery.execute(variables, setResponse, isMounted)
+    }
+
+    useEffectOnce {
+        cleanup {
+            isMounted.current = false
+        }
     }
 
     return response
