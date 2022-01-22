@@ -1,5 +1,6 @@
 package person
 
+import cityPage.CityPageLocationState
 import kotlinext.js.jso
 import react.FC
 import react.Props
@@ -11,6 +12,7 @@ import react.dom.html.ReactHTML.li
 import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.span
 import react.dom.html.ReactHTML.ul
+import react.router.dom.Link
 import react.useEffectOnce
 import tools.basicSVG
 import tools.sparql.GetPersonInfoResponse

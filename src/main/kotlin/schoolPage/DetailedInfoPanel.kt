@@ -10,6 +10,7 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.i
 import react.dom.html.ReactHTML.span
 import react.router.dom.Link
+import tools.cleanPageName
 import tools.sparql.GetSchoolInfoResponse
 import kotlin.math.pow
 
@@ -58,9 +59,8 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
                             +"Localisation : "
                         }
                         span {
-                            if (!schoolInfo.cityName?.value.isNullOrBlank()) +(schoolInfo.cityName?.value!! + ", ")
-                            +", "
-                            if (!schoolInfo.countryName?.value.isNullOrBlank()) +schoolInfo.countryName?.value!!
+                            if (!schoolInfo.cityName?.value.isNullOrBlank()) +(cleanPageName(schoolInfo.cityName?.value!!,listOf("http://dbpedia.org/resource/")) + ", ")
+                            if (!schoolInfo.countryName?.value.isNullOrBlank()) +cleanPageName(schoolInfo.countryName?.value!!, listOf("http://dbpedia.org/resource/"))
                             else +"France"
                         }
                     }
@@ -115,7 +115,7 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
                         +"Directeur : "
                     }
                     span {
-                        if (!schoolInfo.president?.value.isNullOrBlank()) +schoolInfo.president?.value!!
+                        if (!schoolInfo.president?.value.isNullOrBlank()) +cleanPageName(schoolInfo.president?.value!!, listOf("http://dbpedia.org/resource/"))
                         else +"NC"
                     }
                 }
@@ -166,7 +166,8 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
     }
 }
 
-fun scientificStrToIntStr(strNumber: String) : String {
+
+private fun scientificStrToIntStr(strNumber: String) : String {
     val parts = strNumber.split("E", ignoreCase = true)
     return if (parts.size != 2) strNumber
     else (parts[0].toDouble() * (10.0.pow(parts[1].toDouble()))).toInt().toString()

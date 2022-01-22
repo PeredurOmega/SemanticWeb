@@ -49,7 +49,7 @@ fun getImagesFromWikipediaPage(pageName: String, nbImages: Int, setSchoolImagesU
 
 private fun acceptAll(str : String) = true
 
-private fun cleanPageName(pageName: String, prefix : List<String>) : String {
+fun cleanPageName(pageName: String, prefix : List<String>) : String {
     var cleanedPageName = pageName
     prefix.forEach {
         cleanedPageName = cleanedPageName.removePrefix(it)
