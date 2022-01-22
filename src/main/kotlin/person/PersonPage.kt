@@ -5,8 +5,8 @@ import react.FC
 import react.Props
 import react.State
 import react.dom.html.ReactHTML.div
-import react.router.Navigate
 import react.router.useLocation
+import tools.redirectToHome
 import tools.requireSCSS
 import tools.sparql.getPersonImage
 import tools.sparql.getPersonInfo
@@ -19,10 +19,8 @@ external interface PersonPageLocationState : State {
 val personPage = FC<Props> {
     requireSCSS("person-page")
     val location = useLocation()
-    val personUri = location.state.unsafeCast<PersonPageLocationState?>()?.personUri ?: return@FC Navigate {
-        to = "/"
-        replace = true
-    }
+    val personUri = location.state.unsafeCast<PersonPageLocationState?>()?.personUri ?: return@FC redirectToHome()
+
     div {
         className = "main-person-div"
         sparqlQueryLoaderSingle(getPersonInfo, jso { uri = personUri }, true) {

@@ -1,17 +1,15 @@
 package search
 
-import Suggestion
 import kotlinext.js.jso
 import react.*
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h1
-import react.router.Navigate
 import react.router.useLocation
+import tools.redirectToHome
 import tools.requireSCSS
 import tools.sparql.ProgressBarContext
 import tools.sparql.getSearchResult
 import tools.sparql.sparqlQueryLoaderSingle
-import useLookup
 
 external interface SearchPageLocationState : State {
     var searchText: String?
@@ -20,10 +18,7 @@ external interface SearchPageLocationState : State {
 val searchPage = FC<Props> {
     requireSCSS("search-page")
     val location = useLocation()
-    val searchText = location.state.unsafeCast<SearchPageLocationState?>()?.searchText ?: return@FC Navigate {
-        to = "/"
-        replace = true
-    }
+    val searchText = location.state.unsafeCast<SearchPageLocationState?>()?.searchText ?: return@FC redirectToHome()
     val (suggestions, resetSuggestions) = useLookup(searchText, false)
     val showProgressBar = useContext(ProgressBarContext)
 

@@ -5,8 +5,8 @@ import react.FC
 import react.Props
 import react.State
 import react.dom.html.ReactHTML.div
-import react.router.Navigate
 import react.router.useLocation
+import tools.redirectToHome
 import tools.requireSCSS
 import tools.sparql.getCityImage
 import tools.sparql.getCityInfo
@@ -20,10 +20,7 @@ val cityPage = FC<Props> {
     requireSCSS("city-page")
 
     val location = useLocation()
-    val cityUri = location.state.unsafeCast<CityPageLocationState?>()?.cityUri ?: return@FC Navigate {
-        to = "/"
-        replace = true
-    }
+    val cityUri = location.state.unsafeCast<CityPageLocationState?>()?.cityUri ?: return@FC redirectToHome()
 
     div {
         className = ""

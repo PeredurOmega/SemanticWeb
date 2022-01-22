@@ -1,6 +1,6 @@
 package tools.sparql
 
-import encodeURIComponent
+import search.encodeURIComponent
 import kotlinext.js.getOwnPropertyNames
 import org.w3c.xhr.XMLHttpRequest
 import react.MutableRefObject

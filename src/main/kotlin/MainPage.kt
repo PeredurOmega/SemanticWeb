@@ -1,5 +1,6 @@
 import react.*
 import react.dom.html.ReactHTML.div
+import search.searchBar
 import tools.basicSVG
 import tools.requireSCSS
 
