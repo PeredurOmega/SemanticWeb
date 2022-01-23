@@ -39,7 +39,7 @@ val searchBar = FC<SearchBarProps> { props ->
                 }
                 type = InputType.search
                 autoComplete = AutoComplete.off
-                placeholder = "Recherchez les meilleurs grandes écoles..."
+                placeholder = "Recherchez les meilleures grandes écoles..."
                 onKeyDown = handleKeyDown
             }
         }

@@ -88,7 +88,7 @@ private val detailedCityInfo = FC<SparqlQueryConsumerProps<GetCityResponse>> { p
                     className = "fas fa-fw fa-user-tie"
                 }
                 span {
-                    +"Maire: "
+                    +"Maire : "
                 }
                 span {
                     //TODO SANITIZE OR FETCH WITH DBPEDIA (RESOURCE)
@@ -101,7 +101,7 @@ private val detailedCityInfo = FC<SparqlQueryConsumerProps<GetCityResponse>> { p
                     className = "fas fa-fw fa-handshake"
                 }
                 span {
-                    +"Parti politique: "
+                    +"Parti politique : "
                 }
                 span {
                     searchResult.politicalParty.whenNotBlank { +it } placeholder { +"NC" }
@@ -113,7 +113,7 @@ private val detailedCityInfo = FC<SparqlQueryConsumerProps<GetCityResponse>> { p
                     className = "fas fa-fw fa-map-signs"
                 }
                 span {
-                    +"Code postal: "
+                    +"Code postal : "
                 }
                 span {
                     searchResult.postalCode.whenNotBlank { +it } placeholder { +"NC" }
@@ -125,7 +125,7 @@ private val detailedCityInfo = FC<SparqlQueryConsumerProps<GetCityResponse>> { p
                     className = "fas fa-fw fa-street-view"
                 }
                 span {
-                    +"Arrondissement: "
+                    +"Arrondissement : "
                 }
                 span {
                     searchResult.district.whenNotBlank { +it } placeholder { +"NC" }
@@ -140,7 +140,7 @@ private val detailedCityInfo = FC<SparqlQueryConsumerProps<GetCityResponse>> { p
                     className = "fas fa-fw fa-city"
                 }
                 span {
-                    +"Code commune INSEE: "
+                    +"Code commune INSEE : "
                 }
                 span {
                     searchResult.inseeCode.whenNotBlank { +it } placeholder { +"NC" }
