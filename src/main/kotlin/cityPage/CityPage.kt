@@ -25,7 +25,6 @@ val cityPage = FC<Props> {
     val location = useLocation()
     val cityUri = location.state.unsafeCast<CityPageLocationState?>()?.cityUri ?: return@FC redirectToHome()
 
-
     mapCoordinatesContextProvider {
         div {
             className = "city-container"
@@ -36,7 +35,9 @@ val cityPage = FC<Props> {
                         this.cityUri = cityUri
                     }
                 }
-                hr { }
+                hr {
+                    id = "special-hr"
+                }
                 cityBirthDeathPlacePersonsPanel {
                     this.cityUri = cityUri
                 }

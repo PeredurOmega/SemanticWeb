@@ -37,7 +37,6 @@ val mainRouter = FC<Props> {
                 path = "*"
                 element = app.create()
             }
-
         }
     }
 }

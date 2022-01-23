@@ -25,10 +25,10 @@ val searchBar = FC<SearchBarProps> { props ->
     val navigate = useNavigate()
     val (selectedSuggestion, suggestions, resetSuggestions, handleKeyDown) = useSuggestions(searchText, navigate)
     div {
-        className = if (props.isSmall == true) "search.search-bar-container-small" else "search.search-bar-container"
+        className = if (props.isSmall == true) "search-bar-container-small" else "search-bar-container"
         div {
-            className = "search.search-bar " + if (props.isSmall == true) "small-bar" else "main-bar"
-            basicSVG("MainSearchIcon", "Rechercher", "search.search-icon") {
+            className = "search-bar " + if (props.isSmall == true) "small-bar" else "main-bar"
+            basicSVG("MainSearchIcon", "Rechercher", "search-icon") {
                 search(searchText, navigate, resetSuggestions)
             }
             input {
@@ -116,11 +116,8 @@ private fun search(
     navigate: NavigateFunction,
     resetSuggestions: (immediateDiscard: Boolean) -> Unit
 ) {
-    navigate(
-        "/search.search?$searchText",
-        jso { state = jso<SearchPageLocationState> { this.searchText = searchText } })
+    navigate("/search?$searchText", jso { state = jso<SearchPageLocationState> { this.searchText = searchText } })
     resetSuggestions(true)
-
 }
 
 private external interface AutocompletionPanelProps : Props {

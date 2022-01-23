@@ -9,7 +9,6 @@ import react.dom.html.ReactHTML.hr
 import react.dom.html.ReactHTML.i
 import react.dom.html.ReactHTML.span
 import sparql.*
-import tools.sparql.*
 
 external interface PersonInfoPanelProps : SparqlQueryConsumerProps<GetPersonInfoResponse> {
     var personUri: String

@@ -1,20 +1,18 @@
 package cityPage
 
 import react.FC
-import react.dom.html.ReactHTML
 import react.dom.html.ReactHTML.div
-import react.dom.html.ReactHTML.i
 import react.dom.html.ReactHTML.hr
+import react.dom.html.ReactHTML.i
 import react.dom.html.ReactHTML.span
-import sparql.GetCityResponse
-import sparql.SparqlQueryConsumerProps
-import sparql.placeholder
-import sparql.whenNotBlank
 import react.useContext
 import react.useEffectOnce
 import search.Coordinates
 import search.MapCoordinatesSetterContext
-import tools.cleanPageName
+import sparql.GetCityResponse
+import sparql.SparqlQueryConsumerProps
+import sparql.placeholder
+import sparql.whenNotBlank
 
 external interface CityResultProps : SparqlQueryConsumerProps<GetCityResponse> {
     var cityUri: String
@@ -22,7 +20,7 @@ external interface CityResultProps : SparqlQueryConsumerProps<GetCityResponse> {
 
 val cityResult = FC<CityResultProps> { props ->
     val setCoordinates = useContext(MapCoordinatesSetterContext)
-    useEffectOnce {
+    useEffectOnce { //TODO REFACTOR
         val coordinates = props.queryResult.coordinates?.value ?: "46.71 1.72"
         val schoolName = props.queryResult.name?.value ?: ""
         val cityName = ""
@@ -47,16 +45,12 @@ val cityResult = FC<CityResultProps> { props ->
     val searchResult = props.queryResult
     div {
         className = "city-info"
-        div {
-            div {
-                cityHeader {
-                    queryResult = searchResult
-                }
-                hr { }
-                detailedCityInfo {
-                    queryResult = searchResult
-                }
-            }
+        cityHeader {
+            queryResult = searchResult
+        }
+        hr { }
+        detailedCityInfo {
+            queryResult = searchResult
         }
     }
 }
@@ -99,6 +93,7 @@ private val detailedCityInfo = FC<SparqlQueryConsumerProps<GetCityResponse>> { p
                     +"Maire: "
                 }
                 span {
+                    //TODO SANITIZE OR FETCH WITH DBPEDIA (RESOURCE)
                     searchResult.mayor.whenNotBlank { +it } placeholder { +"NC" }
                 }
             }

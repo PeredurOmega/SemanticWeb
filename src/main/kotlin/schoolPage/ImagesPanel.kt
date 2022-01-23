@@ -6,21 +6,15 @@ import sparql.SparqlQueryConsumerProps
 import tools.useWikipediaScrapper
 
 external interface ImagePanelProps : SparqlQueryConsumerProps<GetSchoolSameFrResponse> {
-    var uri : String
+    var uri: String
 }
 
 val imagesPanel = FC<ImagePanelProps> { props ->
-    val schoolLogoUri = useWikipediaScrapper(props.uri, props.queryResult.sameFr.value,1) {
-        it.contains("logo", ignoreCase = true) || it.contains(
-            "signature",
-            ignoreCase = true
-        )
+    val schoolLogoUri = useWikipediaScrapper(props.uri, props.queryResult.sameFr.value, 1) {
+        it.contains("logo", ignoreCase = true) || it.contains("signature", ignoreCase = true)
     }
     val schoolImageUri = useWikipediaScrapper(props.uri, props.queryResult.sameFr.value, 1) {
-        !(it.contains("logo", ignoreCase = true) || it.contains(
-            "signature",
-            ignoreCase = true
-        ))
+        !(it.contains("logo", ignoreCase = true) || it.contains("signature", ignoreCase = true))
     }
     if (schoolLogoUri.isNotEmpty() && schoolImageUri.isNotEmpty()) {
         imageDisplay {

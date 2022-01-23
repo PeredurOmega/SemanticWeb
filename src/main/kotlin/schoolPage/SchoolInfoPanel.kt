@@ -29,7 +29,7 @@ val schoolInfoPanel = FC<SchoolInfoPanelProps> { props ->
     }
 }
 
-external interface InfoPanelWrapperProps : SparqlQueryConsumerProps<GetSchoolInfoResponse> {
+private external interface InfoPanelWrapperProps : SparqlQueryConsumerProps<GetSchoolInfoResponse> {
     var schoolUri: String
 }
 
@@ -57,6 +57,7 @@ private val infoPanelWrapper = FC<InfoPanelWrapperProps> { props ->
             )
         )
     }
+
     useEffectOnce {
         document.getElementById("special-hr")?.className += " with-panel1"
     }

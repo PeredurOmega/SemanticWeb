@@ -12,7 +12,6 @@ import react.useContext
 import react.useEffectOnce
 import schoolPage.SchoolPageLocationState
 import sparql.*
-import tools.sparql.*
 import tools.useWikipediaScrapper
 
 external interface CardResultProps : SparqlQueryConsumerProps<GetSearchResultResponse> {

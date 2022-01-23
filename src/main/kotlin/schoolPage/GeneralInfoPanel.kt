@@ -4,8 +4,11 @@ import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.span
-import tools.cleanPageName
 import sparql.GetSchoolInfoResponse
+import sparql.orElse
+import sparql.placeholder
+import sparql.whenNotBlank
+import tools.cleanPageName
 
 external interface GeneralInfoPanelProps : Props {
     var schoolInfo: GetSchoolInfoResponse
@@ -18,22 +21,23 @@ val generalInfoPanel = FC<GeneralInfoPanelProps> { props ->
         div {
             className = "school-name"
             span {
-                if (!schoolInfo.nameFoaf?.value.isNullOrBlank()) +cleanPageName(schoolInfo.nameFoaf?.value!!, listOf("http://dbpedia.org/resource/"))
-                else if (!schoolInfo.nameDbp?.value.isNullOrBlank()) +cleanPageName(schoolInfo.nameDbp?.value!!, listOf("http://dbpedia.org/resource/"))
-                else +schoolInfo.label.value
+                schoolInfo.nameFoaf.whenNotBlank { +cleanPageName(it, listOf("http://dbpedia.org/resource/")) } orElse {
+                    schoolInfo.nameDbp.whenNotBlank { +cleanPageName(it, listOf("http://dbpedia.org/resource/")) }
+                } placeholder { +schoolInfo.label.value }
             }
         }
         div {
             className = "school-motto"
             span {
-                if (!schoolInfo.motto?.value.isNullOrBlank()) +schoolInfo.motto?.value!!
+                schoolInfo.motto.whenNotBlank { +it }
             }
         }
         div {
             className = "school-description"
             span {
-                if (!schoolInfo.comment?.value.isNullOrBlank()) +schoolInfo.comment?.value!!
-                else if (!schoolInfo.abstract?.value.isNullOrBlank()) +schoolInfo.abstract?.value!!
+                schoolInfo.comment.whenNotBlank { +it } orElse {
+                    schoolInfo.abstract.whenNotBlank { +it }
+                }
             }
         }
     }

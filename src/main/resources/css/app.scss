@@ -34,3 +34,17 @@ input {
   color: var(--black-text);
   font-family: "Roboto", sans-serif;
 }
+
+
+hr {
+  width: calc(100% - 40px);
+  color: #9d9d9d;
+
+  &#special-hr {
+    display: none;
+
+    &.with-panel1.with-panel2 {
+      display: block;
+    }
+  }
+}
