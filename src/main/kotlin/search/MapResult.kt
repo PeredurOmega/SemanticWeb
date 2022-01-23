@@ -56,11 +56,10 @@ val mapResult = FC<MapResultProps> { props ->
                     )
                     position = json("lat" to lat, "lng" to lng)
                     markerPopup {
-                        popupText = it.popupText
-                        cityName = it.cityName
-                        countryName = it.countryName
-                        schoolUri = it.schoolUri
-                        cityUri = it.cityUri
+                        primaryText = it.primaryText
+                        primaryUri = it.primaryUri
+                        secondaryText = it.secondaryText
+                        secondaryUri = it.secondaryUri
                     }
                 }
             }
@@ -90,46 +89,43 @@ private val MapPositioner = FC<MapResultProps> { props ->
 }
 
 private external interface MarkerPopupProps : Props {
-    var popupText: String
-    var cityName: String?
-    var countryName: String?
-    var schoolUri: String?
-    var cityUri: String?
+    var primaryText: String?
+    var primaryUri: String?
+    var secondaryText: String?
+    var secondaryUri: String?
 }
 
 private val markerPopup = FC<MarkerPopupProps> { props ->
     popup {
         div {
             className = "marker-popup"
-            if (props.schoolUri != null) {
+            if (props.primaryUri != null && props.primaryText != null) {
                 Link {
                     this.to = "/school"
-                    this.state = jso<SchoolPageLocationState> { schoolUri = props.schoolUri }
+                    this.state = jso<SchoolPageLocationState> { schoolUri = props.primaryUri }
                     span {
-                        +props.popupText
+                        +props.primaryText!!
                     }
                 }
-            } else {
+            } else if(props.primaryText != null){
                 span {
-                    +props.popupText
+                    +props.primaryText!!
                 }
             }
 
             br { }
 
-            if (props.cityUri != null && props.cityName != null) {
+            if (props.secondaryUri != null && props.secondaryText != null) {
                 Link {
                     this.to = "/city"
-                    this.state = jso<CityPageLocationState> { cityUri = props.cityUri }
+                    this.state = jso<CityPageLocationState> { cityUri = props.secondaryUri }
                     span {
-                        +"${props.cityName}"
-                        if (props.countryName != null) +", ${props.countryName}"
+                        +props.secondaryText!!
                     }
                 }
-            } else if (props.cityName != null) {
+            } else if (props.secondaryText != null) {
                 span {
-                    +"${props.cityName}"
-                    if (props.countryName != null) +", ${props.countryName}"
+                    +props.secondaryText!!
                 }
             }
         }

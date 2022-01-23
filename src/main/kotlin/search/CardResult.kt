@@ -12,6 +12,7 @@ import react.useContext
 import react.useEffectOnce
 import schoolPage.SchoolPageLocationState
 import sparql.*
+import tools.concatenate
 import tools.useWikipediaScrapper
 
 external interface CardResultProps : SparqlQueryConsumerProps<GetSearchResultResponse> {
@@ -78,10 +79,9 @@ private fun coordinates(searchResult: GetSearchResultResponse, uri: String): Coo
     return Coordinates(
         searchResult.coordinates?.value,
         (searchResult.name?.value ?: searchResult.label.value),
-        searchResult.cityName?.value,
-        searchResult.countryName?.value,
-        searchResult.cityUrl?.value,
-        uri
+        uri,
+        concatenate(searchResult.cityName, searchResult.countryName),
+        searchResult.cityUrl?.value
     )
 }
 

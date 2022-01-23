@@ -20,23 +20,21 @@ external interface CityResultProps : SparqlQueryConsumerProps<GetCityResponse> {
 
 val cityResult = FC<CityResultProps> { props ->
     val setCoordinates = useContext(MapCoordinatesSetterContext)
-    useEffectOnce { //TODO REFACTOR
-        val coordinates = props.queryResult.coordinates?.value ?: "46.71 1.72"
-        val schoolName = props.queryResult.name?.value ?: ""
-        val cityName = ""
-        val countryName = props.queryResult.countryName?.value ?: ""
-        val cityUri = ""
-        val schoolUri = ""
+    useEffectOnce {
+        val coordinates = props.queryResult.coordinates?.value
+        val primaryText = props.queryResult.name?.value
+        val primaryUri = null
+        val secondaryText = props.queryResult.countryName?.value
+        val secondaryUri = null
 
         setCoordinates?.invoke(
             mutableListOf(
                 Coordinates(
                     coordinates,
-                    schoolName,
-                    cityName,
-                    countryName,
-                    cityUri,
-                    schoolUri
+                    primaryText,
+                    primaryUri,
+                    secondaryText,
+                    secondaryUri
                 )
             )
         )
