@@ -1,4 +1,4 @@
-package cityPage
+package city
 
 import kotlinext.js.jso
 import react.FC

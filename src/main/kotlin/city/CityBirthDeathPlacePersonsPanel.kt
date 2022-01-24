@@ -1,10 +1,10 @@
-package cityPage
+package city
 
 import kotlinext.js.jso
 import react.FC
 import react.Props
 import react.dom.html.ReactHTML.div
-import schoolPage.personPanel
+import school.personPanel
 import sparql.getCityBirthPlacePersonsInfo
 import sparql.getCityDeathPlacePersonsInfo
 import sparql.sparqlQueryLoaderMultiple

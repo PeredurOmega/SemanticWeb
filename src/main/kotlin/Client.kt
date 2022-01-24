@@ -1,4 +1,4 @@
-import cityPage.cityPage
+import city.cityPage
 import kotlinx.browser.document
 import kotlinx.browser.window
 import person.personPage
@@ -10,7 +10,7 @@ import react.dom.render
 import react.router.Route
 import react.router.Routes
 import react.router.dom.BrowserRouter
-import schoolPage.schoolPage
+import school.schoolPage
 import search.searchPage
 import tools.progressBarContextProvider
 import tools.requireSCSS

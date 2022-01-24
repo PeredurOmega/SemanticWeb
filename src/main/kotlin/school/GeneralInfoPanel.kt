@@ -1,4 +1,4 @@
-package schoolPage
+package school
 
 import react.FC
 import react.Props

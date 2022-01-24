@@ -1,6 +1,6 @@
 package search
 
-import cityPage.CityPageLocationState
+import city.CityPageLocationState
 import kotlinext.js.jso
 import kotlinx.browser.window
 import react.FC
@@ -11,7 +11,7 @@ import react.dom.html.ReactHTML.span
 import react.router.dom.Link
 import react.useContext
 import react.useEffect
-import schoolPage.SchoolPageLocationState
+import school.SchoolPageLocationState
 import tools.map.*
 import kotlin.js.json
 

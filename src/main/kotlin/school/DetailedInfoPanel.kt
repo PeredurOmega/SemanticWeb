@@ -1,6 +1,6 @@
-package schoolPage
+package school
 
-import cityPage.CityPageLocationState
+import city.CityPageLocationState
 import kotlinext.js.jso
 import react.FC
 import react.Props

@@ -13,7 +13,7 @@ import react.dom.html.ReactHTML.input
 import react.router.NavigateFunction
 import react.router.dom.Link
 import react.router.useNavigate
-import schoolPage.SchoolPageLocationState
+import school.SchoolPageLocationState
 import tools.basicSVG
 
 external interface SearchBarProps : Props {

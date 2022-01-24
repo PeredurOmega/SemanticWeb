@@ -6,7 +6,7 @@ import react.FC
 import react.dom.html.ReactHTML.li
 import react.dom.html.ReactHTML.ul
 import react.router.dom.Link
-import schoolPage.SchoolPageLocationState
+import school.SchoolPageLocationState
 import sparql.GetPersonUniversitiesResponse
 import sparql.SparqlQueryArrayConsumerProps
 

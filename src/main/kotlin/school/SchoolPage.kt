@@ -1,4 +1,4 @@
-package schoolPage
+package school
 
 import kotlinext.js.jso
 import react.FC

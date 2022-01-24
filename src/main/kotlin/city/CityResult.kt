@@ -1,4 +1,4 @@
-package cityPage
+package city
 
 import react.FC
 import react.dom.html.ReactHTML.div

@@ -10,7 +10,7 @@ import react.dom.html.ReactHTML.span
 import react.router.dom.Link
 import react.useContext
 import react.useEffectOnce
-import schoolPage.SchoolPageLocationState
+import school.SchoolPageLocationState
 import sparql.*
 import tools.useWikipediaScrapper
 

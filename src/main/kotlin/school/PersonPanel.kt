@@ -1,4 +1,4 @@
-package schoolPage
+package school
 
 import kotlinx.browser.document
 import react.FC
