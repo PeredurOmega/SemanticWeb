@@ -58,41 +58,34 @@ val detailedInfoPanel = FC<DetailedInfoPanelProps> { props ->
 
 private external interface SchoolLocationProps : Props {
     var cityName: SparqlValue<String>?
+    var cityUri: SparqlValue<String>?
     var countryName: SparqlValue<String>?
 }
 
 private val schoolLocation = FC<SchoolLocationProps> { props ->
-    props.cityName.whenNotBlank { city ->
-        Link {
-            this.to = "/city"
-            this.state = jso<CityPageLocationState> { cityUri = city }
-
-            div { //TODO REFACTOR
-                className = "detailled-info"
-                i {
-                    className = "fas fa-fw fa-map-marked-alt"
-                }
+    div {
+        className = "detailled-info"
+        i {
+            className = "fas fa-fw fa-map-marked-alt"
+        }
+        span {
+            +"Localisation : "
+        }
+        props.cityUri.whenNotBlank { cityUri ->
+            Link {
+                this.to = "/city"
+                this.state = jso<CityPageLocationState> { this.cityUri = cityUri }
                 span {
-                    +"Localisation : "
-                }
-                span {
-                    +cleanPageName(city, listOf("http://dbpedia.org/resource/"))
-                    props.countryName.whenNotBlank { country ->
-                        +", "
-                        +cleanPageName(country, listOf("http://dbpedia.org/resource/"))
+                    props.cityName.whenNotBlank { cityName ->
+                        +cleanPageName(cityName, listOf("http://dbpedia.org/resource/"), true)
+                        props.countryName.whenNotBlank { country ->
+                            +", "
+                            +cleanPageName(country, listOf("http://dbpedia.org/resource/"), true)
+                        }
                     } placeholder { +"France" }
                 }
             }
-        }
-    } placeholder {
-        div {
-            className = "detailled-info"
-            i {
-                className = "fas fa-fw fa-map-marked-alt"
-            }
-            span {
-                +"Localisation :"
-            }
+        } placeholder {
             span {
                 +"France"
             }
@@ -106,6 +99,7 @@ private val schoolDetails1 = FC<DetailedInfoPanelProps> { props ->
         schoolLocation {
             cityName = schoolInfo.cityName
             countryName = schoolInfo.countryName
+            cityUri = schoolInfo.cityUrl
         }
         div {
             className = "detailled-info"
@@ -158,8 +152,8 @@ private val schoolDetails2 = FC<DetailedInfoPanelProps> { props ->
                 +"Directeur : "
             }
             span {
-                schoolInfo.administrativeStaff.whenNotBlank {
-                    +cleanPageName(it, listOf("http://dbpedia.org/resource/"))
+                schoolInfo.president.whenNotBlank {
+                    +cleanPageName(it, listOf("http://dbpedia.org/resource/"), true)
                 } placeholder { +"NC" }
             }
         }

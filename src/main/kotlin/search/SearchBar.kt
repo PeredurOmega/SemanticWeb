@@ -47,6 +47,7 @@ val searchBar = FC<SearchBarProps> { props ->
             this.searchText = searchText
             this.selectedSuggestion = selectedSuggestion
             this.suggestions = suggestions
+            this.resetSuggestions = resetSuggestions
         }
     }
 }
@@ -91,7 +92,9 @@ private fun KeyboardEvent<HTMLInputElement>.onKeyDownWithSuggestions(
                         schoolUri = suggestions[selectedSuggestion].uri
                     }
                 })
+                resetSuggestions(true)
             } else search(currentTarget.value, navigate, resetSuggestions)
+            currentTarget.blur()
             preventDefault()
         }
         "ArrowDown" -> {
@@ -124,6 +127,7 @@ private external interface AutocompletionPanelProps : Props {
     var searchText: String
     var selectedSuggestion: Int?
     var suggestions: List<Suggestion>?
+    var resetSuggestions: (immediateDiscard: Boolean) -> Unit
 }
 
 private val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
@@ -133,6 +137,9 @@ private val autocompletionPanel = FC<AutocompletionPanelProps> { props ->
             Link {
                 this.to = "/school"
                 this.state = jso<SchoolPageLocationState> { schoolUri = suggestion.component2() }
+                onClick = {
+                    props.resetSuggestions(true)
+                }
                 if (props.selectedSuggestion == i) className = "selected"
                 val labelSplit = Regex("(.*)(${props.searchText})(.*)", RegexOption.IGNORE_CASE).find(suggestion.label)
                 if (labelSplit != null) {

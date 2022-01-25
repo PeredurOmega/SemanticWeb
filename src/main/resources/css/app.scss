@@ -48,3 +48,12 @@ hr {
     }
   }
 }
+
+a {
+  transition: color 0.3s;
+  color: #4B69FF;
+
+  &:hover {
+    color: #5687d7;
+  }
+}

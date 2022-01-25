@@ -67,13 +67,13 @@
           margin-right: 14px;
         }
 
-        & > span {
+        & > span, & > a > span {
           font-size: 1.3em;
           font-weight: 600;
           margin-left: 10px;
         }
 
-        & > span:last-child {
+        & > span:last-child, & > a > span:last-child {
           font-weight: 400;
         }
       }
@@ -83,7 +83,6 @@
       margin-top: -5px;
 
       @extend %person-panel;
-
     }
   }
 
@@ -125,9 +124,11 @@
           & > a {
             color: initial;
           }
+
           & > a:first-child > span, & > span:first-child {
             @extend %big-title;
           }
+
           & > a:last-child > span, & > span:last-child {
             @extend %big-text;
           }

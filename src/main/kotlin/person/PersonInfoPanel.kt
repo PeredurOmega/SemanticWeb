@@ -34,7 +34,6 @@ private val personHeader = FC<SparqlQueryConsumerProps<GetPersonInfoResponse>> {
     div {
         className = "general-info"
         span {
-            //TODO LABEL EN
             personInfo.labelen.whenNotBlank { +it }
         }
         span {
@@ -69,8 +68,8 @@ private val personDetails = FC<PersonInfoPanelProps> { props ->
             span {
                 personInfo.wiki.whenNotBlank {
                     a {
-                        +props.queryResult.wiki?.value!!
-                        href = props.queryResult.wiki?.value!!
+                        +it
+                        href = it
                         target = AnchorTarget._blank
                     }
                 } placeholder { +"NC" }
@@ -102,8 +101,8 @@ private val personDetails = FC<PersonInfoPanelProps> { props ->
                 +"Lieu de naissance : "
             }
             span {
-                personInfo.cityconcat.whenNotBlank { +it.removePrefix("Franca,") } orElse {
-                    personInfo.cityen.whenNotBlank { +it.removePrefix("Franca,") }
+                personInfo.cityconcat.whenNotBlank { +it.replace("Franca,", "") } orElse {
+                    personInfo.cityen.whenNotBlank { +it.replace("Franca,", "") }
                 } placeholder { +"NC" }
             }
         }

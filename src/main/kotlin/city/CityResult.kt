@@ -13,6 +13,7 @@ import sparql.GetCityResponse
 import sparql.SparqlQueryConsumerProps
 import sparql.placeholder
 import sparql.whenNotBlank
+import tools.cleanPageName
 
 external interface CityResultProps : SparqlQueryConsumerProps<GetCityResponse> {
     var cityUri: String
@@ -91,8 +92,9 @@ private val detailedCityInfo = FC<SparqlQueryConsumerProps<GetCityResponse>> { p
                     +"Maire : "
                 }
                 span {
-                    //TODO SANITIZE OR FETCH WITH DBPEDIA (RESOURCE)
-                    searchResult.mayor.whenNotBlank { +it } placeholder { +"NC" }
+                    searchResult.mayor.whenNotBlank {
+                        +cleanPageName(it, listOf("http://dbpedia.org/resource/"), true)
+                    } placeholder { +"NC" }
                 }
             }
             div {

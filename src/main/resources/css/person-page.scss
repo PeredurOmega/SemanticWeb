@@ -1,7 +1,7 @@
 @use "commons/texts";
 @use "commons/shadow";
 
-.main-person-div{
+.main-person-div {
   display: flex;
   flex-direction: row;
   background-color: #f9f9f9;
@@ -65,12 +65,15 @@
           font-size: 1.3em;
           font-weight: 600;
           margin-left: 10px;
+
+          &:not(:last-child) {
+            min-width: fit-content;
+          }
         }
 
         & > *:last-child {
           font-weight: 400;
         }
-
       }
 
       & > .icon-text-person:last-child {
@@ -80,38 +83,35 @@
         margin-bottom: 0;
 
         & > div:first-child {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
 
-            & > i {
-              font-size: 2.6em;
-              margin-right: 14px;
-            }
+          & > i {
+            font-size: 2.6em;
+            margin-right: 14px;
+          }
 
-            & > span {
-              font-size: 1.3em;
-              font-weight: 600;
-              margin-left: 10px;
-            }
+          & > span {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-left: 10px;
+          }
         }
 
         & > div:last-child > ul {
           display: flex;
           flex-direction: column;
-          font-size: 1.2em;
           padding-left: 100px;
           margin: 0;
+          font-size: 1.2em;
 
-          & > li {
+          & > li, a {
             margin-top: 8px;
           }
         }
-
       }
-
     }
-
   }
 
   & > .img-person {
@@ -131,10 +131,4 @@
       @extend %shadow;
     }
   }
-
-}
-
-
-.icon-text-person svg {
-  width: 50px;
 }

@@ -21,8 +21,8 @@ val generalInfoPanel = FC<GeneralInfoPanelProps> { props ->
         div {
             className = "school-name"
             span {
-                schoolInfo.nameFoaf.whenNotBlank { +cleanPageName(it, listOf("http://dbpedia.org/resource/")) } orElse {
-                    schoolInfo.nameDbp.whenNotBlank { +cleanPageName(it, listOf("http://dbpedia.org/resource/")) }
+                schoolInfo.nameFoaf.whenNotBlank { +cleanPageName(it, listOf("http://dbpedia.org/resource/"), true) } orElse {
+                    schoolInfo.nameDbp.whenNotBlank { +cleanPageName(it, listOf("http://dbpedia.org/resource/"), true) }
                 } placeholder { +schoolInfo.label.value }
             }
         }
