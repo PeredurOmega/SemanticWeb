@@ -4,6 +4,7 @@ Search Engine for French Universities based on DBpedia (https://www.dbpedia.org/
 
 This project has been realized in the as part of the semantic web course (INSA Lyon 4IFA). We realized this project over a period of 3 weeks and as a team of 5 people.
 
+The website is available at https://pereduromega.github.io/SemanticWeb.
 
 ## The idea
 
