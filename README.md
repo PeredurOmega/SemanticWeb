@@ -38,17 +38,17 @@ You can check the project on the following URL :
 ## Requirements
 <a href="https://www.jetbrains.com/fr-fr/idea/"><img src="https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white"/></a>
 
-<a href="https://kotlinlang.org/"><img src="https://img.shields.io/badge/kotlin-%230095D5.svg?style=for-the-badge&logo=kotlin&logoColor=white"/></a>
+<a href="https://kotlinlang.org/"><img src="https://img.shields.io/badge/kotlin-%230095D5.svg?style=for-the-badge&logo=kotlin&logoColor=white"/>
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://img.shields.io/badge/Version%20-TODO VERSION-blue.svg"/>
+<img src="https://img.shields.io/badge/Version%20-TODO VERSION-blue.svg"/></a>
 
-<a href="https://gradle.org/"><img src="https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white"/></a>
+<a href="https://gradle.org/"><img src="https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white"/>
 &nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://img.shields.io/badge/Version%20-TODO VERSION-02303A.svg"/>
+<img src="https://img.shields.io/badge/Version%20-TODO VERSION-02303A.svg"/></a>
 
-<a href="https://en.reactjs.org/"><img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/></a>
+<a href="https://en.reactjs.org/"><img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://img.shields.io/badge/Version%20-TODO VERSION-20232A.svg"/>
+<img src="https://img.shields.io/badge/Version%20-TODO VERSION-20232A.svg"/></a>
 
 ## Setup the project
 

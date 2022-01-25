@@ -1,11 +1,10 @@
 package tools
 
-import BASENAME
 import kotlinext.js.jso
 import org.w3c.dom.events.Event
 import react.ChildrenBuilder
 
-val imageDir = "${BASENAME ?: ""}/images/"
+val imageDir = "/images/"
 
 fun ChildrenBuilder.basicSVG(
     iconName: String,
