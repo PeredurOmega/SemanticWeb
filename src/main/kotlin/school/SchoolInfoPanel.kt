@@ -14,6 +14,7 @@ import sparql.GetSchoolInfoResponse
 import sparql.SparqlQueryConsumerProps
 import sparql.getSchoolInfo
 import sparql.sparqlQueryLoaderSingle
+import tools.concatenate
 
 external interface SchoolInfoPanelProps : Props {
     var schoolUri: String
@@ -36,23 +37,21 @@ private external interface InfoPanelWrapperProps : SparqlQueryConsumerProps<GetS
 private val infoPanelWrapper = FC<InfoPanelWrapperProps> { props ->
     val setCoordinates = useContext(MapCoordinatesSetterContext)
     useEffectOnce {
-        val coordinates = props.queryResult.coordinate?.value ?: "46.71 1.72"
-        val schoolName =
+        val coordinates = props.queryResult.coordinate?.value
+        val primaryText =
             props.queryResult.nameDbp?.value ?: props.queryResult.nameFoaf?.value ?: props.queryResult.label.value
-        val cityName = props.queryResult.cityName?.value ?: ""
-        val countryName = props.queryResult.countryName?.value ?: ""
-        val cityUri = props.queryResult.cityUrl?.value ?: ""
-        val schoolUri = props.schoolUri
+        val primaryUri = props.schoolUri
+        val secondaryText = concatenate(props.queryResult.cityName, props.queryResult.countryName)
+        val secondaryUri = props.queryResult.cityUrl?.value
 
         setCoordinates?.invoke(
             mutableListOf(
                 Coordinates(
                     coordinates,
-                    schoolName,
-                    cityName,
-                    countryName,
-                    cityUri,
-                    schoolUri
+                    primaryText,
+                    primaryUri,
+                    secondaryText,
+                    secondaryUri
                 )
             )
         )

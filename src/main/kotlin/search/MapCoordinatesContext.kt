@@ -16,12 +16,10 @@ val mapCoordinatesContextProvider = FC<PropsWithChildren> { props ->
     }
 }
 
-//TODO USE PRIMARY TEXT AND SECONDARY TEXT AND PRIMARY URI AND SECONDARY URI
 data class Coordinates(
     val coordinates: String?,
-    val popupText: String,
-    val cityName: String?,
-    val countryName: String?,
-    val cityUri: String?,
-    val schoolUri: String?
+    val primaryText: String?,
+    val primaryUri: String?,
+    val secondaryText: String?,
+    val secondaryUri: String?
 )
