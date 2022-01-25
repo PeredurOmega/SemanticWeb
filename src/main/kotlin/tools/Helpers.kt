@@ -15,12 +15,16 @@ fun ChildrenBuilder.redirectToHome() {
     }
 }
 
-fun <V1: String?, V2: String?> concatenate(sparqlValue1: SparqlValue<V1>?, sparqlValue2: SparqlValue<V2>?,  separator: String = ", "): String {
+fun <V1 : String?, V2 : String?> concatenate(
+    sparqlValue1: SparqlValue<V1>?,
+    sparqlValue2: SparqlValue<V2>?,
+    separator: String = ", "
+): String {
     return if (!sparqlValue1?.value.isNullOrBlank() && !sparqlValue2?.value.isNullOrBlank()) {
         "${sparqlValue1!!.value}${separator}${sparqlValue2!!.value}"
-    } else if(!sparqlValue1?.value.isNullOrBlank()) {
+    } else if (!sparqlValue1?.value.isNullOrBlank()) {
         sparqlValue1!!.value!!
-    } else if(!sparqlValue2?.value.isNullOrBlank()) {
+    } else if (!sparqlValue2?.value.isNullOrBlank()) {
         sparqlValue2!!.value!!
     } else {
         ""

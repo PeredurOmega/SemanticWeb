@@ -15,6 +15,8 @@ import search.searchPage
 import tools.progressBarContextProvider
 import tools.requireSCSS
 
+val BASENAME: String? = null
+
 fun main() {
     window.onload = {
         render(Fragment.create { mainApp {} }, document.getElementById("root")!!)
@@ -28,6 +30,9 @@ val mainApp = FC<Props> {
 
 val mainRouter = FC<Props> {
     BrowserRouter {
+        BASENAME?.let {
+            basename = it
+        }
         Routes {
             Route {
                 path = "/"
