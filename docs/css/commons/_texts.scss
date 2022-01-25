@@ -1,0 +1,217 @@
+@use "../commons/responsive" as responsive;
+@use "../commons/sizes" as sizes;
+@import "../commons/commons";
+
+%base-color-text {
+  color: var(--black-text);
+}
+
+%base-text {
+  font-weight: 400;
+  @extend %base-color-text
+}
+
+%base-title {
+  font-weight: 500;
+  @extend %base-color-text
+}
+
+%medium-text {
+  font-size: 14px;
+  @extend %base-text;
+}
+
+%small-text {
+  font-size: 12px;
+  @extend %base-text;
+}
+
+%medium-title {
+  font-size: 16px;
+  @extend %base-title;
+  @include responsive.mediaUntil(sizes.$phone-extra-large) {
+    font-size: 14px;
+  }
+}
+
+%medium-plus-title {
+  font-size: 18px;
+  @extend %base-title;
+  @include responsive.mediaUntil(sizes.$phone-extra-large) {
+    font-size: 16px;
+  }
+}
+
+%section-text {
+  @extend %big-title;
+  @extend %base-transition-duration;
+  cursor: pointer;
+  line-height: var(--navbar-height);
+
+  &:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+%wrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+%light-big-text {
+  @extend %base-text;
+  @extend %big-text-size;
+  font-weight: 300;
+}
+
+%big-text-size {
+  @extend %base-color-text;
+  font-size: 16px;
+  @include responsive.mediaUntil(sizes.$phone-extra-large) {
+    font-size: 14px;
+  }
+}
+
+%huge-text-size {
+  @extend %base-color-text;
+  font-size: 20px;
+  @include responsive.mediaUntil(sizes.$phone-extra-large) {
+    font-size: 18px;
+  }
+}
+
+%extra-big-title {
+  @extend %base-color-text;
+  font-size: 50px;
+  font-weight: 900;
+  @include responsive.mediaUntil(sizes.$phone-extra-large) {
+    font-size: 35px;
+  }
+}
+
+%big-title {
+  @extend %base-color-text;
+  font-size: 22px;
+  font-weight: 700;
+  @include responsive.mediaUntil(sizes.$phone-extra-large) {
+    font-size: 18px;
+  }
+}
+
+%standard-title {
+  @extend %base-title;
+  font-size: 18px;
+  @include responsive.mediaUntil(sizes.$phone-extra-large) {
+    font-size: 16px;
+  }
+}
+
+%light-extra-big-title {
+  font-size: 40px;
+  font-weight: 500;
+  @extend %base-color-text;
+  @include responsive.mediaUntil(sizes.$phone-extra-large) {
+    font-size: 25px;
+  }
+}
+
+%light-big-title {
+  font-size: 32px;
+  font-weight: 500;
+  @extend %base-color-text;
+  @include responsive.mediaUntil(sizes.$phone-extra-large) {
+    font-size: 20px;
+  }
+}
+
+%small-title {
+  font-size: 14px;
+  @extend %base-title;
+  @include responsive.mediaUntil(sizes.$phone-extra-large) {
+    font-size: 13px;
+  }
+}
+
+%underline-on-hover {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+%big-text {
+  @extend %base-text;
+  @extend %big-text-size;
+}
+
+%extra-small-text {
+  font-size: 11px;
+  @extend %base-text;
+}
+
+%extra-small-title {
+  font-size: 11px;
+  @extend %base-title;
+}
+
+%light-extra-small-text {
+  font-size: 11px;
+  @extend %base-text;
+  font-weight: 300;
+}
+
+%light-colored-medium-text {
+  font-size: 14px;
+  color: var(--black-light-text);
+  font-weight: 400;
+}
+
+@mixin multilineWrap($lineHeight, $lineCount, $maxHeight: true) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: $lineHeight !important;
+  word-break: break-word !important;
+  @if ($maxHeight == true) {
+    max-height: $lineCount * $lineHeight;
+  } @else {
+    height: $lineCount * $lineHeight;
+  }
+  display: -webkit-box;
+  -webkit-line-clamp: $lineCount;
+  text-align: justify;
+  -webkit-box-orient: vertical;
+}
+
+%hover-background-change {
+  &:hover {
+    cursor: pointer;
+    background-color: var(--hover-background);
+  }
+}
+
+%link-text {
+  color: var(--primary-color);
+  cursor: pointer; //TODO REMOVE
+  &:hover {
+    color: var(--link-pressed-color);
+  }
+}
+
+%mini-top-label {
+  top: -15px;
+  color: var(--black-light-text);
+  @extend %mini-label;
+  @extend %base-transition-duration;
+}
+
+%mini-label {
+  position: absolute;
+  pointer-events: none;
+  width: calc(100% - 40px);
+  left: 34px;
+  @extend %wrap;
+  @extend %small-text;
+}

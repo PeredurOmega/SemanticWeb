@@ -10,9 +10,9 @@ import react.dom.html.ReactHTML.span
 import react.router.dom.Link
 import react.useContext
 import react.useEffectOnce
-import schoolPage.SchoolPageLocationState
-import tools.sparql.GetSearchResultResponse
-import tools.sparql.SparqlQueryConsumerProps
+import school.SchoolPageLocationState
+import sparql.*
+import tools.concatenate
 import tools.useWikipediaScrapper
 
 external interface CardResultProps : SparqlQueryConsumerProps<GetSearchResultResponse> {
@@ -20,69 +20,81 @@ external interface CardResultProps : SparqlQueryConsumerProps<GetSearchResultRes
 }
 
 val cardResult = FC<CardResultProps> { props ->
-    val searchResult = props.queryResult
-    val setCoordinates = useContext(MapCoordinatesSetterContext)
-    useEffectOnce {
-        setCoordinates!!.invoke {
-            it.add(
-                Coordinates(
-                    searchResult.coordinates?.value,
-                    (searchResult.name?.value ?: searchResult.label.value),
-                    searchResult.cityName?.value,
-                    searchResult.countryName?.value,
-                    searchResult.cityUrl?.value,
-                    props.uri
-                )
-            )
-            mutableListOf(*it.toTypedArray())
-        }
-    }
+    useCoordinatesPlacer(props)
     Link {
         this.to = "/school"
         this.state = jso<SchoolPageLocationState> { schoolUri = props.uri }
-        div {
-            className = "card-result"
-            div {
-                div {
-                    span {
-                        val name = if (!searchResult.name?.value.isNullOrBlank()) searchResult.name?.value!!
-                        else searchResult.label.value
-                        +(name.replace('-', '‑'))
-                    }
-                    span {
-                        if (!searchResult.cityName?.value.isNullOrBlank() && !searchResult.countryName?.value.isNullOrBlank())
-                            +"${searchResult.cityName?.value}, ${searchResult.countryName?.value}"
-                    }
-                }
-                schoolLogo {
-                    sameFr = searchResult.sameFr.value
-                    uri = props.uri
-                    alt = "Logo de ${searchResult.name?.value ?: searchResult.label.value}"
-                }
-            }
-            p {
-                if (!searchResult.comment?.value.isNullOrBlank()) +searchResult.comment?.value!!
-                else if (!searchResult.abstract?.value.isNullOrBlank()) +searchResult.abstract?.value!!
-            }
+
+        schoolCardDetail {
+            queryResult = props.queryResult
+            uri = props.uri
         }
     }
 }
 
-external interface LogoUrlProps : Props {
+private val schoolCardDetail = FC<CardResultProps> { props ->
+    val searchResult = props.queryResult
+    div {
+        className = "card-result"
+        div {
+            div {
+                span {
+                    searchResult.name.whenNotBlank {
+                        +it.replace('-', '‑')
+                    } placeholder {
+                        +searchResult.label.value.replace('-', '‑')
+                    }
+                }
+                span {
+                    searchResult.cityName.whenNotBlank { city ->
+                        searchResult.countryName.whenNotBlank { country ->
+                            +"$city, $country"
+                        }
+                    }
+                }
+            }
+            schoolLogo {
+                sameFr = searchResult.sameFr.value
+                uri = props.uri
+                alt = "Logo de ${searchResult.name?.value ?: searchResult.label.value}"
+            }
+        }
+        p {
+            searchResult.comment.whenNotBlank { +it } orElse { searchResult.abstract.whenNotBlank { +it } }
+        }
+    }
+}
+
+private fun useCoordinatesPlacer(props: CardResultProps) {
+    val setCoordinates = useContext(MapCoordinatesSetterContext)
+    useEffectOnce {
+        setCoordinates!!.invoke {
+            it.add(coordinates(props.queryResult, props.uri))
+            mutableListOf(*it.toTypedArray())
+        }
+    }
+}
+
+private fun coordinates(searchResult: GetSearchResultResponse, uri: String): Coordinates {
+    return Coordinates(
+        searchResult.coordinates?.value,
+        (searchResult.name?.value ?: searchResult.label.value),
+        uri,
+        concatenate(searchResult.cityName, searchResult.countryName),
+        searchResult.cityUrl?.value
+    )
+}
+
+private external interface LogoUrlProps : Props {
     var uri: String
     var sameFr: String
     var alt: String
 }
 
-
 private val schoolLogo = FC<LogoUrlProps> { props ->
     val logoUri = useWikipediaScrapper(props.uri, props.sameFr, 1) {
-        it.contains(
-            "logo",
-            ignoreCase = true
-        ) || it.contains("signature", ignoreCase = true)
+        it.contains("logo", ignoreCase = true) || it.contains("signature", ignoreCase = true)
     }
-
 
     if (logoUri.isNotEmpty()) {
         img {

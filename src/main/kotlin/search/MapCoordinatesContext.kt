@@ -2,15 +2,6 @@ package search
 
 import react.*
 
-data class Coordinates(
-    val coordinates: String?,
-    val popupText: String,
-    val cityName: String?,
-    val countryName: String?,
-    val cityUri: String?,
-    val schoolUri: String
-)
-
 val MapCoordinatesContext = createContext(mutableListOf<Coordinates>())
 
 val MapCoordinatesSetterContext = createContext<StateSetter<MutableList<Coordinates>>?>(null)
@@ -24,3 +15,11 @@ val mapCoordinatesContextProvider = FC<PropsWithChildren> { props ->
         }
     }
 }
+
+data class Coordinates(
+    val coordinates: String?,
+    val primaryText: String?,
+    val primaryUri: String?,
+    val secondaryText: String?,
+    val secondaryUri: String?
+)

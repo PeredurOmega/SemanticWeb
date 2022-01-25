@@ -1,4 +1,4 @@
-import cityPage.cityPage
+import city.cityPage
 import kotlinx.browser.document
 import kotlinx.browser.window
 import person.personPage
@@ -10,20 +10,29 @@ import react.dom.render
 import react.router.Route
 import react.router.Routes
 import react.router.dom.BrowserRouter
-import schoolPage.schoolPage
+import school.schoolPage
 import search.searchPage
+import tools.progressBarContextProvider
 import tools.requireSCSS
-import tools.sparql.progressBarContextProvider
+
+val BASENAME: String? = null
 
 fun main() {
-    println("main")
     window.onload = {
         render(Fragment.create { mainApp {} }, document.getElementById("root")!!)
     }
 }
 
+val mainApp = FC<Props> {
+    requireSCSS("app")
+    mainRouter { }
+}
+
 val mainRouter = FC<Props> {
     BrowserRouter {
+        BASENAME?.let {
+            basename = it
+        }
         Routes {
             Route {
                 path = "/"
@@ -33,7 +42,6 @@ val mainRouter = FC<Props> {
                 path = "*"
                 element = app.create()
             }
-
         }
     }
 }
@@ -59,12 +67,5 @@ val app = FC<Props> {
                 element = cityPage.create()
             }
         }
-    }
-}
-
-val mainApp = FC<Props> {
-    requireSCSS("app")
-    mainRouter {
-
     }
 }

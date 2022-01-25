@@ -1,5 +1,6 @@
 package search
 
+import city.CityPageLocationState
 import kotlinext.js.jso
 import kotlinx.browser.window
 import react.FC
@@ -10,7 +11,7 @@ import react.dom.html.ReactHTML.span
 import react.router.dom.Link
 import react.useContext
 import react.useEffect
-import schoolPage.SchoolPageLocationState
+import school.SchoolPageLocationState
 import tools.map.*
 import kotlin.js.json
 
@@ -54,25 +55,11 @@ val mapResult = FC<MapResultProps> { props ->
                         )
                     )
                     position = json("lat" to lat, "lng" to lng)
-                    popup {
-                        div {
-                            className = "marker-popup"
-                            Link {
-                                this.to = "/school"
-                                this.state = jso<SchoolPageLocationState> { schoolUri = it.schoolUri }
-                                span {
-                                    +it.popupText
-                                }
-                            }
-                            br { }
-                            Link {
-                                this.to = "/city"
-                                this.state = jso<SchoolPageLocationState> { schoolUri = it.cityUri }
-                                span {
-                                    +"${it.cityName}, ${it.countryName}"
-                                }
-                            }
-                        }
+                    markerPopup {
+                        primaryText = it.primaryText
+                        primaryUri = it.primaryUri
+                        secondaryText = it.secondaryText
+                        secondaryUri = it.secondaryUri
                     }
                 }
             }
@@ -97,6 +84,50 @@ private val MapPositioner = FC<MapResultProps> { props ->
 
         cleanup {
             window.clearTimeout(timeout)
+        }
+    }
+}
+
+private external interface MarkerPopupProps : Props {
+    var primaryText: String?
+    var primaryUri: String?
+    var secondaryText: String?
+    var secondaryUri: String?
+}
+
+private val markerPopup = FC<MarkerPopupProps> { props ->
+    popup {
+        div {
+            className = "marker-popup"
+            if (props.primaryUri != null && props.primaryText != null) {
+                Link {
+                    this.to = "/school"
+                    this.state = jso<SchoolPageLocationState> { schoolUri = props.primaryUri }
+                    span {
+                        +props.primaryText!!
+                    }
+                }
+            } else if(props.primaryText != null){
+                span {
+                    +props.primaryText!!
+                }
+            }
+
+            br { }
+
+            if (props.secondaryUri != null && props.secondaryText != null) {
+                Link {
+                    this.to = "/city"
+                    this.state = jso<CityPageLocationState> { cityUri = props.secondaryUri }
+                    span {
+                        +props.secondaryText!!
+                    }
+                }
+            } else if (props.secondaryText != null) {
+                span {
+                    +props.secondaryText!!
+                }
+            }
         }
     }
 }

@@ -3,8 +3,10 @@ package person
 import react.FC
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.img
-import tools.sparql.GetPersonImageResponse
-import tools.sparql.SparqlQueryConsumerProps
+import sparql.GetPersonImageResponse
+import sparql.SparqlQueryConsumerProps
+import sparql.placeholder
+import sparql.whenNotBlank
 import tools.wikipediaPhoto
 
 external interface PersonImagePanelProps : SparqlQueryConsumerProps<GetPersonImageResponse> {
@@ -14,13 +16,15 @@ external interface PersonImagePanelProps : SparqlQueryConsumerProps<GetPersonIma
 val personImagePanel = FC<PersonImagePanelProps> { props ->
     div {
         className = "img-person"
-        if (!props.queryResult.imageURL?.value.isNullOrBlank()) {
+        props.queryResult.imageURL.whenNotBlank {
             img {
-                src =  props.queryResult.imageURL!!.value
+                src = props.queryResult.imageURL!!.value
             }
-        } else wikipediaPhoto {
-            this.uri = props.personUri
-            this.type = "person"
+        } placeholder {
+            wikipediaPhoto {
+                this.uri = props.personUri
+                this.type = "person"
+            }
         }
     }
 }

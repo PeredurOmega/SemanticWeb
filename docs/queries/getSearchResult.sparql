@@ -1,0 +1,43 @@
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbr: <http://dbpedia.org/resource/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT *
+WHERE {
+    <$uri$> rdfs:label ?label .
+    <$uri$> owl:sameAs ?sameFr .
+
+    OPTIONAL {
+        <$uri$> dbo:city ?cityUrl .
+        ?cityUrl
+            dbp:name ?cityName ;
+            dbo:country ?countryUrl .
+        ?countryUrl
+            dbp:commonName ?countryName .
+    }
+
+    OPTIONAL {
+        <$uri$> dbo:location ?cityUrl .
+        ?cityUrl
+            dbp:name ?cityName ;
+            dbo:country ?countryUrl .
+        ?countryUrl
+            dbp:commonName ?countryName .
+    }
+
+    OPTIONAL { <$uri$> georss:point ?coordinates . }
+    OPTIONAL {
+        <$uri$> rdfs:comment ?comment .
+        FILTER (lang(?comment) = "fr")
+    }
+    OPTIONAL { <$uri$> dbp:name ?name . }
+    OPTIONAL {
+        <$uri$> dbo:abstract ?abstract .
+        FILTER (lang(?abstract) = "fr")
+    }
+
+    FILTER (strstarts(str(?sameFr), 'http://fr.dbpedia.org/resource/'))
+    FILTER (lang(?label) = "fr")
+}
