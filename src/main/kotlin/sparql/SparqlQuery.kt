@@ -1,6 +1,5 @@
 package sparql
 
-import BASENAME
 import kotlinext.js.getOwnPropertyNames
 import org.w3c.xhr.XMLHttpRequest
 import react.MutableRefObject
@@ -44,7 +43,7 @@ abstract class SparqlQuery<V : SparqlVariables, R : SparqlResponse>(private val 
                 }
             }
         }
-        xhr.open("GET", "${BASENAME ?: ""}/queries/$queryName.sparql")
+        xhr.open("GET", "/queries/$queryName.sparql")
         xhr.send()
     }
 }
