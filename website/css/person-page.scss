@@ -1,0 +1,134 @@
+@use "commons/texts";
+@use "commons/shadow";
+
+.main-person-div {
+  display: flex;
+  flex-direction: row;
+  background-color: #f9f9f9;
+  padding: 102px 2% 30px 2%;
+  min-height: calc(100vh - 132px);
+
+  & > .attribute-person-div {
+    display: flex;
+    flex-direction: column;
+    width: 59.5%;
+    background-color: #ffffff;
+    padding: 40px 50px;
+    border-radius: 20px;
+    height: min-content;
+    @extend %shadow;
+
+    & > .general-info {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 25px;
+
+      & > span:nth-child(1) {
+        font-size: 2.4em;
+        font-weight: 700;
+      }
+
+      & > span:nth-child(2) {
+        font-size: 1.4em;
+        font-weight: 500;
+        color: #696969;
+        font-style: italic;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+      }
+
+      & > span:nth-child(3) {
+        @extend %huge-text-size;
+      }
+
+    }
+
+    & > hr {
+      width: 100%;
+    }
+
+    & > .icons-text-person {
+      margin-top: 25px;
+
+      & > .icon-text-person {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 15px;
+
+        & > i {
+          font-size: 2.6em;
+          margin-right: 14px;
+        }
+
+        & > span {
+          font-size: 1.3em;
+          font-weight: 600;
+          margin-left: 10px;
+
+          &:not(:last-child) {
+            min-width: fit-content;
+          }
+        }
+
+        & > *:last-child {
+          font-weight: 400;
+        }
+      }
+
+      & > .icon-text-person:last-child {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 0;
+
+        & > div:first-child {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          & > i {
+            font-size: 2.6em;
+            margin-right: 14px;
+          }
+
+          & > span {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-left: 10px;
+          }
+        }
+
+        & > div:last-child > ul {
+          display: flex;
+          flex-direction: column;
+          padding-left: 100px;
+          margin: 0;
+          font-size: 1.2em;
+
+          & > li, a {
+            margin-top: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  & > .img-person {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    right: 2%;
+    width: 31.5%;
+
+    & > img {
+      -o-object-fit: cover;
+      object-fit: cover;
+      width: 100%;
+      max-height: calc(100vh - 132px);
+      border-radius: 20px;
+      @extend %shadow;
+    }
+  }
+}

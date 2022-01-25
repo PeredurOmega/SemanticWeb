@@ -1,0 +1,84 @@
+@use "texts";
+@use "shadow";
+
+.search-bar-container-small {
+  position: relative;
+  margin-left: 50px;
+}
+
+.search-bar-container {
+  position: relative;
+}
+
+.main-bar {
+  margin-top: 30px;
+
+  & > input {
+    width: 800px;
+    height: 60px;
+  }
+}
+
+.small-bar > input {
+  width: 800px;
+  height: 50px;
+}
+
+
+.search-bar {
+  position: relative;
+
+  & > .search-icon {
+    width: 40px;
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 375px);
+    right: auto;
+    z-index: 1;
+    cursor: pointer;
+  }
+
+  & > input {
+    border-radius: 40px;
+    background: white;
+    @extend %shadow;
+    padding: 15px 25px 15px 90px;
+    font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 1.75;
+    text-rendering: optimizeSpeed;
+    border: none;
+
+    &.with-suggestions {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.autocompletion {
+  position: absolute;
+  width: 100%;
+  text-align: left;
+  background: white;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  overflow: hidden;
+  @extend %shadow-excluding-top;
+
+  & > a {
+    display: block;
+    @extend %big-text;
+    @extend %huge-text-size;
+    text-decoration: none;
+    padding: 15px 25px 15px 90px;
+    border-top: 0.5px solid rgba(119, 119, 119, 0.2);
+    cursor: pointer;
+
+    &:hover, &.selected {
+      color: initial;
+      background: #f5f5f5;
+    }
+  }
+}

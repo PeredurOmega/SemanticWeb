@@ -1,0 +1,22 @@
+@use "commons/texts";
+@use "commons/shadow";
+
+.main-background {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(#43e6ff 0%, #4d47ff 100%);
+}
+
+.main-logo {
+  width: 400px;
+  margin-bottom: 30px;
+}
+
+.search-elements {
+  width: 800px;
+  right: auto;
+  position: absolute;
+  left: calc(50% - 400px);
+  top: 26%;
+  text-align: center;
+}

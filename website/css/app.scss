@@ -1,0 +1,59 @@
+@use "commons/search-bar";
+
+.clear-both {
+  clear: both;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  min-width: 300px;
+  background-color: var(--color-on-surface);
+  cursor: default;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: initial;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+input {
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  background-color: var(--color-on-surface);
+  color: var(--black-text);
+  font-family: "Roboto", sans-serif;
+}
+
+
+hr {
+  width: calc(100% - 40px);
+  color: #9d9d9d;
+
+  &#special-hr {
+    display: none;
+
+    &.with-panel1.with-panel2 {
+      display: block;
+    }
+  }
+}
+
+a {
+  transition: color 0.3s;
+  color: #4B69FF;
+
+  &:hover {
+    color: #5687d7;
+  }
+}

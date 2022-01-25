@@ -1,0 +1,13 @@
+%base-transition-duration {
+  transition-duration: 0.3s;
+}
+
+%base-extra-fast-transition-duration {
+  transition-duration: 0.1s;
+}
+
+%center-vertically {
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;
+}
